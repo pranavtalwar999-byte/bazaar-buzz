@@ -71,7 +71,8 @@ svg.i{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke
 /* bottom info */
 .info{position:absolute;left:0;right:72px;bottom:calc(var(--nav) + var(--safe-b) + 14px);z-index:5;padding:0 14px;display:grid;gap:9px}
 .who{display:flex;align-items:center;gap:10px;min-width:0}
-.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.9rem;flex:none;border:1.5px solid rgba(255,255,255,.85);color:#fff}
+.av{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-size:.9rem;flex:none;border:1.5px solid rgba(255,255,255,.85);color:#fff;overflow:hidden}
+.av img{width:100%;height:100%;object-fit:cover}
 .name{font-weight:700;font-size:.95rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-shadow:0 1px 3px rgba(0,0,0,.5)}
 .badge{font-size:.66rem;font-weight:700;padding:3px 7px;border-radius:6px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);white-space:nowrap}
 .follow{padding:5px 12px;border:1.5px solid rgba(255,255,255,.85);border-radius:9px;font-size:.8rem;font-weight:700;transition:background .2s,color .2s;white-space:nowrap}
@@ -305,9 +306,10 @@ async function boot(){
 }
 function renderMe(){
   const n=S.me?S.me.name.split(' ')[0]:'Log in';
-  for(const el of [$('#navMe'),$('#sideMe')]){el.querySelector('span').textContent=n;el.href=S.me?'/':'/?auth=login'}
+  for(const el of [$('#navMe'),$('#sideMe')]){el.querySelector('span').textContent=n;el.href=S.me?'/me':'/?auth=login'}
 }
 const all=()=>[...S.reels,...SAMPLES];
+const prof=r=>r.uid?'/u/'+encodeURIComponent(r.uid):'/u/'+encodeURIComponent(r.id);
 function rating(shop){const k=slug(shop),l=S.reviews.filter(v=>v.place===k);return l.length?{avg:l.reduce((a,v)=>a+v.rating,0)/l.length,n:l.length}:null}
 
 /* ---------- build feed ---------- */
@@ -339,7 +341,7 @@ function slideHTML(r,i){
       <span class="disc" style="background:${hue(r.shop)}">${esc((r.shop||'?')[0].toUpperCase())}</span>
     </div>
     <div class="info">
-      <div class="who"><span class="av" style="background:${hue(nm)}">${esc(nm[0].toUpperCase())}</span><span class="name">${esc(nm)}</span>
+      <div class="who"><a class="av" href="${prof(r)}" aria-label="${esc(nm)}'s profile" style="background:${hue(nm)}">${r.av?`<img src="${esc(r.av)}" alt="" referrerpolicy="no-referrer">`:esc(nm[0].toUpperCase())}</a><a class="name" href="${prof(r)}">${esc(nm)}</a>
         <span class="badge">${biz?'Shop':'Explorer'}</span>
         ${biz?`<button class="follow ${fol?'on':''}" data-follow>${fol?'Following':'Follow'}</button>`:''}</div>
       ${r.caption?`<p class="cap" data-cap>${esc(r.caption)}</p>`:''}
@@ -515,7 +517,8 @@ $('#tabs').onclick=e=>{const t=e.target.closest('.tab');if(!t||t.dataset.f===S.f
   const v=vid(S.cur);if(v)v.pause();build();if(M)M.animate('#feed',{opacity:[.3,1]},{duration:.3})};
 
 syncMute();setTab();document.fonts&&document.fonts.ready.then(setTab);
-boot().then(showHint);
+const wantPost=new URLSearchParams(location.search).has('post');
+boot().then(()=>{showHint();if(wantPost)openPost()});
 </script>
 </body>
 </html>

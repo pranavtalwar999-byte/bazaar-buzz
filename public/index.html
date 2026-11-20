@@ -802,6 +802,7 @@ svg.i.filled{fill:currentColor;color:#E0565B}
 .g-wrap{display:flex;justify-content:center;min-height:44px}
 .g-note{font-size:.8rem;color:var(--dim);text-align:center}
 
+a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.user-chip:hover{border-color:var(--line2)}
 /* ---- mobile app tab bar ---- */
 .tabbar{display:none}
 .watch-all{display:none}
@@ -1261,7 +1262,7 @@ svg.i.filled{fill:currentColor;color:#E0565B}
   <a href="#pricing" class="only-biz" data-tb="pricing"><svg class="i" aria-hidden="true"><use href="#i-rocket"/></svg><b data-t>Pricing</b></a>
   <button class="plus" data-postreel aria-label="Post a reel"><span><svg class="i" aria-hidden="true"><use href="#i-plus"/></svg></span></button>
   <a href="#shorts" data-reels-link data-tb="shorts"><svg class="i" aria-hidden="true"><use href="#i-clapperboard"/></svg><b data-t>Reels</b></a>
-  <button id="tbMe" data-tb="me"><svg class="i" aria-hidden="true"><use href="#i-user"/></svg><b id="tbMeTxt" data-t>Log in</b></button>
+  <button id="tbMe" data-tb="me"><svg class="i" aria-hidden="true"><use href="#i-user"/></svg><b id="tbMeTxt">Log in</b></button>
 </div>
 <button id="toTop" aria-label="Back to top"><svg class="i" aria-hidden="true"><use href="#i-arrow-up"/></svg></button>
 <div class="toast" id="toast"></div>
@@ -1952,7 +1953,7 @@ function setupGoogle(){
 async function logout(){if(API.on)try{await api('/logout',{})}catch(e){}
   session=null;API.token=null;store.set('pp_token',null);store.set('pp_session',null);renderAuth();loadSocial();toast('Logged out')}
 function renderAuth(){
-  const html=session?`<div class="user-chip"><span class="avatar">${esc(((session.name||'?')[0]).toUpperCase())}</span>${esc((session.name||'').split(' ')[0])}${session.role==='business'?` · <span style="color:var(--dim);text-transform:capitalize">${esc(session.plan)}</span>`:''}</div><button class="btn btn-ghost btn-sm" data-logout>${t('Log out')}</button>`
+  const html=session?`<${SERVER_MODE?'a href="/me" title="My profile"':'div'} class="user-chip"><span class="avatar">${session.avatar?`<img src="${esc(session.avatar)}" alt="" referrerpolicy="no-referrer" style="width:100%;height:100%;border-radius:50%;object-fit:cover">`:esc(((session.name||'?')[0]).toUpperCase())}</span>${esc((session.name||'').split(' ')[0])}${session.role==='business'?` · <span style="color:var(--dim);text-transform:capitalize">${esc(session.plan)}</span>`:''}</${SERVER_MODE?'a':'div'}><button class="btn btn-ghost btn-sm" data-logout>${t('Log out')}</button>`
     :`<button class="btn btn-ghost btn-sm" data-auth="login">${t('Log in')}</button><button class="btn btn-primary btn-sm" data-auth="signup">${t('Sign up')}</button>`;
   $('#navAuth').innerHTML=$('#mobileAuth').innerHTML=html;$$('[data-logout]').forEach(b=>b.onclick=logout);setTimeout(checkNav,0);
   root.dataset.session=session?'in':'out';root.dataset.urole=session?session.role:'guest';
@@ -2273,7 +2274,7 @@ document.querySelectorAll('.lang-sel').forEach(sel=>{sel.innerHTML=LANGS.map(([c
 function initTabbar(){
   const me=$('#tbMe');
   const paint=()=>{$('#tbMeTxt').textContent=session?session.name.split(' ')[0]:t('Log in')};paint();
-  me.onclick=()=>{if(session){$('#burger')?$('#burger').click():openAuth('login')}else openAuth('login')};
+  me.onclick=()=>{if(session){if(API.on)location.href='/me';else $('#burger').click()}else openAuth('login')};
   const _ra=renderAuth;renderAuth=function(){_ra.apply(this,arguments);try{paint()}catch(e){}};
   const ids=['top','deals','pricing','shorts'],els=ids.map(i=>document.getElementById(i)).filter(Boolean);
   const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){$$('#tabbar [data-tb]').forEach(a=>a.classList.toggle('on',a.dataset.tb===e.target.id))}},{rootMargin:'-45% 0px -50% 0px'});
