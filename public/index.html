@@ -6,7 +6,7 @@
 <title>Bazaar Buzz — Local deals near you</title>
 <meta name="description" content="Bazaar Buzz helps cafés, kirana stores, salons, gyms and wedding venues reach nearby customers on any budget, and helps everyone discover local deals around the corner, across every state and city in India.">
 <meta name="keywords" content="Bazaar Buzz, BazaarBuzz, local deals, deals near me, hyperlocal advertising, small business promotion India, kirana, cafe offers, Tumakuru">
-<meta name="theme-color" content="#6366F1">
+<meta name="theme-color" content="#F7F6F2">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Bazaar Buzz">
 <meta property="og:title" content="Bazaar Buzz — Local deals near you">
@@ -17,7 +17,7 @@
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Bazaar Buzz","alternateName":"BazaarBuzz","description":"Hyperlocal deals and promotion platform for small businesses in India."}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script>
   // apply saved theme / view / font size before paint
   (function(){try{
@@ -681,22 +681,94 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
   .reveal{opacity:1;transform:none}
   .split .w>span{transform:none}
 }
+/* ================= CALM MINIMAL THEME (overrides) ================= */
+:root{--indic:'Noto Sans Devanagari','Noto Sans Kannada','Noto Sans Malayalam','Noto Sans Telugu','Noto Sans Tamil','Noto Sans Gurmukhi'}
+[data-theme=light]{
+  --bg:#F7F6F2; --bg2:#F1EFEA; --surface:#FFFFFF; --surface2:#F3F1EC; --glass:rgba(255,255,255,.88);
+  --text:#1F1E1B; --muted:#5E5B55; --dim:#8C8880; --line:#E6E2DA; --line2:#D8D3C9;
+  --c1:#A84E2C; --c2:#2E6A55; --amber:#8F5410; --pink:#A84E2C; --danger:#B42318; --lime:#2E6A55;
+  --acc:#A84E2C; --acc-soft:rgba(168,78,44,.07); --ring:rgba(168,78,44,.16);
+  --grad:linear-gradient(#A84E2C,#A84E2C); --grad-soft:linear-gradient(rgba(168,78,44,.05),rgba(168,78,44,.05));
+  --glow:none; --shadow:0 1px 2px rgba(31,30,27,.04),0 10px 30px -14px rgba(31,30,27,.14); --blob-op:0; --on-grad:#fff;
+}
+[data-theme=dark]{
+  --bg:#151513; --bg2:#1A1A18; --surface:#1F1F1C; --surface2:#272724; --glass:rgba(31,31,28,.9);
+  --text:#ECE9E2; --muted:#AAA69D; --dim:#7F7B73; --line:#2D2C29; --line2:#3A3935;
+  --c1:#DB8B66; --c2:#82B8A3; --amber:#E0A866; --pink:#DB8B66; --danger:#F08070; --lime:#82B8A3;
+  --acc:#B45A35; --acc-soft:rgba(219,139,102,.08); --ring:rgba(219,139,102,.2);
+  --grad:linear-gradient(#B45A35,#B45A35); --grad-soft:linear-gradient(rgba(219,139,102,.06),rgba(219,139,102,.06));
+  --glow:none; --shadow:0 1px 2px rgba(0,0,0,.3),0 12px 30px -16px rgba(0,0,0,.6); --blob-op:0; --on-grad:#fff;
+}
+body{font-family:'Inter',var(--indic),system-ui,sans-serif;font-feature-settings:'cv11','ss01'}
+h1,h2,h3,h4,h5,.logo,.price,.big-n,.trust b,.pname,.avg-big b,.rv-who b,.cat-tile b{font-family:'Fraunces',var(--indic),Georgia,serif!important;letter-spacing:-.015em;font-weight:600}
+h1{font-weight:600;letter-spacing:-.025em}
+.logo{font-weight:700;letter-spacing:-.01em}
+#glow,.mesh .blob,.shape,.dots-bg{display:none!important}
+.gt{background:none!important;-webkit-background-clip:border-box!important;background-clip:border-box!important;color:var(--c1)!important;-webkit-text-fill-color:currentColor}
+.loc-btn{white-space:nowrap}
+h1 .gt,h2 .gt{font-style:italic}
+.tag{background:transparent;border:1px solid var(--line2);color:var(--muted)!important;font-weight:600}
+.tag .live{background:var(--c2);box-shadow:none;animation:none}
+.btn-primary{box-shadow:none}
+.btn-primary:hover{filter:brightness(1.07)}
+.btn-ghost{background:var(--surface)}
+nav.scrolled .nav-in{box-shadow:0 1px 0 var(--line)}
+.logo-mark::after{display:none}
+.hero-search{box-shadow:var(--shadow)}
+.hero-search:focus-within{box-shadow:0 0 0 3px var(--ring)}
+.inp:focus{box-shadow:0 0 0 3px var(--ring)!important}
+.sweep{background:conic-gradient(from 0deg,var(--ring),transparent 20%)}
+.ring.pulse{border-color:var(--c1);opacity:.5}
+.you{background:var(--c1);box-shadow:0 0 0 6px var(--ring)}
+.dot.boost{border-color:var(--c1);box-shadow:0 0 0 2px var(--ring)}
+.path.on{box-shadow:0 0 0 1px var(--c1)}
+.path .go,.cat-item.on b{color:var(--c1)!important}
+.marquee-track span::after{background:none;color:var(--line2);-webkit-text-fill-color:currentColor}
+.loc-status,.loc-mini{background:var(--surface2)!important;border-color:var(--line)!important}
+.loc-mini.ok{color:var(--c2)}.loc-mini.warn{color:var(--amber)}
+.server-badge.on,.save{background:var(--acc-soft);color:var(--c2)}
+.cat-circle{background:var(--surface)!important;border-color:var(--line)}
+.cat-circle::before{background:var(--c1)!important;animation:none!important;inset:-3px}
+.cat-item:hover .cat-circle{box-shadow:var(--shadow)}
+.deal-top::after{display:none}
+.vs.good{border-color:var(--line2)}
+.cta-band{background:var(--surface)!important;color:var(--text)!important;border:1px solid var(--line);animation:none}
+.cta-band::before,.cta-band::after{display:none}
+.cta-band p{color:var(--muted);opacity:1}
+.cta-band .btn{background:var(--acc)!important;color:#fff!important}
+.cta-band .btn.alt{background:transparent!important;color:var(--text)!important;border:1px solid var(--line2)}
+.plan.hot{background:var(--surface)!important;border:1.5px solid var(--c1)!important}
+.plan.hot::before{display:none}
+.rv-btn.liked .ic{background:rgba(180,90,53,.55)}
+.rcard.add .plus{box-shadow:none;animation:none}
+.phone{box-shadow:var(--shadow);border-color:#2A2A27}
+.float-card{box-shadow:var(--shadow)}
+.mini-chart i,.bars i{background:var(--acc)}
+#progress{height:2px}
+.lang-sel{appearance:none;-webkit-appearance:none;height:42px;padding:0 30px 0 14px;border-radius:999px;border:1px solid var(--line);background:var(--surface2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%238C8880'/%3E%3C/svg%3E") no-repeat right 12px center;font-weight:600;font-size:.88rem;color:var(--text);cursor:pointer;flex:none;max-width:130px}
+.lang-sel:focus{outline:none;border-color:var(--c1)}
+html:not([lang=en]) h1,html:not([lang=en]) h2,html:not([lang=en]) h3{letter-spacing:0;line-height:1.3}
+html:not([lang=en]) h1{font-size:clamp(1.8rem,1.2rem + 2.4vw,3.3rem)}
+html:not([lang=en]) h2{font-size:clamp(1.6rem,1.2rem + 1.8vw,2.6rem)}
+html:not([lang=en]) .split .w{padding:.08em 0 .18em}
+html:not([lang=en]) h1 .gt,html:not([lang=en]) h2 .gt{font-style:normal}
+@media (max-width:860px){nav .lang-sel{max-width:96px;padding-left:10px}}
 </style>
 </head>
 <body>
 <div id="progress"></div>
 <div id="glow"></div>
-<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#6366F1"/><stop offset="1" stop-color="#22D3EE"/></linearGradient></defs></svg>
+<svg width="0" height="0" style="position:absolute"><defs><linearGradient id="rg" x1="0" x2="1"><stop offset="0" stop-color="#A84E2C"/><stop offset="1" stop-color="#C46A44"/></linearGradient></defs></svg>
 
 <!-- NAV -->
 <nav id="nav">
   <div class="wrap"><div class="nav-in">
     <a href="#top" class="logo"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.4 7 11.5 7.3 11.8.4.3 1 .3 1.4 0C13 21.5 20 15.4 20 10c0-4.4-3.6-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg></span>Bazaar Buzz</a>
-    <div class="seg" data-seg><span class="pill"></span><button data-view-btn="exp">🧭 Explore</button><button data-view-btn="biz">🏪 Business</button></div>
+    <div class="seg" data-seg><span class="pill"></span><button data-view-btn="exp" data-t>🧭 Explore</button><button data-view-btn="biz" data-t>🏪 Business</button></div>
     <div class="nav-links" id="navLinks"></div>
     <div class="nav-search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-      <input id="navSearch" placeholder="Search deals, shops…">
+      <input id="navSearch" data-tp placeholder="Search deals, shops…">
     </div>
     <button class="icon-btn" id="themeBtn" aria-label="Toggle night / light mode" title="Night / light mode">
       <span class="theme-ic">
@@ -704,12 +776,14 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
         <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
       </span>
     </button>
+    <select class="lang-sel" aria-label="Language"></select>
     <div class="nav-auth" id="navAuth"></div>
     <button class="icon-btn burger" id="burger" aria-label="Menu">☰</button>
   </div></div>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <div class="seg" data-seg><span class="pill"></span><button data-view-btn="exp">🧭 Explore</button><button data-view-btn="biz">🏪 Business</button></div>
+  <div class="seg" data-seg><span class="pill"></span><button data-view-btn="exp" data-t>🧭 Explore</button><button data-view-btn="biz" data-t>🏪 Business</button></div>
+  <select class="lang-sel" aria-label="Language" style="align-self:flex-start"></select>
   <div id="mobileLinks" style="display:flex;flex-direction:column;gap:10px"></div>
   <div id="mobileAuth" style="display:flex;gap:10px;flex-wrap:wrap"></div>
 </div>
@@ -723,43 +797,43 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
     <div>
       <!-- explorer hero -->
       <div class="only-exp">
-        <span class="tag guest-only"><span class="live"></span> Deals live around you right now</span><span class="tag member-only">👋 Welcome back, <b class="uname">friend</b></span>
-        <h1 class="split" data-split>Discover the best deals <span class="gt">around the corner.</span></h1>
-        <p class="lead">Cafés, street food, salons, gyms, new openings and events, all sorted by how close they are to you. Free to use, no ads from other cities.</p>
+        <span class="tag guest-only" data-t><span class="live"></span> Deals live around you right now</span><span class="tag member-only" data-t>👋 Welcome back, <b class="uname">friend</b></span>
+        <h1 class="split" data-split data-t>Discover the best deals <span class="gt">around the corner.</span></h1>
+        <p class="lead" data-t>Cafés, street food, salons, gyms, new openings and events, all sorted by how close they are to you. Free to use, no ads from other cities.</p>
       </div>
       <!-- business hero -->
       <div class="only-biz">
-        <span class="tag guest-only"><span class="live"></span> Hyperlocal promotion for every budget</span><span class="tag member-only">👋 Welcome back, <b class="uname">friend</b></span>
-        <h1 class="split" data-split>Put your <span class="rot gt" id="rot"><span>café</span></span> in front of everyone nearby.</h1>
-        <p class="lead">Skip the ₹10,000 influencer. Post your offer on Bazaar Buzz, pick a pack, and reach people within 1–25 km who can actually walk in.</p>
+        <span class="tag guest-only" data-t><span class="live"></span> Hyperlocal promotion for every budget</span><span class="tag member-only" data-t>👋 Welcome back, <b class="uname">friend</b></span>
+        <h1 class="split" data-split data-t="%H1BIZ%">Put your <span class="rot gt" id="rot"><span>café</span></span> in front of everyone nearby.</h1>
+        <p class="lead" data-t>Skip the ₹10,000 influencer. Post your offer on Bazaar Buzz, pick a pack, and reach people within 1–25 km who can actually walk in.</p>
       </div>
 
       <div class="hero-search only-exp" id="heroForm">
         <div class="field">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" opacity=".55"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-          <input id="heroSearch" placeholder="Try “coffee”, “thali”, “haircut”…">
+          <input id="heroSearch" data-tp placeholder="Try “coffee”, “thali”, “haircut”…">
         </div>
-        <button type="button" class="loc-btn" id="heroLoc"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Near me</button>
-        <button type="button" class="btn btn-primary magnetic" id="heroGo">Find deals</button>
+        <button type="button" class="loc-btn" id="heroLoc"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span data-t>Near me</span></button>
+        <button type="button" class="btn btn-primary magnetic" id="heroGo" data-t>Find deals</button>
       </div>
-      <div class="quick only-exp">Popular:
-        <button data-q="coffee">☕ Coffee</button><button data-q="thali">🍛 Thali</button><button data-q="salon">💇 Salon</button><button data-q="students">🎓 Student offers</button><button data-goto-reels>🎬 Reels</button>
+      <div class="quick only-exp"><span data-t>Popular:</span>
+        <button data-q="coffee" data-t>☕ Coffee</button><button data-q="thali" data-t>🍛 Thali</button><button data-q="salon" data-t>💇 Salon</button><button data-q="students" data-t>🎓 Student offers</button><button data-goto-reels data-t>🎬 Reels</button>
       </div>
 
       <div class="hero-ctas only-biz">
-        <a href="#post" class="btn btn-primary magnetic guest-only">Post your first offer, free →</a><a href="#post" class="btn btn-primary magnetic member-only biz-member">Post a new offer →</a><button class="btn btn-primary magnetic member-only cust-member" data-view-btn="exp">Browse deals near me →</button>
-        <a href="#pricing" class="btn btn-ghost">See packs</a>
+        <a href="#post" class="btn btn-primary magnetic guest-only" data-t>Post your first offer, free →</a><a href="#post" class="btn btn-primary magnetic member-only biz-member" data-t>Post a new offer →</a><button class="btn btn-primary magnetic member-only cust-member" data-view-btn="exp">Browse deals near me →</button>
+        <a href="#pricing" class="btn btn-ghost" data-t>See packs</a>
       </div>
 
       <div class="trust only-exp">
-        <div><b data-count="16">0</b><span>deals in demo area</span></div>
-        <div><b data-count="10">0</b><span>categories</span></div>
-        <div><b>₹0</b><span>always free to explore</span></div>
+        <div><b data-count="16">0</b><span data-t>deals in demo area</span></div>
+        <div><b data-count="10">0</b><span data-t>categories</span></div>
+        <div><b>₹0</b><span data-t>always free to explore</span></div>
       </div>
       <div class="trust only-biz">
-        <div><b data-count="10" data-suffix="×">0</b><span>cheaper than influencers</span></div>
-        <div><b data-count="2" data-suffix=" min">0</b><span>to post an offer</span></div>
-        <div><b data-count="25" data-suffix=" km">0</b><span>max reach radius</span></div>
+        <div><b data-count="10" data-suffix="×">0</b><span data-t>cheaper than influencers</span></div>
+        <div><b data-count="2" data-suffix=" min">0</b><span data-t>to post an offer</span></div>
+        <div><b data-count="25" data-suffix=" km">0</b><span data-t>max reach radius</span></div>
       </div>
     </div>
 
@@ -782,23 +856,23 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 <!-- PATH CHOOSER -->
 <section id="paths" style="order:1;padding-top:20px">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="tag">Who are you?</span><h2>Pick your <span class="gt">path</span></h2><p>Bazaar Buzz works differently for people exploring deals and for businesses promoting them. Switch anytime from the top bar.</p></div>
+    <div class="sec-head reveal"><span class="tag" data-t>Who are you?</span><h2 data-t>Pick your <span class="gt">path</span></h2><p data-t>Bazaar Buzz works differently for people exploring deals and for businesses promoting them. Switch anytime from the top bar.</p></div>
     <div class="paths">
       <button class="path card reveal" data-view-btn="exp">
-        <span class="check">✓ Selected</span>
+        <span class="check" data-t>✓ Selected</span>
         <div class="ic">🧭</div>
-        <h3>I'm here to explore</h3>
-        <p>Just browsing? Find shops, offers and new places near you.</p>
-        <ul><li>Deals sorted by distance with GPS</li><li>Save favourites & claim coupons</li><li>Always free, no sign-up needed to browse</li></ul>
-        <span class="go">Start exploring →</span>
+        <h3 data-t>I'm here to explore</h3>
+        <p data-t>Just browsing? Find shops, offers and new places near you.</p>
+        <ul><li data-t>Deals sorted by distance with GPS</li><li data-t>Save favourites & claim coupons</li><li data-t>Always free, no sign-up needed to browse</li></ul>
+        <span class="go" data-t>Start exploring →</span>
       </button>
       <button class="path card reveal d1" data-view-btn="biz">
-        <span class="check">✓ Selected</span>
+        <span class="check" data-t>✓ Selected</span>
         <div class="ic">🏪</div>
-        <h3>I run a business</h3>
-        <p>Café, kirana, salon, gym, venue? Reach customers nearby.</p>
-        <ul><li>Post offers in 2 minutes</li><li>Boost packs + Instagram reels</li><li>Track views, calls & coupon claims</li></ul>
-        <span class="go">Grow my business →</span>
+        <h3 data-t>I run a business</h3>
+        <p data-t>Café, kirana, salon, gym, venue? Reach customers nearby.</p>
+        <ul><li data-t>Post offers in 2 minutes</li><li data-t>Boost packs + Instagram reels</li><li data-t>Track views, calls & coupon claims</li></ul>
+        <span class="go" data-t>Grow my business →</span>
       </button>
     </div>
   </div>
@@ -810,7 +884,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 <section id="trending" class="only-exp" style="order:3">
   <div class="wrap">
     <div class="row-head reveal">
-      <div><span class="tag">🔥 Trending</span><h2>Hot <span class="gt">near you</span></h2></div>
+      <div><span class="tag" data-t>🔥 Trending</span><h2 data-t>Hot <span class="gt">near you</span></h2></div>
       <div class="arrows"><button class="icon-btn" data-scroll="-1" aria-label="Previous">←</button><button class="icon-btn" data-scroll="1" aria-label="Next">→</button></div>
     </div>
     <div class="trend" id="trend"></div>
@@ -820,12 +894,12 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 <section id="shorts" style="order:3">
   <div class="wrap">
     <div class="row-head reveal">
-      <div><span class="tag">🎬 Bazaar Reels</span><h2>Watch what's <span class="gt">buzzing nearby</span></h2>
-        <p style="color:var(--muted);margin-top:10px;max-width:560px" class="only-exp">Short videos from shops near you, plus honest reels and ratings from explorers like you.</p>
-        <p style="color:var(--muted);margin-top:10px;max-width:560px" class="only-biz">Post a short video of your shop. Reels get far more attention than photos.</p></div>
-      <div class="arrows"><button class="btn btn-primary btn-sm magnetic" data-postreel>＋ Post a reel</button><button class="icon-btn" data-rrow="-1" aria-label="Previous">←</button><button class="icon-btn" data-rrow="1" aria-label="Next">→</button></div>
+      <div><span class="tag">🎬 Bazaar Reels</span><h2 data-t>Watch what's <span class="gt">buzzing nearby</span></h2>
+        <p style="color:var(--muted);margin-top:10px;max-width:560px" class="only-exp" data-t>Short videos from shops near you, plus honest reels and ratings from explorers like you.</p>
+        <p style="color:var(--muted);margin-top:10px;max-width:560px" class="only-biz" data-t>Post a short video of your shop. Reels get far more attention than photos.</p></div>
+      <div class="arrows"><button class="btn btn-primary btn-sm magnetic" data-postreel data-t>＋ Post a reel</button><button class="icon-btn" data-rrow="-1" aria-label="Previous">←</button><button class="icon-btn" data-rrow="1" aria-label="Next">→</button></div>
     </div>
-    <div class="reel-tabs" id="reelTabs"><button class="chip on" data-rf="all">✨ All</button><button class="chip" data-rf="business">🏪 From shops</button><button class="chip" data-rf="customer">⭐ Explorer reviews</button></div>
+    <div class="reel-tabs" id="reelTabs"><button class="chip on" data-rf="all" data-t>✨ All</button><button class="chip" data-rf="business" data-t>🏪 From shops</button><button class="chip" data-rf="customer" data-t>⭐ Explorer reviews</button></div>
     <div class="reel-row reveal" id="reelRow"></div>
   </div>
 </section>
@@ -833,7 +907,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 <section id="categories" class="only-exp" style="order:4;padding-top:0">
   <div class="wrap">
     <div class="row-head reveal">
-      <div><span class="tag">Browse</span><h2>What are you <span class="gt">looking for?</span></h2></div>
+      <div><span class="tag" data-t>Browse</span><h2 data-t>What are you <span class="gt">looking for?</span></h2></div>
       <div class="arrows"><button class="icon-btn" data-rail="-1" aria-label="Previous">←</button><button class="icon-btn" data-rail="1" aria-label="Next">→</button></div>
     </div>
     <div class="cat-rail reveal" id="catRail"></div>
@@ -845,28 +919,28 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 <section id="deals" style="order:5">
   <div class="wrap">
     <div class="sec-head reveal">
-      <span class="tag"><span class="live"></span> Live demo</span>
-      <h2>Deals <span class="gt">near you</span></h2>
-      <p class="only-exp">Choose your state and city, or turn on GPS. Offers are sorted by real distance from you.</p>
+      <span class="tag" data-t><span class="live"></span> Live demo</span>
+      <h2 data-t>Deals <span class="gt">near you</span></h2>
+      <p class="only-exp" data-t>Choose your state and city, or turn on GPS. Offers are sorted by real distance from you.</p>
       <p class="only-biz">This is what customers see. Boosted posts (Premium & Featured) always appear at the top.</p>
     </div>
     <div class="deals-layout">
       <aside class="fpanel card" id="fpanel">
-        <h4>📍 Your area</h4>
-        <div class="fgroup"><label for="stateSel">State / UT</label><select class="inp" id="stateSel"></select></div>
-        <div class="fgroup"><label for="citySel">City</label><select class="inp" id="citySel"></select></div>
-        <button class="loc-btn gps-big" id="gpsBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg>Use my GPS location</button>
+        <h4 data-t>📍 Your area</h4>
+        <div class="fgroup"><label for="stateSel" data-t>State / UT</label><select class="inp" id="stateSel"></select></div>
+        <div class="fgroup"><label for="citySel" data-t>City</label><select class="inp" id="citySel"></select></div>
+        <button class="loc-btn gps-big" id="gpsBtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span data-t>Use my GPS location</span></button>
         <div class="loc-mini warn" id="locStatus">Showing Tumakuru, Karnataka</div>
-        <div class="fgroup"><label>Distance</label><div class="rad-row"><input type="range" id="radius" min="1" max="25" value="5" aria-label="Radius"><b id="radiusVal">5 km</b></div></div>
-        <div class="fgroup"><label>Sort by</label><div class="sort" id="sortSeg"><button data-sort="top" class="on">⚡ Top</button><button data-sort="near">📍 Nearest</button><button data-sort="new">🆕 New</button></div></div>
-        <div class="fgroup"><label>Category</label><div class="fcats" id="fcats"></div></div>
+        <div class="fgroup"><label data-t>Distance</label><div class="rad-row"><input type="range" id="radius" min="1" max="25" value="5" aria-label="Radius"><b id="radiusVal">5 km</b></div></div>
+        <div class="fgroup"><label data-t>Sort by</label><div class="sort" id="sortSeg"><button data-sort="top" class="on" data-t>⚡ Top</button><button data-sort="near" data-t>📍 Nearest</button><button data-sort="new" data-t>🆕 New</button></div></div>
+        <div class="fgroup"><label data-t>Category</label><div class="fcats" id="fcats"></div></div>
       </aside>
       <div>
         <div class="results-head">
           <button class="btn btn-ghost btn-sm ftoggle" id="ftoggle">⚙️ Filters</button>
           <div class="search">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
-            <input id="dealSearch" placeholder="Search by shop, item or offer…">
+            <input id="dealSearch" data-tp placeholder="Search by shop, item or offer…">
           </div>
           <div class="vtoggle"><button data-vmode="grid" class="on" aria-label="Grid view">▦</button><button data-vmode="list" aria-label="List view">☰</button></div>
         </div>
@@ -881,12 +955,12 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 
 <section id="how-exp" class="only-exp" style="order:6">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="tag">How it works</span><h2>Find it. Claim it. <span class="gt">Enjoy it.</span></h2></div>
+    <div class="sec-head reveal"><span class="tag" data-t>How it works</span><h2 data-t>Find it. Claim it. <span class="gt">Enjoy it.</span></h2></div>
     <div class="steps steps-line">
-      <div class="step card reveal"><span class="num">01</span><div class="ic">📍</div><h4>Share location</h4><p>Allow GPS or pick your area to see what's happening around you.</p></div>
-      <div class="step card reveal d1"><span class="num">02</span><div class="ic">🔎</div><h4>Discover</h4><p>Browse cafés, kirana, salons, gyms and events sorted by distance.</p></div>
-      <div class="step card reveal d2"><span class="num">03</span><div class="ic">🎟️</div><h4>Claim a coupon</h4><p>Tap “Claim” and show the code at the shop. Always free.</p></div>
-      <div class="step card reveal d3"><span class="num">04</span><div class="ic">❤️</div><h4>Save favourites</h4><p>Heart the deals you like and find them again under “Saved”.</p></div>
+      <div class="step card reveal"><span class="num">01</span><div class="ic">📍</div><h4 data-t>Share location</h4><p data-t>Allow GPS or pick your area to see what's happening around you.</p></div>
+      <div class="step card reveal d1"><span class="num">02</span><div class="ic">🔎</div><h4 data-t>Discover</h4><p data-t>Browse cafés, kirana, salons, gyms and events sorted by distance.</p></div>
+      <div class="step card reveal d2"><span class="num">03</span><div class="ic">🎟️</div><h4 data-t>Claim a coupon</h4><p data-t>Tap “Claim” and show the code at the shop. Always free.</p></div>
+      <div class="step card reveal d3"><span class="num">04</span><div class="ic">❤️</div><h4 data-t>Save favourites</h4><p data-t>Heart the deals you like and find them again under “Saved”.</p></div>
     </div>
   </div>
 </section>
@@ -894,7 +968,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 <!-- ===== BUSINESS ONLY ===== -->
 <section id="why" class="only-biz" style="order:3">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="tag">What we do</span><h2>Local promotion, <span class="gt">made simple</span></h2><p>Most small businesses can't afford influencers, and Instagram ads are confusing. Bazaar Buzz connects you directly with people living, studying and working nearby.</p></div>
+    <div class="sec-head reveal"><span class="tag" data-t>What we do</span><h2 data-t>Local promotion, <span class="gt">made simple</span></h2><p>Most small businesses can't afford influencers, and Instagram ads are confusing. Bazaar Buzz connects you directly with people living, studying and working nearby.</p></div>
     <div class="problem">
       <div class="vs bad card reveal"><h3>😓 The old way</h3><ul>
         <li>Influencers charge ₹2,000–₹20,000 for one post</li><li>Ads reach people in other cities who'll never visit</li><li>Complicated ad tools, unclear results</li><li>No idea who actually walked in</li></ul></div>
@@ -902,17 +976,17 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
         <li>Start free, with paid packs far cheaper than an influencer</li><li>Reach only people within 1–25 km of your shop</li><li>Post in 2 minutes, in Hindi or English</li><li>See views, calls, directions & coupon claims</li></ul></div>
     </div>
     <div class="steps steps-line">
-      <div class="step card reveal"><span class="num">01</span><div class="ic">🏪</div><h4>Create your shop</h4><p>Sign up with shop name, category, location and WhatsApp number.</p></div>
-      <div class="step card reveal d1"><span class="num">02</span><div class="ic">📸</div><h4>Post an offer</h4><p>Add your offer like “20% off this week” and choose your reach.</p></div>
-      <div class="step card reveal d2"><span class="num">03</span><div class="ic">⚡</div><h4>Pick a pack</h4><p>Go free, or boost with Basic, Premium or Featured, with reels included.</p></div>
-      <div class="step card reveal d3"><span class="num">04</span><div class="ic">📊</div><h4>Get customers</h4><p>People nearby call, WhatsApp, get directions or claim your coupon.</p></div>
+      <div class="step card reveal"><span class="num">01</span><div class="ic">🏪</div><h4 data-t>Create your shop</h4><p data-t>Sign up with shop name, category, location and WhatsApp number.</p></div>
+      <div class="step card reveal d1"><span class="num">02</span><div class="ic">📸</div><h4 data-t>Post an offer</h4><p data-t>Add your offer like “20% off this week” and choose your reach.</p></div>
+      <div class="step card reveal d2"><span class="num">03</span><div class="ic">⚡</div><h4 data-t>Pick a pack</h4><p data-t>Go free, or boost with Basic, Premium or Featured, with reels included.</p></div>
+      <div class="step card reveal d3"><span class="num">04</span><div class="ic">📊</div><h4 data-t>Get customers</h4><p data-t>People nearby call, WhatsApp, get directions or claim your coupon.</p></div>
     </div>
   </div>
 </section>
 
 <section id="dashboard" class="only-biz" style="order:4;padding-top:0">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="tag">Your dashboard</span><h2>See exactly what <span class="gt">your post did</span></h2><p>Every pack comes with simple stats, so you know your money is working. (Example numbers.)</p></div>
+    <div class="sec-head reveal"><span class="tag" data-t>Your dashboard</span><h2 data-t>See exactly what <span class="gt">your post did</span></h2><p>Every pack comes with simple stats, so you know your money is working. (Example numbers.)</p></div>
     <div class="dash" id="dash">
       <div class="card chart-card reveal"><small>Post views, last 7 days</small><div class="big-n" data-count="2480">0</div><span class="up">▲ 38% vs last week</span>
         <div class="bars" id="bars"></div></div>
@@ -938,7 +1012,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
     </div>
     <div>
       <span class="tag reveal">🎬 Premium perk</span>
-      <h2 class="reveal d1" style="margin:16px 0">We make a <span class="gt">reel</span> for your shop</h2>
+      <h2 class="reveal d1" style="margin:16px 0" data-t>We make a <span class="gt">reel</span> for your shop</h2>
       <p class="reveal d1" style="color:var(--muted);font-size:1.05rem">With Premium and Featured, our team shoots a 30-second reel of your shop and promotes it on Bazaar Buzz's Instagram page and inside the app, with your offer and location front and centre.</p>
       <ul class="reel-list reveal d2">
         <li><span>🎬</span><div><b>Shot & edited for you</b>Hook, best items, your offer and location, in a format made to stop the scroll.</div></li>
@@ -952,7 +1026,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 
 <section id="pricing" class="only-biz" style="order:7;background:var(--bg2)">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="tag">Packs & pricing</span><h2>A pack for <span class="gt">every budget</span></h2><p>Start free. Upgrade when you want more reach. Cancel anytime.</p></div>
+    <div class="sec-head reveal"><span class="tag" data-t>Packs & pricing</span><h2 data-t>A pack for <span class="gt">every budget</span></h2><p>Start free. Upgrade when you want more reach. Cancel anytime.</p></div>
     <div class="bill-toggle reveal"><span>Monthly</span><button class="switch" id="billSwitch" aria-label="Toggle yearly billing"></button><span>Yearly</span><span class="save">2 months free</span></div>
     <div class="plans" id="plans"></div>
   </div>
@@ -961,8 +1035,8 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 <section id="post" class="only-biz" style="order:8">
   <div class="wrap post-in">
     <div>
-      <span class="tag reveal">For business owners</span>
-      <h2 class="reveal d1" style="margin:16px 0">Post your first offer <span class="gt">in 2 minutes</span></h2>
+      <span class="tag reveal" data-t>For business owners</span>
+      <h2 class="reveal d1" style="margin:16px 0" data-t>Post your first offer <span class="gt">in 2 minutes</span></h2>
       <p class="reveal d1" style="color:var(--muted);font-size:1.05rem;margin-bottom:28px">Create a business account, fill in your offer, and it goes live in Deals straight away. The preview updates as you type.</p>
       <div class="reveal d2"><p style="font-size:.8rem;color:var(--dim);margin-bottom:10px;font-weight:800;letter-spacing:.08em">LIVE PREVIEW</p><div class="preview-deal" id="preview"></div></div>
     </div>
@@ -978,7 +1052,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
         <h3>New offer</h3>
         <div class="f-row">
           <div><label>Shop name</label><input class="inp" id="pShop" required maxlength="40" placeholder="e.g. Sharma General Store"></div>
-          <div><label>Category</label><select class="inp" id="pCat"></select></div>
+          <div><label data-t>Category</label><select class="inp" id="pCat"></select></div>
         </div>
         <label>Offer headline</label><input class="inp" id="pOffer" required maxlength="50" placeholder="e.g. Flat 20% off this week">
         <label>Item / details</label><input class="inp" id="pItem" maxlength="60" placeholder="e.g. Free delivery above ₹500">
@@ -1000,14 +1074,14 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 <!-- FAQ (both) -->
 <section id="faq" style="padding-top:40px">
   <div class="wrap">
-    <div class="sec-head reveal"><span class="tag">FAQ</span><h2>Questions? <span class="gt">Answered.</span></h2></div>
+    <div class="sec-head reveal"><span class="tag" data-t>FAQ</span><h2 data-t>Questions? <span class="gt">Answered.</span></h2></div>
     <div class="faq" id="faqList"></div>
   </div>
 </section>
 
 <div id="ctaBand" class="cta-band reveal">
-  <div class="only-exp guest-only"><h2>Deals are waiting around the corner.</h2><p>Create a free account to save favourites and claim coupons.</p><button class="btn" data-auth="signup" data-role="customer">Join free →</button></div><div class="only-exp member-only"><h2>Good to see you, <span class="uname">friend</span> 👋</h2><p>Your saved deals and coupons are right here. New offers are added every day.</p><div class="cta-btns"><button class="btn" data-goto-saved>❤️ My saved deals</button><button class="btn alt" data-goto-near>📍 Deals near me</button></div></div>
-  <div class="only-biz guest-only"><h2>Your next 100 customers are within 5 km.</h2><p>Join Bazaar Buzz free and start reaching them today.</p><button class="btn" data-auth="signup" data-role="business">Get started free →</button></div><div class="only-biz member-only biz-member"><h2>Ready for your next offer, <span class="uname">friend</span>?</h2><p>You're on the <b class="uplan">Free</b> pack. Keep posting to stay at the top of nearby feeds.</p><div class="cta-btns"><a href="#post" class="btn">🚀 Post an offer</a><a href="#pricing" class="btn alt" id="ctaUpgrade">⚡ Upgrade pack</a></div></div><div class="only-biz member-only cust-member"><h2>Looking for deals, <span class="uname">friend</span>?</h2><p>The business tools are for shop owners. Head back to discover offers near you.</p><div class="cta-btns"><button class="btn" data-view-btn="exp">🧭 Explore deals</button></div></div>
+  <div class="only-exp guest-only"><h2 data-t>Deals are waiting around the corner.</h2><p data-t>Create a free account to save favourites and claim coupons.</p><button class="btn" data-auth="signup" data-role="customer" data-t>Join free →</button></div><div class="only-exp member-only"><h2>Good to see you, <span class="uname">friend</span> 👋</h2><p>Your saved deals and coupons are right here. New offers are added every day.</p><div class="cta-btns"><button class="btn" data-goto-saved>❤️ My saved deals</button><button class="btn alt" data-goto-near>📍 Deals near me</button></div></div>
+  <div class="only-biz guest-only"><h2 data-t>Your next 100 customers are within 5 km.</h2><p data-t>Join Bazaar Buzz free and start reaching them today.</p><button class="btn" data-auth="signup" data-role="business" data-t>Get started free →</button></div><div class="only-biz member-only biz-member"><h2>Ready for your next offer, <span class="uname">friend</span>?</h2><p>You're on the <b class="uplan">Free</b> pack. Keep posting to stay at the top of nearby feeds.</p><div class="cta-btns"><a href="#post" class="btn">🚀 Post an offer</a><a href="#pricing" class="btn alt" id="ctaUpgrade">⚡ Upgrade pack</a></div></div><div class="only-biz member-only cust-member"><h2>Looking for deals, <span class="uname">friend</span>?</h2><p>The business tools are for shop owners. Head back to discover offers near you.</p><div class="cta-btns"><button class="btn" data-view-btn="exp">🧭 Explore deals</button></div></div>
 </div>
 </main>
 
@@ -1015,8 +1089,8 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
   <div class="wrap">
     <div class="foot">
       <div><a href="#top" class="logo" style="margin-bottom:14px"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.4 7 11.5 7.3 11.8.4.3 1 .3 1.4 0C13 21.5 20 15.4 20 10c0-4.4-3.6-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg></span>Bazaar Buzz</a><p style="color:var(--muted);max-width:320px;font-size:.93rem">Connecting local businesses with customers right around the corner. Built by students, for local India.</p></div>
-      <div><h5>Explore</h5><ul><li><a href="#deals" data-view-link="exp">Deals near me</a></li><li><a href="#categories" data-view-link="exp">Categories</a></li><li><a href="#trending" data-view-link="exp">Trending</a></li></ul></div>
-      <div><h5>Business</h5><ul><li><a href="#pricing" data-view-link="biz">Pricing</a></li><li><a href="#reels" data-view-link="biz">Shop reels</a></li><li><a href="#post" data-view-link="biz">Post an offer</a></li></ul></div>
+      <div><h5>Explore</h5><ul><li><a href="#deals" data-view-link="exp" data-t>Deals near me</a></li><li><a href="#categories" data-view-link="exp" data-t>Categories</a></li><li><a href="#trending" data-view-link="exp" data-t>Trending</a></li></ul></div>
+      <div><h5>Business</h5><ul><li><a href="#pricing" data-view-link="biz" data-t>Pricing</a></li><li><a href="#reels" data-view-link="biz">Shop reels</a></li><li><a href="#post" data-view-link="biz" data-t>Post an offer</a></li></ul></div>
       <div><h5>Contact</h5><ul><li>hello@bazaarbuzz.in</li><li>Tumakuru, Karnataka</li><li id="adminLink" style="display:none"><a href="/admin" target="_blank" rel="noopener">🔐 Admin panel</a></li><li><a href="#" data-toast="Privacy policy coming soon">Privacy</a> · <a href="#" data-toast="Terms coming soon">Terms</a></li></ul></div>
     </div>
     <div class="copy"><span>© 2026 Bazaar Buzz. All rights reserved.</span><span>Made with ❤️ in India</span></div>
@@ -1035,7 +1109,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
   <div class="modal">
     <button class="x" data-close>×</button>
     <div id="authMain">
-      <h3 id="authTitle">Welcome back 👋</h3>
+      <h3 id="authTitle" data-t>Welcome back 👋</h3>
       <p class="sub" id="authSub">Log in to claim deals and manage your shop.</p>
       <div class="social">
         <div id="gWrap"></div>
@@ -1043,20 +1117,20 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
         <button class="soc" data-social="x"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-6.8 7.8L23 22h-6.2l-4.9-6.4L6.3 22H3.2l7.3-8.3L1 2h6.3l4.4 5.9L18.9 2zm-1.1 18h1.7L6.3 3.9H4.5L17.8 20z"/></svg>Continue with X</button>
         <button class="soc" data-social="apple"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.4 12.6c0-2.6 2.1-3.8 2.2-3.9-1.2-1.8-3.1-2-3.7-2-1.6-.2-3.1.9-3.9.9-.8 0-2-.9-3.4-.9-1.7 0-3.3 1-4.2 2.6-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.4.8 1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.1zM13.9 5c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.2 2-1.1 3.1 1.2.1 2.4-.6 3.1-1.5z"/></svg>Continue with Apple</button>
       </div>
-      <div class="divider">or use email</div>
-      <div class="auth-tabs"><button data-mode="login" class="on">Log in</button><button data-mode="signup">Sign up</button></div>
+      <div class="divider" data-t>or use email</div>
+      <div class="auth-tabs"><button data-mode="login" class="on" data-t>Log in</button><button data-mode="signup" data-t>Sign up</button></div>
       <div id="authForm">
         <div id="signupOnly" style="display:none">
-          <label for="aName">Full name</label><input class="inp" id="aName" maxlength="40" placeholder="Your name" autocomplete="name">
+          <label for="aName" data-t>Full name</label><input class="inp" id="aName" maxlength="40" placeholder="Your name" autocomplete="name">
         </div>
         <div id="roleBox" style="display:none">
           <label>I am</label>
           <div class="role"><label><input type="radio" name="role" value="customer" checked> 🧭 Exploring</label><label><input type="radio" name="role" value="business"> 🏪 A business</label></div>
         </div>
-        <label for="aEmail">Email</label><input class="inp" id="aEmail" type="email" required placeholder="you@example.com" autocomplete="email">
-        <label for="aPass">Password</label><input class="inp" id="aPass" type="password" required minlength="6" placeholder="At least 6 characters" autocomplete="current-password">
+        <label for="aEmail" data-t>Email</label><input class="inp" id="aEmail" type="email" required placeholder="you@example.com" autocomplete="email">
+        <label for="aPass" data-t>Password</label><input class="inp" id="aPass" type="password" required minlength="6" placeholder="At least 6 characters" autocomplete="current-password">
         <div class="err" id="authErr"></div>
-        <button type="button" class="btn btn-primary" id="authBtn">Log in</button>
+        <button type="button" class="btn btn-primary" id="authBtn" data-t>Log in</button>
       </div>
       <div style="text-align:center"><span class="server-badge" id="serverBadge"></span></div>
     </div>
@@ -1067,7 +1141,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
       <h3 id="socTitle">Continue with Google</h3>
       <p class="sub" id="socNote"></p>
       <label for="sName">Name</label><input class="inp" id="sName" maxlength="40" placeholder="Your name">
-      <label for="sEmail">Email</label><input class="inp" id="sEmail" type="email" placeholder="you@gmail.com">
+      <label for="sEmail" data-t>Email</label><input class="inp" id="sEmail" type="email" placeholder="you@gmail.com">
       <label>I am</label>
       <div class="role"><label><input type="radio" name="srole" value="customer" checked> 🧭 Exploring</label><label><input type="radio" name="srole" value="business"> 🏪 A business</label></div>
       <div class="err" id="socErr"></div>
@@ -1119,7 +1193,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 <div class="overlay" id="rateModal">
   <div class="modal wide">
     <button class="x" data-close>×</button>
-    <h3 id="rtShop">Rate this place</h3>
+    <h3 id="rtShop" data-t>Rate this place</h3>
     <div class="avg-big" id="rtAvg"></div>
     <div id="rtForm">
       <label>Your rating</label><div class="stars-pick" id="rtStars"></div>
@@ -1137,6 +1211,204 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 /* ============ CONFIG ============
    For real payments: paste your Razorpay Key ID. Empty = test mode (nothing is charged). */
 const RAZORPAY_KEY = '';
+/* ============ LANGUAGES ============
+   Order of every translation array: hi, kn, ml, te, ta, mr, pa.  English is the key itself. */
+const LANGS=[['en','English'],['hi','Hindi'],['kn','Kannada'],['ml','Malayalam'],['te','Telugu'],['ta','Tamil'],['mr','Marathi'],['pa','Punjabi']];
+const LIDX={hi:0,kn:1,ml:2,te:3,ta:4,mr:5,pa:6};
+const LFONT={hi:'Devanagari',mr:'Devanagari',kn:'Kannada',ml:'Malayalam',te:'Telugu',ta:'Tamil',pa:'Gurmukhi'};
+const T={
+// nav + common
+'Trending':['ट्रेंडिंग','ಟ್ರೆಂಡಿಂಗ್','ട്രെൻഡിംഗ്','ట్రెండింగ్','டிரெண்டிங்','ट्रेंडिंग','ਟ੍ਰੈਂਡਿੰਗ'],
+'Reels':['रील्स','ರೀಲ್ಸ್','റീൽസ്','రీల్స్','ரீல்ஸ்','रील्स','ਰੀਲਜ਼'],
+'Categories':['श्रेणियाँ','ವರ್ಗಗಳು','വിഭാഗങ്ങൾ','వర్గాలు','வகைகள்','श्रेणी','ਸ਼੍ਰੇਣੀਆਂ'],
+'categories':['श्रेणियाँ','ವರ್ಗಗಳು','വിഭാഗങ്ങൾ','వర్గాలు','வகைகள்','श्रेणी','ਸ਼੍ਰੇਣੀਆਂ'],
+'Deals near me':['पास के ऑफ़र','ಹತ್ತಿರದ ಆಫರ್‌ಗಳು','അടുത്തുള്ള ഓഫറുകൾ','దగ్గరలోని ఆఫర్లు','அருகிலுள்ள சலுகைகள்','जवळच्या ऑफर्स','ਨੇੜਲੇ ਆਫ਼ਰ'],
+'FAQ':['सवाल-जवाब','ಪ್ರಶ್ನೋತ್ತರ','ചോദ്യോത്തരം','ప్రశ్నలు','கேள்விகள்','प्रश्नोत्तरे','ਸਵਾਲ-ਜਵਾਬ'],
+'How it works':['कैसे काम करता है','ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ','എങ്ങനെ പ്രവർത്തിക്കുന്നു','ఎలా పనిచేస్తుంది','எப்படி செயல்படுகிறது','कसे काम करते','ਕਿਵੇਂ ਕੰਮ ਕਰਦਾ ਹੈ'],
+'Dashboard':['डैशबोर्ड','ಡ್ಯಾಶ್‌ಬೋರ್ಡ್','ഡാഷ്ബോർഡ്','డాష్‌బోర్డ్','டாஷ்போர்டு','डॅशबोर्ड','ਡੈਸ਼ਬੋਰਡ'],
+'Pricing':['कीमतें','ಬೆಲೆಗಳು','നിരക്കുകൾ','ధరలు','விலைகள்','किंमती','ਕੀਮਤਾਂ'],
+'Post offer':['ऑफ़र डालें','ಆಫರ್ ಹಾಕಿ','ഓഫർ ഇടുക','ఆఫర్ పెట్టండి','சலுகை இடுங்கள்','ऑफर टाका','ਆਫ਼ਰ ਪਾਓ'],
+'Log in':['लॉग इन','ಲಾಗ್ ಇನ್','ലോഗിൻ','లాగిన్','உள்நுழை','लॉग इन','ਲੌਗ ਇਨ'],
+'Sign up':['साइन अप','ಸೈನ್ ಅಪ್','സൈൻ അപ്പ്','సైన్ అప్','பதிவு செய்','साइन अप','ਸਾਈਨ ਅੱਪ'],
+'Log out':['लॉग आउट','ಲಾಗ್ ಔಟ್','ലോഗൗട്ട്','లాగౌట్','வெளியேறு','लॉग आउट','ਲੌਗ ਆਊਟ'],
+'🧭 Explore':['🧭 खोजें','🧭 ಅನ್ವೇಷಿಸಿ','🧭 കണ്ടെത്തുക','🧭 అన్వేషించండి','🧭 ஆராயுங்கள்','🧭 शोधा','🧭 ਖੋਜੋ'],
+'🏪 Business':['🏪 व्यापार','🏪 ವ್ಯಾಪಾರ','🏪 ബിസിനസ്','🏪 వ్యాపారం','🏪 வணிகம்','🏪 व्यवसाय','🏪 ਕਾਰੋਬਾਰ'],
+'Search deals, shops…':['ऑफ़र, दुकानें खोजें…','ಆಫರ್, ಅಂಗಡಿಗಳನ್ನು ಹುಡುಕಿ…','ഓഫറുകൾ, കടകൾ തിരയുക…','ఆఫర్లు, షాపులు వెతకండి…','சலுகைகள், கடைகளைத் தேடுங்கள்…','ऑफर्स, दुकाने शोधा…','ਆਫ਼ਰ, ਦੁਕਾਨਾਂ ਲੱਭੋ…'],
+// hero — explore
+'<span class="live"></span> Deals live around you right now':['<span class="live"></span> आपके आसपास अभी के ऑफ़र','<span class="live"></span> ನಿಮ್ಮ ಸುತ್ತಮುತ್ತಲಿನ ಲೈವ್ ಆಫರ್‌ಗಳು','<span class="live"></span> നിങ്ങളുടെ ചുറ്റുമുള്ള ലൈവ് ഓഫറുകൾ','<span class="live"></span> మీ చుట్టూ ఇప్పుడు ఉన్న ఆఫర్లు','<span class="live"></span> உங்கள் அருகில் இப்போது உள்ள சலுகைகள்','<span class="live"></span> तुमच्या आसपास आत्ता सुरू असलेल्या ऑफर्स','<span class="live"></span> ਤੁਹਾਡੇ ਆਲੇ-ਦੁਆਲੇ ਹੁਣੇ ਦੇ ਆਫ਼ਰ'],
+'Discover the best deals <span class="gt">around the corner.</span>':['नुक्कड़ पर ही <span class="gt">सबसे अच्छे ऑफ़र</span> खोजें।','ನಿಮ್ಮ ಬೀದಿಯಲ್ಲೇ <span class="gt">ಅತ್ಯುತ್ತಮ ಆಫರ್‌ಗಳು</span> ಹುಡುಕಿ.','തൊട്ടടുത്ത് തന്നെ <span class="gt">മികച്ച ഓഫറുകൾ</span> കണ്ടെത്തൂ.','మీ వీధిలోనే <span class="gt">ఉత్తమ ఆఫర్లు</span> కనుగొనండి.','உங்கள் தெருவிலேயே <span class="gt">சிறந்த சலுகைகள்</span> கண்டறியுங்கள்.','तुमच्या कोपऱ्यावरच <span class="gt">सर्वोत्तम ऑफर्स</span> शोधा.','ਤੁਹਾਡੇ ਨੇੜੇ ਹੀ <span class="gt">ਸਭ ਤੋਂ ਵਧੀਆ ਆਫ਼ਰ</span> ਲੱਭੋ।'],
+'Cafés, street food, salons, gyms, new openings and events, all sorted by how close they are to you. Free to use, no ads from other cities.':['कैफ़े, स्ट्रीट फ़ूड, सैलून, जिम, नई दुकानें और इवेंट, सब आपसे दूरी के हिसाब से। बिल्कुल मुफ़्त, दूसरे शहरों के विज्ञापन नहीं।','ಕೆಫೆ, ಬೀದಿ ತಿಂಡಿ, ಸಲೂನ್, ಜಿಮ್, ಹೊಸ ಅಂಗಡಿಗಳು ಮತ್ತು ಕಾರ್ಯಕ್ರಮಗಳು, ಎಲ್ಲವೂ ನಿಮಗೆ ಎಷ್ಟು ಹತ್ತಿರ ಎಂಬುದರ ಪ್ರಕಾರ. ಸಂಪೂರ್ಣ ಉಚಿತ, ಬೇರೆ ನಗರಗಳ ಜಾಹೀರಾತುಗಳಿಲ್ಲ.','കഫേകൾ, തട്ടുകടകൾ, സലൂണുകൾ, ജിമ്മുകൾ, പുതിയ കടകൾ, പരിപാടികൾ, എല്ലാം നിങ്ങളിൽ നിന്നുള്ള ദൂരം അനുസരിച്ച്. പൂർണ്ണമായും സൗജന്യം, മറ്റ് നഗരങ്ങളിലെ പരസ്യങ്ങളില്ല.','కేఫ్‌లు, స్ట్రీట్ ఫుడ్, సెలూన్లు, జిమ్‌లు, కొత్త షాపులు, ఈవెంట్లు, అన్నీ మీకు ఎంత దగ్గరో ఆ క్రమంలో. పూర్తిగా ఉచితం, ఇతర నగరాల ప్రకటనలు లేవు.','கஃபேக்கள், தெரு உணவு, சலூன்கள், ஜிம்கள், புதிய கடைகள், நிகழ்வுகள், எல்லாம் உங்களிடமிருந்து உள்ள தூரத்தின்படி. முற்றிலும் இலவசம், வேறு நகர விளம்பரங்கள் இல்லை.','कॅफे, स्ट्रीट फूड, सलून, जिम, नवीन दुकाने आणि कार्यक्रम, सगळं तुमच्यापासूनच्या अंतरानुसार. पूर्णपणे मोफत, इतर शहरांच्या जाहिराती नाहीत.','ਕੈਫ਼ੇ, ਸਟ੍ਰੀਟ ਫ਼ੂਡ, ਸੈਲੂਨ, ਜਿਮ, ਨਵੀਆਂ ਦੁਕਾਨਾਂ ਅਤੇ ਇਵੈਂਟ, ਸਭ ਤੁਹਾਡੇ ਤੋਂ ਦੂਰੀ ਦੇ ਹਿਸਾਬ ਨਾਲ। ਬਿਲਕੁਲ ਮੁਫ਼ਤ, ਹੋਰ ਸ਼ਹਿਰਾਂ ਦੇ ਇਸ਼ਤਿਹਾਰ ਨਹੀਂ।'],
+'Try “coffee”, “thali”, “haircut”…':['जैसे “कॉफ़ी”, “थाली”, “हेयरकट”…','ಉದಾ: “ಕಾಫಿ”, “ಊಟ”, “ಹೇರ್‌ಕಟ್”…','ഉദാ: “കാപ്പി”, “ഊണ്”, “ഹെയർകട്ട്”…','ఉదా: “కాఫీ”, “భోజనం”, “హెయిర్‌కట్”…','எ.கா: “காபி”, “சாப்பாடு”, “ஹேர்கட்”…','उदा: “कॉफी”, “थाळी”, “हेअरकट”…','ਜਿਵੇਂ “ਕੌਫ਼ੀ”, “ਥਾਲੀ”, “ਹੇਅਰਕੱਟ”…'],
+'Near me':['मेरे पास','ನನ್ನ ಹತ್ತಿರ','എന്റെ അടുത്ത്','నా దగ్గర','என் அருகில்','माझ्या जवळ','ਮੇਰੇ ਨੇੜੇ'],
+'Find deals':['ऑफ़र खोजें','ಆಫರ್ ಹುಡುಕಿ','ഓഫറുകൾ കാണുക','ఆఫర్లు చూడండి','சலுகைகளைத் தேடு','ऑफर्स शोधा','ਆਫ਼ਰ ਲੱਭੋ'],
+'Popular:':['लोकप्रिय:','ಜನಪ್ರಿಯ:','ജനപ്രിയം:','ప్రాచుర్యం:','பிரபலம்:','लोकप्रिय:','ਮਸ਼ਹੂਰ:'],
+'☕ Coffee':['☕ कॉफ़ी','☕ ಕಾಫಿ','☕ കാപ്പി','☕ కాఫీ','☕ காபி','☕ कॉफी','☕ ਕੌਫ਼ੀ'],
+'🍛 Thali':['🍛 थाली','🍛 ಊಟ','🍛 ഊണ്','🍛 భోజనం','🍛 சாப்பாடு','🍛 थाळी','🍛 ਥਾਲੀ'],
+'💇 Salon':['💇 सैलून','💇 ಸಲೂನ್','💇 സലൂൺ','💇 సెలూన్','💇 சலூன்','💇 सलून','💇 ਸੈਲੂਨ'],
+'🎓 Student offers':['🎓 स्टूडेंट ऑफ़र','🎓 ವಿದ್ಯಾರ್ಥಿ ಆಫರ್','🎓 വിദ്യാർത്ഥി ഓഫർ','🎓 విద్యార్థి ఆఫర్లు','🎓 மாணவர் சலுகைகள்','🎓 विद्यार्थी ऑफर्स','🎓 ਵਿਦਿਆਰਥੀ ਆਫ਼ਰ'],
+'🎬 Reels':['🎬 रील्स','🎬 ರೀಲ್ಸ್','🎬 റീൽസ്','🎬 రీల్స్','🎬 ரீல்ஸ்','🎬 रील्स','🎬 ਰੀਲਜ਼'],
+'deals in demo area':['डेमो इलाके में ऑफ़र','ಡೆಮೊ ಪ್ರದೇಶದ ಆಫರ್‌ಗಳು','ഡെമോ ഏരിയയിലെ ഓഫറുകൾ','డెమో ప్రాంతంలో ఆఫర్లు','டெமோ பகுதியில் சலுகைகள்','डेमो भागातील ऑफर्स','ਡੈਮੋ ਇਲਾਕੇ ਦੇ ਆਫ਼ਰ'],
+'always free to explore':['देखना हमेशा मुफ़्त','ನೋಡಲು ಯಾವಾಗಲೂ ಉಚಿತ','കാണാൻ എപ്പോഴും സൗജന്യം','చూడటం ఎప్పుడూ ఉచితం','பார்க்க எப்போதும் இலவசம்','पाहणे नेहमी मोफत','ਦੇਖਣਾ ਹਮੇਸ਼ਾ ਮੁਫ਼ਤ'],
+'👋 Welcome back, <b class="uname">friend</b>':['👋 फिर से स्वागत है, <b class="uname">friend</b>','👋 ಮತ್ತೆ ಸ್ವಾಗತ, <b class="uname">friend</b>','👋 വീണ്ടും സ്വാഗതം, <b class="uname">friend</b>','👋 మళ్ళీ స్వాగతం, <b class="uname">friend</b>','👋 மீண்டும் வருக, <b class="uname">friend</b>','👋 पुन्हा स्वागत आहे, <b class="uname">friend</b>','👋 ਮੁੜ ਜੀ ਆਇਆਂ ਨੂੰ, <b class="uname">friend</b>'],
+// hero — business
+'<span class="live"></span> Hyperlocal promotion for every budget':['<span class="live"></span> हर बजट के लिए लोकल प्रमोशन','<span class="live"></span> ಪ್ರತಿ ಬಜೆಟ್‌ಗೂ ಸ್ಥಳೀಯ ಪ್ರಚಾರ','<span class="live"></span> ഏത് ബജറ്റിനും പ്രാദേശിക പ്രമോഷൻ','<span class="live"></span> ప్రతి బడ్జెట్‌కు లోకల్ ప్రమోషన్','<span class="live"></span> எந்த பட்ஜெட்டுக்கும் உள்ளூர் விளம்பரம்','<span class="live"></span> प्रत्येक बजेटसाठी लोकल प्रमोशन','<span class="live"></span> ਹਰ ਬਜਟ ਲਈ ਲੋਕਲ ਪ੍ਰਮੋਸ਼ਨ'],
+'%H1BIZ%':['अपने %ROT% को आसपास के हर ग्राहक तक पहुँचाएँ।','ನಿಮ್ಮ %ROT% ಅನ್ನು ಹತ್ತಿರದ ಎಲ್ಲರಿಗೂ ತಲುಪಿಸಿ.','നിങ്ങളുടെ %ROT% അടുത്തുള്ള എല്ലാവരിലേക്കും എത്തിക്കൂ.','మీ %ROT% ను దగ్గరలోని అందరికీ చేరువ చేయండి.','உங்கள் %ROT% அருகிலுள்ள அனைவரையும் சென்றடையட்டும்.','तुमचे %ROT% जवळच्या प्रत्येकापर्यंत पोहोचवा.','ਆਪਣੇ %ROT% ਨੂੰ ਨੇੜੇ ਦੇ ਹਰ ਗਾਹਕ ਤੱਕ ਪਹੁੰਚਾਓ।'],
+'Skip the ₹10,000 influencer. Post your offer on Bazaar Buzz, pick a pack, and reach people within 1–25 km who can actually walk in.':['₹10,000 वाले इन्फ्लुएंसर की ज़रूरत नहीं। Bazaar Buzz पर ऑफ़र डालें, पैक चुनें और 1–25 किमी के अंदर उन लोगों तक पहुँचें जो सच में दुकान आ सकते हैं।','₹10,000 ಇನ್‌ಫ್ಲುಯೆನ್ಸರ್ ಬೇಡ. Bazaar Buzz ನಲ್ಲಿ ಆಫರ್ ಹಾಕಿ, ಪ್ಯಾಕ್ ಆಯ್ಕೆಮಾಡಿ, 1–25 ಕಿ.ಮೀ ಒಳಗಿನ ನಿಜವಾಗಿ ಅಂಗಡಿಗೆ ಬರಬಲ್ಲ ಜನರನ್ನು ತಲುಪಿ.','₹10,000 ഇൻഫ്ലുവൻസർ വേണ്ട. Bazaar Buzz-ൽ ഓഫർ ഇടൂ, ഒരു പാക്ക് തിരഞ്ഞെടുക്കൂ, 1–25 കി.മീ ഉള്ളിൽ കടയിലേക്ക് ശരിക്കും വരാൻ കഴിയുന്നവരിലേക്ക് എത്തൂ.','₹10,000 ఇన్‌ఫ్లుయెన్సర్ అవసరం లేదు. Bazaar Buzz లో ఆఫర్ పెట్టండి, ప్యాక్ ఎంచుకోండి, 1–25 కి.మీ లోపల నిజంగా షాపుకు రాగల వారిని చేరుకోండి.','₹10,000 இன்ஃப்ளூயன்சர் தேவையில்லை. Bazaar Buzz-ல் சலுகையை இடுங்கள், ஒரு பேக்கைத் தேர்ந்தெடுங்கள், 1–25 கி.மீ.க்குள் உண்மையில் கடைக்கு வரக்கூடியவர்களை அடையுங்கள்.','₹10,000 चा इन्फ्लुएन्सर नको. Bazaar Buzz वर ऑफर टाका, पॅक निवडा आणि 1–25 किमीमधील खरंच दुकानात येऊ शकणाऱ्या लोकांपर्यंत पोहोचा.','₹10,000 ਵਾਲੇ ਇਨਫ਼ਲੂਐਂਸਰ ਦੀ ਲੋੜ ਨਹੀਂ। Bazaar Buzz ’ਤੇ ਆਫ਼ਰ ਪਾਓ, ਪੈਕ ਚੁਣੋ ਅਤੇ 1–25 ਕਿ.ਮੀ. ਅੰਦਰ ਉਹਨਾਂ ਲੋਕਾਂ ਤੱਕ ਪਹੁੰਚੋ ਜੋ ਸੱਚਮੁੱਚ ਦੁਕਾਨ ’ਤੇ ਆ ਸਕਦੇ ਹਨ।'],
+'Post your first offer, free →':['पहला ऑफ़र मुफ़्त डालें →','ಮೊದಲ ಆಫರ್ ಉಚಿತವಾಗಿ ಹಾಕಿ →','ആദ്യ ഓഫർ സൗജന്യമായി ഇടൂ →','మొదటి ఆఫర్ ఉచితంగా పెట్టండి →','முதல் சலுகையை இலவசமாக இடுங்கள் →','पहिली ऑफर मोफत टाका →','ਪਹਿਲਾ ਆਫ਼ਰ ਮੁਫ਼ਤ ਪਾਓ →'],
+'Post a new offer →':['नया ऑफ़र डालें →','ಹೊಸ ಆಫರ್ ಹಾಕಿ →','പുതിയ ഓഫർ ഇടൂ →','కొత్త ఆఫర్ పెట్టండి →','புதிய சலுகை இடுங்கள் →','नवीन ऑफर टाका →','ਨਵਾਂ ਆਫ਼ਰ ਪਾਓ →'],
+'See packs':['पैक देखें','ಪ್ಯಾಕ್‌ಗಳನ್ನು ನೋಡಿ','പാക്കുകൾ കാണൂ','ప్యాక్‌లు చూడండి','பேக்குகளைப் பார்','पॅक पहा','ਪੈਕ ਵੇਖੋ'],
+'cheaper than influencers':['इन्फ्लुएंसर से सस्ता','ಇನ್‌ಫ್ಲುಯೆನ್ಸರ್‌ಗಿಂತ ಅಗ್ಗ','ഇൻഫ്ലുവൻസറിനേക്കാൾ ചെലവ് കുറവ്','ఇన్‌ఫ్లుయెన్సర్ కంటే చౌక','இன்ஃப்ளூயன்சரை விட மலிவு','इन्फ्लुएन्सरपेक्षा स्वस्त','ਇਨਫ਼ਲੂਐਂਸਰ ਨਾਲੋਂ ਸਸਤਾ'],
+'to post an offer':['ऑफ़र डालने में','ಆಫರ್ ಹಾಕಲು','ഓഫർ ഇടാൻ','ఆఫర్ పెట్టడానికి','சலுகை இட','ऑफर टाकायला','ਆਫ਼ਰ ਪਾਉਣ ਲਈ'],
+'max reach radius':['अधिकतम पहुँच','ಗರಿಷ್ಠ ವ್ಯಾಪ್ತಿ','പരമാവധി ദൂരം','గరిష్ఠ పరిధి','அதிகபட்ச தூரம்','कमाल पोहोच','ਵੱਧ ਤੋਂ ਵੱਧ ਪਹੁੰਚ'],
+// paths
+'Who are you?':['आप कौन हैं?','ನೀವು ಯಾರು?','നിങ്ങൾ ആരാണ്?','మీరు ఎవరు?','நீங்கள் யார்?','तुम्ही कोण आहात?','ਤੁਸੀਂ ਕੌਣ ਹੋ?'],
+'Pick your <span class="gt">path</span>':['अपना <span class="gt">रास्ता</span> चुनें','ನಿಮ್ಮ <span class="gt">ದಾರಿ</span> ಆಯ್ಕೆಮಾಡಿ','നിങ്ങളുടെ <span class="gt">വഴി</span> തിരഞ്ഞെടുക്കൂ','మీ <span class="gt">దారి</span> ఎంచుకోండి','உங்கள் <span class="gt">பாதையை</span> தேர்ந்தெடுங்கள்','तुमचा <span class="gt">मार्ग</span> निवडा','ਆਪਣਾ <span class="gt">ਰਾਹ</span> ਚੁਣੋ'],
+'Bazaar Buzz works differently for people exploring deals and for businesses promoting them. Switch anytime from the top bar.':['Bazaar Buzz ऑफ़र देखने वालों और उन्हें प्रमोट करने वाले व्यापारियों के लिए अलग तरह से काम करता है। ऊपर की पट्टी से कभी भी बदलें।','ಆಫರ್ ನೋಡುವವರಿಗೆ ಮತ್ತು ಪ್ರಚಾರ ಮಾಡುವ ವ್ಯಾಪಾರಿಗಳಿಗೆ Bazaar Buzz ಬೇರೆ ಬೇರೆ ರೀತಿಯಲ್ಲಿ ಕೆಲಸ ಮಾಡುತ್ತದೆ. ಮೇಲಿನ ಬಾರ್‌ನಿಂದ ಯಾವಾಗ ಬೇಕಾದರೂ ಬದಲಿಸಿ.','ഓഫറുകൾ കാണുന്നവർക്കും അവ പ്രമോട്ട് ചെയ്യുന്ന ബിസിനസുകൾക്കും Bazaar Buzz വ്യത്യസ്തമായി പ്രവർത്തിക്കുന്നു. മുകളിലെ ബാറിൽ നിന്ന് എപ്പോൾ വേണമെങ്കിലും മാറ്റാം.','ఆఫర్లు చూసేవారికి, వాటిని ప్రమోట్ చేసే వ్యాపారాలకు Bazaar Buzz వేర్వేరుగా పనిచేస్తుంది. పైన ఉన్న బార్ నుండి ఎప్పుడైనా మార్చుకోండి.','சலுகைகளைத் தேடுபவர்களுக்கும் அவற்றை விளம்பரப்படுத்தும் வணிகங்களுக்கும் Bazaar Buzz வெவ்வேறு விதமாகச் செயல்படுகிறது. மேலே உள்ள பட்டியில் எப்போது வேண்டுமானாலும் மாற்றலாம்.','ऑफर्स पाहणाऱ्यांसाठी आणि त्यांचा प्रचार करणाऱ्या व्यवसायांसाठी Bazaar Buzz वेगवेगळ्या पद्धतीने काम करते. वरच्या पट्टीतून कधीही बदला.','ਆਫ਼ਰ ਦੇਖਣ ਵਾਲਿਆਂ ਅਤੇ ਉਹਨਾਂ ਦਾ ਪ੍ਰਚਾਰ ਕਰਨ ਵਾਲੇ ਕਾਰੋਬਾਰਾਂ ਲਈ Bazaar Buzz ਵੱਖਰੇ ਢੰਗ ਨਾਲ ਕੰਮ ਕਰਦਾ ਹੈ। ਉੱਪਰਲੀ ਪੱਟੀ ਤੋਂ ਕਦੇ ਵੀ ਬਦਲੋ।'],
+"I'm here to explore":['मुझे ऑफ़र देखने हैं','ನಾನು ನೋಡಲು ಬಂದಿದ್ದೇನೆ','ഞാൻ ഓഫറുകൾ കാണാൻ വന്നതാണ്','నేను ఆఫర్లు చూడటానికి వచ్చాను','நான் சலுகைகளைப் பார்க்க வந்தேன்','मला ऑफर्स पाहायच्या आहेत','ਮੈਂ ਆਫ਼ਰ ਦੇਖਣੇ ਹਨ'],
+'Just browsing? Find shops, offers and new places near you.':['बस घूम रहे हैं? पास की दुकानें, ऑफ़र और नई जगहें खोजें।','ಸುಮ್ಮನೆ ನೋಡುತ್ತಿದ್ದೀರಾ? ಹತ್ತಿರದ ಅಂಗಡಿಗಳು, ಆಫರ್‌ಗಳು ಮತ್ತು ಹೊಸ ಸ್ಥಳಗಳನ್ನು ಹುಡುಕಿ.','വെറുതെ നോക്കുകയാണോ? അടുത്തുള്ള കടകളും ഓഫറുകളും പുതിയ സ്ഥലങ്ങളും കണ്ടെത്തൂ.','ఊరికే చూస్తున్నారా? దగ్గరలోని షాపులు, ఆఫర్లు, కొత్త ప్రదేశాలు కనుగొనండి.','சும்மா பார்க்கிறீர்களா? அருகிலுள்ள கடைகள், சலுகைகள், புதிய இடங்களைக் கண்டறியுங்கள்.','फक्त पाहताय? जवळची दुकाने, ऑफर्स आणि नवीन ठिकाणे शोधा.','ਬੱਸ ਘੁੰਮ ਰਹੇ ਹੋ? ਨੇੜੇ ਦੀਆਂ ਦੁਕਾਨਾਂ, ਆਫ਼ਰ ਅਤੇ ਨਵੀਆਂ ਥਾਵਾਂ ਲੱਭੋ।'],
+'Deals sorted by distance with GPS':['GPS से दूरी के हिसाब से ऑफ़र','GPS ಮೂಲಕ ದೂರದ ಪ್ರಕಾರ ಆಫರ್‌ಗಳು','GPS വഴി ദൂരം അനുസരിച്ച് ഓഫറുകൾ','GPS తో దూరం ప్రకారం ఆఫర్లు','GPS மூலம் தூரத்தின்படி சலுகைகள்','GPS ने अंतरानुसार ऑफर्स','GPS ਨਾਲ ਦੂਰੀ ਮੁਤਾਬਕ ਆਫ਼ਰ'],
+'Save favourites &amp; claim coupons':['पसंदीदा सेव करें और कूपन लें','ಇಷ್ಟವಾದವನ್ನು ಉಳಿಸಿ, ಕೂಪನ್ ಪಡೆಯಿರಿ','ഇഷ്ടമുള്ളവ സേവ് ചെയ്യൂ, കൂപ്പൺ നേടൂ','నచ్చినవి సేవ్ చేయండి, కూపన్లు పొందండి','பிடித்தவற்றைச் சேமித்து கூப்பன் பெறுங்கள்','आवडते सेव्ह करा आणि कूपन मिळवा','ਪਸੰਦੀਦਾ ਸੇਵ ਕਰੋ ਅਤੇ ਕੂਪਨ ਲਓ'],
+'Always free, no sign-up needed to browse':['हमेशा मुफ़्त, देखने के लिए साइन-अप ज़रूरी नहीं','ಯಾವಾಗಲೂ ಉಚಿತ, ನೋಡಲು ಸೈನ್-ಅಪ್ ಬೇಡ','എപ്പോഴും സൗജന്യം, കാണാൻ സൈൻ-അപ്പ് വേണ്ട','ఎప్పుడూ ఉచితం, చూడటానికి సైన్-అప్ అవసరం లేదు','எப்போதும் இலவசம், பார்க்க பதிவு தேவையில்லை','नेहमी मोफत, पाहण्यासाठी साइन-अप नको','ਹਮੇਸ਼ਾ ਮੁਫ਼ਤ, ਦੇਖਣ ਲਈ ਸਾਈਨ-ਅੱਪ ਦੀ ਲੋੜ ਨਹੀਂ'],
+'Start exploring →':['देखना शुरू करें →','ನೋಡಲು ಶುರು ಮಾಡಿ →','കാണാൻ തുടങ്ങൂ →','చూడటం మొదలుపెట్టండి →','தேடத் தொடங்குங்கள் →','पाहायला सुरुवात करा →','ਦੇਖਣਾ ਸ਼ੁਰੂ ਕਰੋ →'],
+'I run a business':['मेरा व्यापार है','ನನ್ನದು ವ್ಯಾಪಾರ','എനിക്ക് ഒരു ബിസിനസ് ഉണ്ട്','నాకు వ్యాపారం ఉంది','நான் ஒரு வணிகம் நடத்துகிறேன்','माझा व्यवसाय आहे','ਮੇਰਾ ਕਾਰੋਬਾਰ ਹੈ'],
+'Café, kirana, salon, gym, venue? Reach customers nearby.':['कैफ़े, किराना, सैलून, जिम, हॉल? पास के ग्राहकों तक पहुँचें।','ಕೆಫೆ, ಕಿರಾಣಿ, ಸಲೂನ್, ಜಿಮ್, ಹಾಲ್? ಹತ್ತಿರದ ಗ್ರಾಹಕರನ್ನು ತಲುಪಿ.','കഫേ, പലചരക്ക്, സലൂൺ, ജിം, ഹാൾ? അടുത്തുള്ള ഉപഭോക്താക്കളിലേക്ക് എത്തൂ.','కేఫ్, కిరాణా, సెలూన్, జిమ్, హాల్? దగ్గరలోని కస్టమర్లను చేరుకోండి.','கஃபே, மளிகை, சலூன், ஜிம், மண்டபம்? அருகிலுள்ள வாடிக்கையாளர்களை அடையுங்கள்.','कॅफे, किराणा, सलून, जिम, हॉल? जवळच्या ग्राहकांपर्यंत पोहोचा.','ਕੈਫ਼ੇ, ਕਰਿਆਨਾ, ਸੈਲੂਨ, ਜਿਮ, ਹਾਲ? ਨੇੜੇ ਦੇ ਗਾਹਕਾਂ ਤੱਕ ਪਹੁੰਚੋ।'],
+'Post offers in 2 minutes':['2 मिनट में ऑफ़र डालें','2 ನಿಮಿಷದಲ್ಲಿ ಆಫರ್ ಹಾಕಿ','2 മിനിറ്റിൽ ഓഫർ ഇടൂ','2 నిమిషాల్లో ఆఫర్ పెట్టండి','2 நிமிடத்தில் சலுகை இடுங்கள்','2 मिनिटांत ऑफर टाका','2 ਮਿੰਟਾਂ ਵਿੱਚ ਆਫ਼ਰ ਪਾਓ'],
+'Boost packs + Instagram reels':['बूस्ट पैक + इंस्टाग्राम रील्स','ಬೂಸ್ಟ್ ಪ್ಯಾಕ್ + ಇನ್‌ಸ್ಟಾಗ್ರಾಮ್ ರೀಲ್ಸ್','ബൂസ്റ്റ് പാക്ക് + ഇൻസ്റ്റഗ്രാം റീൽസ്','బూస్ట్ ప్యాక్‌లు + ఇన్‌స్టాగ్రామ్ రీల్స్','பூஸ்ட் பேக் + இன்ஸ்டாகிராம் ரீல்ஸ்','बूस्ट पॅक + इंस्टाग्राम रील्स','ਬੂਸਟ ਪੈਕ + ਇੰਸਟਾਗ੍ਰਾਮ ਰੀਲਜ਼'],
+'Track views, calls &amp; coupon claims':['व्यूज़, कॉल और कूपन का हिसाब देखें','ವೀಕ್ಷಣೆ, ಕರೆ, ಕೂಪನ್ ಲೆಕ್ಕ ನೋಡಿ','വ്യൂസ്, കോളുകൾ, കൂപ്പണുകൾ ട്രാക്ക് ചെയ്യൂ','వ్యూస్, కాల్స్, కూపన్లు ట్రాక్ చేయండి','பார்வைகள், அழைப்புகள், கூப்பன்களைக் கண்காணியுங்கள்','व्ह्यूज, कॉल्स आणि कूपनचा हिशोब पहा','ਵਿਊਜ਼, ਕਾਲਾਂ ਅਤੇ ਕੂਪਨ ਟ੍ਰੈਕ ਕਰੋ'],
+'Grow my business →':['मेरा व्यापार बढ़ाएँ →','ನನ್ನ ವ್ಯಾಪಾರ ಬೆಳೆಸಿ →','എന്റെ ബിസിനസ് വളർത്തൂ →','నా వ్యాపారం పెంచండి →','என் வணிகத்தை வளர்க்க →','माझा व्यवसाय वाढवा →','ਮੇਰਾ ਕਾਰੋਬਾਰ ਵਧਾਓ →'],
+'✓ Selected':['✓ चुना गया','✓ ಆಯ್ಕೆಯಾಗಿದೆ','✓ തിരഞ്ഞെടുത്തു','✓ ఎంచుకున్నారు','✓ தேர்ந்தெடுக்கப்பட்டது','✓ निवडले','✓ ਚੁਣਿਆ ਗਿਆ'],
+// trending, reels, categories
+'🔥 Trending':['🔥 ट्रेंडिंग','🔥 ಟ್ರೆಂಡಿಂಗ್','🔥 ട്രെൻഡിംഗ്','🔥 ట్రెండింగ్','🔥 டிரெண்டிங்','🔥 ट्रेंडिंग','🔥 ਟ੍ਰੈਂਡਿੰਗ'],
+'Hot <span class="gt">near you</span>':['आपके पास <span class="gt">सबसे हिट</span>','ನಿಮ್ಮ ಹತ್ತಿರ <span class="gt">ಹಾಟ್ ಆಫರ್‌ಗಳು</span>','നിങ്ങളുടെ അടുത്ത് <span class="gt">ഹോട്ട്</span>','మీ దగ్గర <span class="gt">హాట్ ఆఫర్లు</span>','உங்கள் அருகில் <span class="gt">ஹாட் சலுகைகள்</span>','तुमच्या जवळ <span class="gt">हॉट ऑफर्स</span>','ਤੁਹਾਡੇ ਨੇੜੇ <span class="gt">ਹਾਟ ਆਫ਼ਰ</span>'],
+"Watch what's <span class=\"gt\">buzzing nearby</span>":['देखिए आसपास <span class="gt">क्या चल रहा है</span>','ಹತ್ತಿರದಲ್ಲಿ <span class="gt">ಏನು ನಡೆಯುತ್ತಿದೆ</span> ನೋಡಿ','അടുത്ത് <span class="gt">എന്താണ് നടക്കുന്നത്</span> എന്ന് കാണൂ','దగ్గరలో <span class="gt">ఏం జరుగుతోందో</span> చూడండి','அருகில் <span class="gt">என்ன நடக்கிறது</span> என்று பாருங்கள்','जवळपास <span class="gt">काय चाललंय</span> ते पहा','ਵੇਖੋ ਨੇੜੇ <span class="gt">ਕੀ ਚੱਲ ਰਿਹਾ ਹੈ</span>'],
+'Short videos from shops near you, plus honest reels and ratings from explorers like you.':['पास की दुकानों के छोटे वीडियो, और आप जैसे लोगों के सच्चे रील्स और रेटिंग।','ಹತ್ತಿರದ ಅಂಗಡಿಗಳ ಸಣ್ಣ ವೀಡಿಯೊಗಳು, ಮತ್ತು ನಿಮ್ಮಂತಹ ಜನರ ಪ್ರಾಮಾಣಿಕ ರೀಲ್ಸ್ ಮತ್ತು ರೇಟಿಂಗ್‌ಗಳು.','അടുത്തുള്ള കടകളുടെ ചെറു വീഡിയോകൾ, നിങ്ങളെപ്പോലുള്ളവരുടെ സത്യസന്ധമായ റീലുകളും റേറ്റിംഗുകളും.','దగ్గరలోని షాపుల చిన్న వీడియోలు, మీలాంటి వారి నిజాయితీ రీల్స్, రేటింగ్‌లు.','அருகிலுள்ள கடைகளின் சிறு வீடியோக்கள், உங்களைப் போன்றவர்களின் நேர்மையான ரீல்ஸ் மற்றும் மதிப்பீடுகள்.','जवळच्या दुकानांचे छोटे व्हिडिओ, आणि तुमच्यासारख्या लोकांचे प्रामाणिक रील्स व रेटिंग.','ਨੇੜੇ ਦੀਆਂ ਦੁਕਾਨਾਂ ਦੀਆਂ ਛੋਟੀਆਂ ਵੀਡੀਓਜ਼, ਅਤੇ ਤੁਹਾਡੇ ਵਰਗੇ ਲੋਕਾਂ ਦੀਆਂ ਸੱਚੀਆਂ ਰੀਲਜ਼ ਤੇ ਰੇਟਿੰਗਾਂ।'],
+'Post a short video of your shop. Reels get far more attention than photos.':['अपनी दुकान का छोटा वीडियो डालें। रील्स पर फ़ोटो से कहीं ज़्यादा ध्यान जाता है।','ನಿಮ್ಮ ಅಂಗಡಿಯ ಸಣ್ಣ ವೀಡಿಯೊ ಹಾಕಿ. ಫೋಟೋಗಳಿಗಿಂತ ರೀಲ್ಸ್‌ಗೆ ಹೆಚ್ಚು ಗಮನ ಸಿಗುತ್ತದೆ.','നിങ്ങളുടെ കടയുടെ ഒരു ചെറു വീഡിയോ ഇടൂ. ഫോട്ടോകളേക്കാൾ റീലുകൾക്ക് കൂടുതൽ ശ്രദ്ധ കിട്ടും.','మీ షాపు చిన్న వీడియో పెట్టండి. ఫోటోల కంటే రీల్స్‌కు ఎక్కువ దృష్టి వస్తుంది.','உங்கள் கடையின் சிறு வீடியோவை இடுங்கள். புகைப்படங்களை விட ரீல்ஸுக்கு அதிக கவனம் கிடைக்கும்.','तुमच्या दुकानाचा छोटा व्हिडिओ टाका. फोटोंपेक्षा रील्सकडे जास्त लक्ष जाते.','ਆਪਣੀ ਦੁਕਾਨ ਦੀ ਛੋਟੀ ਵੀਡੀਓ ਪਾਓ। ਫ਼ੋਟੋਆਂ ਨਾਲੋਂ ਰੀਲਜ਼ ਵੱਲ ਕਿਤੇ ਵੱਧ ਧਿਆਨ ਜਾਂਦਾ ਹੈ।'],
+'＋ Post a reel':['＋ रील डालें','＋ ರೀಲ್ ಹಾಕಿ','＋ റീൽ ഇടൂ','＋ రీల్ పెట్టండి','＋ ரீல் இடுங்கள்','＋ रील टाका','＋ ਰੀਲ ਪਾਓ'],
+'✨ All':['✨ सभी','✨ ಎಲ್ಲಾ','✨ എല്ലാം','✨ అన్నీ','✨ அனைத்தும்','✨ सर्व','✨ ਸਾਰੇ'],
+'🏪 From shops':['🏪 दुकानों से','🏪 ಅಂಗಡಿಗಳಿಂದ','🏪 കടകളിൽ നിന്ന്','🏪 షాపుల నుండి','🏪 கடைகளிலிருந்து','🏪 दुकानांकडून','🏪 ਦੁਕਾਨਾਂ ਤੋਂ'],
+'⭐ Explorer reviews':['⭐ लोगों के रिव्यू','⭐ ಜನರ ವಿಮರ್ಶೆಗಳು','⭐ ആളുകളുടെ റിവ്യൂകൾ','⭐ ప్రజల రివ్యూలు','⭐ மக்களின் விமர்சனங்கள்','⭐ लोकांचे रिव्ह्यू','⭐ ਲੋਕਾਂ ਦੇ ਰਿਵਿਊ'],
+'Post your reel':['अपनी रील डालें','ನಿಮ್ಮ ರೀಲ್ ಹಾಕಿ','നിങ്ങളുടെ റീൽ ഇടൂ','మీ రీల్ పెట్టండి','உங்கள் ரீலை இடுங்கள்','तुमची रील टाका','ਆਪਣੀ ਰੀਲ ਪਾਓ'],
+'Review a place you visited':['जहाँ गए उसका रिव्यू दें','ಭೇಟಿ ನೀಡಿದ ಸ್ಥಳವನ್ನು ವಿಮರ್ಶಿಸಿ','പോയ സ്ഥലത്തിന് റിവ്യൂ നൽകൂ','వెళ్ళిన చోటుకు రివ్యూ ఇవ్వండి','சென்ற இடத்தை மதிப்பிடுங்கள்','भेट दिलेल्या जागेचा रिव्ह्यू द्या','ਜਿੱਥੇ ਗਏ ਉਸਦਾ ਰਿਵਿਊ ਦਿਓ'],
+'Show off your shop':['अपनी दुकान दिखाएँ','ನಿಮ್ಮ ಅಂಗಡಿ ತೋರಿಸಿ','നിങ്ങളുടെ കട കാണിക്കൂ','మీ షాపును చూపించండి','உங்கள் கடையைக் காட்டுங்கள்','तुमचे दुकान दाखवा','ਆਪਣੀ ਦੁਕਾਨ ਦਿਖਾਓ'],
+'🏪 Shop':['🏪 दुकान','🏪 ಅಂಗಡಿ','🏪 കട','🏪 షాపు','🏪 கடை','🏪 दुकान','🏪 ਦੁਕਾਨ'],
+'⭐ Review':['⭐ रिव्यू','⭐ ವಿಮರ್ಶೆ','⭐ റിവ്യൂ','⭐ రివ్యూ','⭐ விமர்சனம்','⭐ रिव्ह्यू','⭐ ਰਿਵਿਊ'],
+'Browse':['देखें','ಬ್ರೌಸ್','ബ്രൗസ്','బ్రౌజ్','உலாவு','ब्राउझ','ਬ੍ਰਾਊਜ਼'],
+'What are you <span class="gt">looking for?</span>':['आप <span class="gt">क्या ढूँढ रहे हैं?</span>','ನೀವು <span class="gt">ಏನು ಹುಡುಕುತ್ತಿದ್ದೀರಿ?</span>','നിങ്ങൾ <span class="gt">എന്താണ് തിരയുന്നത്?</span>','మీరు <span class="gt">ఏం వెతుకుతున్నారు?</span>','நீங்கள் <span class="gt">என்ன தேடுகிறீர்கள்?</span>','तुम्ही <span class="gt">काय शोधताय?</span>','ਤੁਸੀਂ <span class="gt">ਕੀ ਲੱਭ ਰਹੇ ਹੋ?</span>'],
+'Best {c} near {p}':['{p} के पास सबसे अच्छे {c}','{p} ಹತ್ತಿರದ ಅತ್ಯುತ್ತಮ {c}','{p} ന് അടുത്തുള്ള മികച്ച {c}','{p} దగ్గర ఉత్తమ {c}','{p} அருகில் சிறந்த {c}','{p} जवळील सर्वोत्तम {c}','{p} ਨੇੜੇ ਸਭ ਤੋਂ ਵਧੀਆ {c}'],
+'Best {c} near you':['आपके पास सबसे अच्छे {c}','ನಿಮ್ಮ ಹತ್ತಿರದ ಅತ್ಯುತ್ತಮ {c}','നിങ്ങളുടെ അടുത്തുള്ള മികച്ച {c}','మీ దగ్గర ఉత్తమ {c}','உங்கள் அருகில் சிறந்த {c}','तुमच्या जवळील सर्वोत्तम {c}','ਤੁਹਾਡੇ ਨੇੜੇ ਸਭ ਤੋਂ ਵਧੀਆ {c}'],
+'{n} offers within 25 km':['25 किमी में {n} ऑफ़र','25 ಕಿ.ಮೀ ಒಳಗೆ {n} ಆಫರ್‌ಗಳು','25 കി.മീ ഉള്ളിൽ {n} ഓഫറുകൾ','25 కి.మీ లోపల {n} ఆఫర్లు','25 கி.மீ.க்குள் {n} சலுகைகள்','25 किमीमध्ये {n} ऑफर्स','25 ਕਿ.ਮੀ. ਅੰਦਰ {n} ਆਫ਼ਰ'],
+'See all {c} →':['सभी {c} देखें →','ಎಲ್ಲಾ {c} ನೋಡಿ →','എല്ലാ {c} കാണൂ →','అన్ని {c} చూడండి →','அனைத்து {c} பார் →','सर्व {c} पहा →','ਸਾਰੇ {c} ਵੇਖੋ →'],
+// category names
+'All':['सभी','ಎಲ್ಲಾ','എല്ലാം','అన్నీ','அனைத்தும்','सर्व','ਸਾਰੇ'],
+'Cafés':['कैफ़े','ಕೆಫೆ','കഫേ','కేఫ్‌లు','கஃபே','कॅफे','ਕੈਫ਼ੇ'],
+'Kirana':['किराना','ಕಿರಾಣಿ','പലചരക്ക്','కిరాణా','மளிகை','किराणा','ਕਰਿਆਨਾ'],
+'Food':['खाना','ಊಟ','ഭക്ഷണം','ఆహారం','உணவு','जेवण','ਖਾਣਾ'],
+'Bakery':['बेकरी','ಬೇಕರಿ','ബേക്കറി','బేకరీ','பேக்கரி','बेकरी','ਬੇਕਰੀ'],
+'Salon':['सैलून','ಸಲೂನ್','സലൂൺ','సెలూన్','சலூன்','सलून','ਸੈਲੂਨ'],
+'Gym':['जिम','ಜಿಮ್','ജിം','జిమ్','ஜிம்','जिम','ਜਿਮ'],
+'Fashion':['फ़ैशन','ಫ್ಯಾಷನ್','ഫാഷൻ','ఫ్యాషన్','ஃபேஷன்','फॅशन','ਫ਼ੈਸ਼ਨ'],
+'Electronics':['इलेक्ट्रॉनिक्स','ಎಲೆಕ್ಟ್ರಾನಿಕ್ಸ್','ഇലക്ട്രോണിക്സ്','ఎలక్ట్రానిక్స్','எலக்ட்ரானிக்ஸ்','इलेक्ट्रॉनिक्स','ਇਲੈਕਟ੍ਰਾਨਿਕਸ'],
+'Venues':['हॉल','ಹಾಲ್‌ಗಳು','ഹാളുകൾ','హాల్స్','மண்டபங்கள்','हॉल','ਹਾਲ'],
+'Events':['इवेंट्स','ಕಾರ್ಯಕ್ರಮಗಳು','പരിപാടികൾ','ఈవెంట్లు','நிகழ்வுகள்','कार्यक्रम','ਇਵੈਂਟ'],
+'Saved':['सेव किए','ಉಳಿಸಿದವು','സേവ് ചെയ്തവ','సేవ్ చేసినవి','சேமித்தவை','सेव्ह केलेले','ਸੇਵ ਕੀਤੇ'],
+// deals
+'<span class="live"></span> Live demo':['<span class="live"></span> लाइव डेमो','<span class="live"></span> ಲೈವ್ ಡೆಮೊ','<span class="live"></span> ലൈവ് ഡെമോ','<span class="live"></span> లైవ్ డెమో','<span class="live"></span> நேரடி டெமோ','<span class="live"></span> लाइव्ह डेमो','<span class="live"></span> ਲਾਈਵ ਡੈਮੋ'],
+'Deals <span class="gt">near you</span>':['आपके <span class="gt">पास के ऑफ़र</span>','ನಿಮ್ಮ <span class="gt">ಹತ್ತಿರದ ಆಫರ್‌ಗಳು</span>','നിങ്ങളുടെ <span class="gt">അടുത്തുള്ള ഓഫറുകൾ</span>','మీ <span class="gt">దగ్గరలోని ఆఫర్లు</span>','உங்கள் <span class="gt">அருகிலுள்ள சலுகைகள்</span>','तुमच्या <span class="gt">जवळच्या ऑफर्स</span>','ਤੁਹਾਡੇ <span class="gt">ਨੇੜਲੇ ਆਫ਼ਰ</span>'],
+'Choose your state and city, or turn on GPS. Offers are sorted by real distance from you.':['अपना राज्य और शहर चुनें, या GPS चालू करें। ऑफ़र आपसे असली दूरी के हिसाब से दिखते हैं।','ನಿಮ್ಮ ರಾಜ್ಯ ಮತ್ತು ನಗರ ಆಯ್ಕೆಮಾಡಿ, ಅಥವಾ GPS ಆನ್ ಮಾಡಿ. ಆಫರ್‌ಗಳು ನಿಮ್ಮಿಂದ ನಿಜವಾದ ದೂರದ ಪ್ರಕಾರ ಕಾಣುತ್ತವೆ.','നിങ്ങളുടെ സംസ്ഥാനവും നഗരവും തിരഞ്ഞെടുക്കൂ, അല്ലെങ്കിൽ GPS ഓൺ ചെയ്യൂ. ഓഫറുകൾ നിങ്ങളിൽ നിന്നുള്ള യഥാർത്ഥ ദൂരം അനുസരിച്ച് കാണിക്കും.','మీ రాష్ట్రం, నగరం ఎంచుకోండి, లేదా GPS ఆన్ చేయండి. ఆఫర్లు మీ నుండి అసలు దూరం ప్రకారం కనిపిస్తాయి.','உங்கள் மாநிலம் மற்றும் நகரத்தைத் தேர்ந்தெடுங்கள், அல்லது GPS ஐ இயக்குங்கள். சலுகைகள் உங்களிடமிருந்து உண்மையான தூரத்தின்படி காட்டப்படும்.','तुमचे राज्य आणि शहर निवडा, किंवा GPS सुरू करा. ऑफर्स तुमच्यापासूनच्या खऱ्या अंतरानुसार दिसतात.','ਆਪਣਾ ਰਾਜ ਅਤੇ ਸ਼ਹਿਰ ਚੁਣੋ, ਜਾਂ GPS ਚਾਲੂ ਕਰੋ। ਆਫ਼ਰ ਤੁਹਾਡੇ ਤੋਂ ਅਸਲ ਦੂਰੀ ਮੁਤਾਬਕ ਦਿਸਦੇ ਹਨ।'],
+'📍 Your area':['📍 आपका इलाका','📍 ನಿಮ್ಮ ಪ್ರದೇಶ','📍 നിങ്ങളുടെ പ്രദേശം','📍 మీ ప్రాంతం','📍 உங்கள் பகுதி','📍 तुमचा भाग','📍 ਤੁਹਾਡਾ ਇਲਾਕਾ'],
+'State / UT':['राज्य / केंद्र शासित प्रदेश','ರಾಜ್ಯ / ಕೇಂದ್ರಾಡಳಿತ ಪ್ರದೇಶ','സംസ്ഥാനം / കേന്ദ്രഭരണ പ്രദേശം','రాష్ట్రం / కేంద్రపాలిత ప్రాంతం','மாநிலம் / யூனியன் பிரதேசம்','राज्य / केंद्रशासित प्रदेश','ਰਾਜ / ਕੇਂਦਰ ਸ਼ਾਸਿਤ ਪ੍ਰਦੇਸ਼'],
+'City':['शहर','ನಗರ','നഗരം','నగరం','நகரம்','शहर','ਸ਼ਹਿਰ'],
+'Use my GPS location':['मेरी GPS लोकेशन लें','ನನ್ನ GPS ಸ್ಥಳ ಬಳಸಿ','എന്റെ GPS ലൊക്കേഷൻ ഉപയോഗിക്കൂ','నా GPS లొకేషన్ వాడండి','என் GPS இருப்பிடத்தைப் பயன்படுத்து','माझे GPS लोकेशन वापरा','ਮੇਰੀ GPS ਲੋਕੇਸ਼ਨ ਵਰਤੋ'],
+'Distance':['दूरी','ದೂರ','ദൂരം','దూరం','தூரம்','अंतर','ਦੂਰੀ'],
+'Sort by':['क्रम','ವಿಂಗಡಿಸಿ','ക്രമീകരിക്കുക','క్రమం','வரிசைப்படுத்து','क्रम','ਕ੍ਰਮ'],
+'⚡ Top':['⚡ टॉप','⚡ ಟಾಪ್','⚡ ടോപ്പ്','⚡ టాప్','⚡ சிறந்த','⚡ टॉप','⚡ ਟਾਪ'],
+'📍 Nearest':['📍 सबसे पास','📍 ಹತ್ತಿರದ','📍 അടുത്തത്','📍 దగ్గర','📍 அருகில்','📍 जवळचे','📍 ਸਭ ਤੋਂ ਨੇੜੇ'],
+'🆕 New':['🆕 नए','🆕 ಹೊಸ','🆕 പുതിയത്','🆕 కొత్తవి','🆕 புதியவை','🆕 नवीन','🆕 ਨਵੇਂ'],
+'Category':['श्रेणी','ವರ್ಗ','വിഭാഗം','వర్గం','வகை','श्रेणी','ਸ਼੍ਰੇਣੀ'],
+'Search by shop, item or offer…':['दुकान, सामान या ऑफ़र से खोजें…','ಅಂಗಡಿ, ವಸ್ತು ಅಥವಾ ಆಫರ್ ಹುಡುಕಿ…','കട, സാധനം അല്ലെങ്കിൽ ഓഫർ തിരയൂ…','షాపు, వస్తువు లేదా ఆఫర్ వెతకండి…','கடை, பொருள் அல்லது சலுகையைத் தேடுங்கள்…','दुकान, वस्तू किंवा ऑफर शोधा…','ਦੁਕਾਨ, ਚੀਜ਼ ਜਾਂ ਆਫ਼ਰ ਲੱਭੋ…'],
+'{n} deals within {r} km of {p}':['{p} से {r} किमी के अंदर {n} ऑफ़र','{p} ಇಂದ {r} ಕಿ.ಮೀ ಒಳಗೆ {n} ಆಫರ್‌ಗಳು','{p} ൽ നിന്ന് {r} കി.മീ ഉള്ളിൽ {n} ഓഫറുകൾ','{p} నుండి {r} కి.మీ లోపల {n} ఆఫర్లు','{p} இலிருந்து {r} கி.மீ.க்குள் {n} சலுகைகள்','{p} पासून {r} किमीमध्ये {n} ऑफर्स','{p} ਤੋਂ {r} ਕਿ.ਮੀ. ਅੰਦਰ {n} ਆਫ਼ਰ'],
+'{n} deals within {r} km of you':['आपसे {r} किमी के अंदर {n} ऑफ़र','ನಿಮ್ಮಿಂದ {r} ಕಿ.ಮೀ ಒಳಗೆ {n} ಆಫರ್‌ಗಳು','നിങ്ങളിൽ നിന്ന് {r} കി.മീ ഉള്ളിൽ {n} ഓഫറുകൾ','మీ నుండి {r} కి.మీ లోపల {n} ఆఫర్లు','உங்களிடமிருந்து {r} கி.மீ.க்குள் {n} சலுகைகள்','तुमच्यापासून {r} किमीमध्ये {n} ऑफर्स','ਤੁਹਾਡੇ ਤੋਂ {r} ਕਿ.ਮੀ. ਅੰਦਰ {n} ਆਫ਼ਰ'],
+'Directions':['रास्ता','ದಾರಿ','വഴി','దారి','வழி','मार्ग','ਰਸਤਾ'],
+'Claim':['पाएँ','ಪಡೆಯಿರಿ','നേടൂ','పొందండి','பெறு','मिळवा','ਲਓ'],
+'Rate this place':['इस जगह को रेट करें','ಈ ಸ್ಥಳಕ್ಕೆ ರೇಟ್ ಮಾಡಿ','ഈ സ്ഥലം റേറ്റ് ചെയ്യൂ','ఈ చోటుకు రేటింగ్ ఇవ్వండి','இந்த இடத்தை மதிப்பிடுங்கள்','या जागेला रेटिंग द्या','ਇਸ ਥਾਂ ਨੂੰ ਰੇਟ ਕਰੋ'],
+'⚡ Boosted':['⚡ बूस्टेड','⚡ ಬೂಸ್ಟ್','⚡ ബൂസ്റ്റഡ്','⚡ బూస్ట్','⚡ பூஸ்ட்','⚡ बूस्टेड','⚡ ਬੂਸਟਡ'],
+'reviews':['रिव्यू','ವಿಮರ್ಶೆ','റിവ്യൂ','రివ్యూలు','விமர்சனங்கள்','रिव्ह्यू','ਰਿਵਿਊ'],
+// how it works (explore)
+'Find it. Claim it. <span class="gt">Enjoy it.</span>':['खोजें। पाएँ। <span class="gt">मज़े करें।</span>','ಹುಡುಕಿ. ಪಡೆಯಿರಿ. <span class="gt">ಆನಂದಿಸಿ.</span>','കണ്ടെത്തൂ. നേടൂ. <span class="gt">ആസ്വദിക്കൂ.</span>','కనుగొనండి. పొందండి. <span class="gt">ఆనందించండి.</span>','கண்டுபிடி. பெறு. <span class="gt">மகிழ்.</span>','शोधा. मिळवा. <span class="gt">आनंद घ्या.</span>','ਲੱਭੋ। ਲਓ। <span class="gt">ਮਜ਼ਾ ਲਓ।</span>'],
+'Share location':['लोकेशन दें','ಸ್ಥಳ ಹಂಚಿಕೊಳ್ಳಿ','ലൊക്കേഷൻ നൽകൂ','లొకేషన్ ఇవ్వండి','இருப்பிடத்தைப் பகிருங்கள்','लोकेशन द्या','ਲੋਕੇਸ਼ਨ ਦਿਓ'],
+"Allow GPS or pick your area to see what's happening around you.":['GPS चालू करें या अपना इलाका चुनें और देखें आसपास क्या है।','GPS ಅನುಮತಿಸಿ ಅಥವಾ ನಿಮ್ಮ ಪ್ರದೇಶ ಆಯ್ಕೆಮಾಡಿ, ಸುತ್ತಮುತ್ತ ಏನಿದೆ ನೋಡಿ.','GPS അനുവദിക്കൂ അല്ലെങ്കിൽ പ്രദേശം തിരഞ്ഞെടുക്കൂ, ചുറ്റും എന്തുണ്ടെന്ന് കാണൂ.','GPS అనుమతించండి లేదా మీ ప్రాంతం ఎంచుకోండి, చుట్టూ ఏముందో చూడండి.','GPS ஐ அனுமதியுங்கள் அல்லது பகுதியைத் தேர்ந்தெடுங்கள், சுற்றி என்ன இருக்கிறது பாருங்கள்.','GPS सुरू करा किंवा तुमचा भाग निवडा आणि आसपास काय आहे ते पहा.','GPS ਚਾਲੂ ਕਰੋ ਜਾਂ ਆਪਣਾ ਇਲਾਕਾ ਚੁਣੋ ਅਤੇ ਵੇਖੋ ਆਲੇ-ਦੁਆਲੇ ਕੀ ਹੈ।'],
+'Discover':['खोजें','ಅನ್ವೇಷಿಸಿ','കണ്ടെത്തൂ','కనుగొనండి','கண்டறியுங்கள்','शोधा','ਲੱਭੋ'],
+'Browse cafés, kirana, salons, gyms and events sorted by distance.':['कैफ़े, किराना, सैलून, जिम और इवेंट दूरी के हिसाब से देखें।','ಕೆಫೆ, ಕಿರಾಣಿ, ಸಲೂನ್, ಜಿಮ್, ಕಾರ್ಯಕ್ರಮಗಳನ್ನು ದೂರದ ಪ್ರಕಾರ ನೋಡಿ.','കഫേ, പലചരക്ക്, സലൂൺ, ജിം, പരിപാടികൾ ദൂരം അനുസരിച്ച് കാണൂ.','కేఫ్‌లు, కిరాణా, సెలూన్లు, జిమ్‌లు, ఈవెంట్లు దూరం ప్రకారం చూడండి.','கஃபே, மளிகை, சலூன், ஜிம், நிகழ்வுகளைத் தூரத்தின்படி பாருங்கள்.','कॅफे, किराणा, सलून, जिम आणि कार्यक्रम अंतरानुसार पहा.','ਕੈਫ਼ੇ, ਕਰਿਆਨਾ, ਸੈਲੂਨ, ਜਿਮ ਅਤੇ ਇਵੈਂਟ ਦੂਰੀ ਮੁਤਾਬਕ ਵੇਖੋ।'],
+'Claim a coupon':['कूपन पाएँ','ಕೂಪನ್ ಪಡೆಯಿರಿ','കൂപ്പൺ നേടൂ','కూపన్ పొందండి','கூப்பன் பெறுங்கள்','कूपन मिळवा','ਕੂਪਨ ਲਓ'],
+'Tap “Claim” and show the code at the shop. Always free.':['“पाएँ” दबाएँ और दुकान पर कोड दिखाएँ। हमेशा मुफ़्त।','“ಪಡೆಯಿರಿ” ಒತ್ತಿ, ಅಂಗಡಿಯಲ್ಲಿ ಕೋಡ್ ತೋರಿಸಿ. ಯಾವಾಗಲೂ ಉಚಿತ.','“നേടൂ” അമർത്തി കടയിൽ കോഡ് കാണിക്കൂ. എപ്പോഴും സൗജന്യം.','“పొందండి” నొక్కి, షాపులో కోడ్ చూపించండి. ఎప్పుడూ ఉచితం.','“பெறு” அழுத்தி கடையில் குறியீட்டைக் காட்டுங்கள். எப்போதும் இலவசம்.','“मिळवा” दाबा आणि दुकानात कोड दाखवा. नेहमी मोफत.','“ਲਓ” ਦਬਾਓ ਅਤੇ ਦੁਕਾਨ ’ਤੇ ਕੋਡ ਦਿਖਾਓ। ਹਮੇਸ਼ਾ ਮੁਫ਼ਤ।'],
+'Save favourites':['पसंदीदा सेव करें','ಇಷ್ಟವಾದವನ್ನು ಉಳಿಸಿ','ഇഷ്ടമുള്ളവ സേവ് ചെയ്യൂ','నచ్చినవి సేవ్ చేయండి','பிடித்தவற்றைச் சேமியுங்கள்','आवडते सेव्ह करा','ਪਸੰਦੀਦਾ ਸੇਵ ਕਰੋ'],
+'Heart the deals you like and find them again under “Saved”.':['पसंद आए ऑफ़र पर दिल दबाएँ और उन्हें “सेव किए” में फिर पाएँ।','ಇಷ್ಟವಾದ ಆಫರ್‌ಗೆ ಹೃದಯ ಒತ್ತಿ, “ಉಳಿಸಿದವು” ನಲ್ಲಿ ಮತ್ತೆ ಹುಡುಕಿ.','ഇഷ്ടപ്പെട്ട ഓഫറുകളിൽ ഹൃദയം അമർത്തൂ, “സേവ് ചെയ്തവ” യിൽ വീണ്ടും കാണാം.','నచ్చిన ఆఫర్లకు హార్ట్ నొక్కండి, “సేవ్ చేసినవి” లో మళ్ళీ చూడండి.','பிடித்த சலுகைகளுக்கு இதயம் அழுத்தி, “சேமித்தவை” இல் மீண்டும் காணுங்கள்.','आवडलेल्या ऑफरवर हृदय दाबा आणि “सेव्ह केलेले” मध्ये परत शोधा.','ਪਸੰਦ ਆਏ ਆਫ਼ਰ ’ਤੇ ਦਿਲ ਦਬਾਓ ਅਤੇ “ਸੇਵ ਕੀਤੇ” ਵਿੱਚ ਮੁੜ ਲੱਭੋ।'],
+// business sections
+'What we do':['हम क्या करते हैं','ನಾವು ಏನು ಮಾಡುತ್ತೇವೆ','ഞങ്ങൾ എന്ത് ചെയ്യുന്നു','మేము ఏం చేస్తాం','நாங்கள் என்ன செய்கிறோம்','आम्ही काय करतो','ਅਸੀਂ ਕੀ ਕਰਦੇ ਹਾਂ'],
+'Local promotion, <span class="gt">made simple</span>':['लोकल प्रमोशन, <span class="gt">अब आसान</span>','ಸ್ಥಳೀಯ ಪ್ರಚಾರ, <span class="gt">ಈಗ ಸುಲಭ</span>','പ്രാദേശിക പ്രമോഷൻ, <span class="gt">ഇനി എളുപ്പം</span>','లోకల్ ప్రమోషన్, <span class="gt">ఇప్పుడు సులభం</span>','உள்ளூர் விளம்பரம், <span class="gt">இப்போது எளிது</span>','लोकल प्रमोशन, <span class="gt">आता सोपे</span>','ਲੋਕਲ ਪ੍ਰਮੋਸ਼ਨ, <span class="gt">ਹੁਣ ਆਸਾਨ</span>'],
+'Create your shop':['अपनी दुकान बनाएँ','ನಿಮ್ಮ ಅಂಗಡಿ ರಚಿಸಿ','നിങ്ങളുടെ കട ചേർക്കൂ','మీ షాపును సృష్టించండి','உங்கள் கடையை உருவாக்குங்கள்','तुमचे दुकान तयार करा','ਆਪਣੀ ਦੁਕਾਨ ਬਣਾਓ'],
+'Sign up with shop name, category, location and WhatsApp number.':['दुकान का नाम, श्रेणी, लोकेशन और WhatsApp नंबर से साइन अप करें।','ಅಂಗಡಿ ಹೆಸರು, ವರ್ಗ, ಸ್ಥಳ ಮತ್ತು WhatsApp ಸಂಖ್ಯೆಯೊಂದಿಗೆ ಸೈನ್ ಅಪ್ ಮಾಡಿ.','കടയുടെ പേര്, വിഭാഗം, ലൊക്കേഷൻ, WhatsApp നമ്പർ എന്നിവ നൽകി സൈൻ അപ്പ് ചെയ്യൂ.','షాపు పేరు, వర్గం, లొకేషన్, WhatsApp నంబర్‌తో సైన్ అప్ చేయండి.','கடையின் பெயர், வகை, இருப்பிடம், WhatsApp எண்ணுடன் பதிவு செய்யுங்கள்.','दुकानाचे नाव, श्रेणी, लोकेशन आणि WhatsApp नंबरने साइन अप करा.','ਦੁਕਾਨ ਦਾ ਨਾਮ, ਸ਼੍ਰੇਣੀ, ਲੋਕੇਸ਼ਨ ਅਤੇ WhatsApp ਨੰਬਰ ਨਾਲ ਸਾਈਨ ਅੱਪ ਕਰੋ।'],
+'Post an offer':['ऑफ़र डालें','ಆಫರ್ ಹಾಕಿ','ഓഫർ ഇടൂ','ఆఫర్ పెట్టండి','சலுகை இடுங்கள்','ऑफर टाका','ਆਫ਼ਰ ਪਾਓ'],
+'Add your offer like “20% off this week” and choose your reach.':['“इस हफ़्ते 20% छूट” जैसा ऑफ़र डालें और अपनी पहुँच चुनें।','“ಈ ವಾರ 20% ರಿಯಾಯಿತಿ” ಎಂಬಂತಹ ಆಫರ್ ಹಾಕಿ, ವ್ಯಾಪ್ತಿ ಆಯ್ಕೆಮಾಡಿ.','“ഈ ആഴ്ച 20% കിഴിവ്” പോലുള്ള ഓഫർ ഇട്ട് റീച്ച് തിരഞ്ഞെടുക്കൂ.','“ఈ వారం 20% తగ్గింపు” లాంటి ఆఫర్ పెట్టి, పరిధి ఎంచుకోండి.','“இந்த வாரம் 20% தள்ளுபடி” போன்ற சலுகையை இட்டு, தூரத்தைத் தேர்ந்தெடுங்கள்.','“या आठवड्यात 20% सूट” अशी ऑफर टाका आणि पोहोच निवडा.','“ਇਸ ਹਫ਼ਤੇ 20% ਛੋਟ” ਵਰਗਾ ਆਫ਼ਰ ਪਾਓ ਅਤੇ ਆਪਣੀ ਪਹੁੰਚ ਚੁਣੋ।'],
+'Pick a pack':['पैक चुनें','ಪ್ಯಾಕ್ ಆಯ್ಕೆಮಾಡಿ','പാക്ക് തിരഞ്ഞെടുക്കൂ','ప్యాక్ ఎంచుకోండి','பேக்கைத் தேர்ந்தெடுங்கள்','पॅक निवडा','ਪੈਕ ਚੁਣੋ'],
+'Go free, or boost with Basic, Premium or Featured, with reels included.':['मुफ़्त रखें, या Basic, Premium या Featured से बूस्ट करें, रील्स के साथ।','ಉಚಿತವಾಗಿ ಬಳಸಿ, ಅಥವಾ Basic, Premium, Featured ಮೂಲಕ ಬೂಸ್ಟ್ ಮಾಡಿ, ರೀಲ್ಸ್ ಸಹಿತ.','സൗജന്യമായി തുടരൂ, അല്ലെങ്കിൽ റീലുകൾ ഉൾപ്പെടെ Basic, Premium, Featured ഉപയോഗിച്ച് ബൂസ്റ്റ് ചെയ്യൂ.','ఉచితంగా వాడండి, లేదా రీల్స్‌తో కూడిన Basic, Premium, Featured తో బూస్ట్ చేయండి.','இலவசமாகப் பயன்படுத்துங்கள், அல்லது ரீல்ஸுடன் Basic, Premium, Featured மூலம் பூஸ்ட் செய்யுங்கள்.','मोफत वापरा, किंवा रील्ससह Basic, Premium किंवा Featured ने बूस्ट करा.','ਮੁਫ਼ਤ ਵਰਤੋ, ਜਾਂ ਰੀਲਜ਼ ਸਮੇਤ Basic, Premium ਜਾਂ Featured ਨਾਲ ਬੂਸਟ ਕਰੋ।'],
+'Get customers':['ग्राहक पाएँ','ಗ್ರಾಹಕರನ್ನು ಪಡೆಯಿರಿ','ഉപഭോക്താക്കളെ നേടൂ','కస్టమర్లను పొందండి','வாடிக்கையாளர்களைப் பெறுங்கள்','ग्राहक मिळवा','ਗਾਹਕ ਲਓ'],
+'People nearby call, WhatsApp, get directions or claim your coupon.':['पास के लोग कॉल, WhatsApp करते हैं, रास्ता देखते हैं या आपका कूपन लेते हैं।','ಹತ್ತಿರದ ಜನರು ಕರೆ, WhatsApp ಮಾಡುತ್ತಾರೆ, ದಾರಿ ನೋಡುತ್ತಾರೆ ಅಥವಾ ನಿಮ್ಮ ಕೂಪನ್ ಪಡೆಯುತ್ತಾರೆ.','അടുത്തുള്ളവർ വിളിക്കും, WhatsApp ചെയ്യും, വഴി നോക്കും, അല്ലെങ്കിൽ കൂപ്പൺ നേടും.','దగ్గరలోని వారు కాల్, WhatsApp చేస్తారు, దారి చూస్తారు లేదా మీ కూపన్ పొందుతారు.','அருகிலுள்ளவர்கள் அழைப்பார்கள், WhatsApp செய்வார்கள், வழி பார்ப்பார்கள் அல்லது உங்கள் கூப்பனைப் பெறுவார்கள்.','जवळचे लोक कॉल, WhatsApp करतात, मार्ग पाहतात किंवा तुमचे कूपन घेतात.','ਨੇੜੇ ਦੇ ਲੋਕ ਕਾਲ, WhatsApp ਕਰਦੇ ਹਨ, ਰਸਤਾ ਵੇਖਦੇ ਹਨ ਜਾਂ ਤੁਹਾਡਾ ਕੂਪਨ ਲੈਂਦੇ ਹਨ।'],
+'Your dashboard':['आपका डैशबोर्ड','ನಿಮ್ಮ ಡ್ಯಾಶ್‌ಬೋರ್ಡ್','നിങ്ങളുടെ ഡാഷ്ബോർഡ്','మీ డాష్‌బోర్డ్','உங்கள் டாஷ்போர்டு','तुमचा डॅशबोर्ड','ਤੁਹਾਡਾ ਡੈਸ਼ਬੋਰਡ'],
+'See exactly what <span class="gt">your post did</span>':['देखें <span class="gt">आपकी पोस्ट ने क्या किया</span>','<span class="gt">ನಿಮ್ಮ ಪೋಸ್ಟ್ ಏನು ಮಾಡಿತು</span> ಎಂದು ನೋಡಿ','<span class="gt">നിങ്ങളുടെ പോസ്റ്റ് എന്ത് ചെയ്തു</span> എന്ന് കാണൂ','<span class="gt">మీ పోస్ట్ ఏం చేసిందో</span> చూడండి','<span class="gt">உங்கள் பதிவு என்ன செய்தது</span> என்று பாருங்கள்','<span class="gt">तुमच्या पोस्टने काय केले</span> ते पहा','ਵੇਖੋ <span class="gt">ਤੁਹਾਡੀ ਪੋਸਟ ਨੇ ਕੀ ਕੀਤਾ</span>'],
+'Packs &amp; pricing':['पैक और कीमतें','ಪ್ಯಾಕ್ ಮತ್ತು ಬೆಲೆ','പാക്കുകളും നിരക്കും','ప్యాక్‌లు & ధరలు','பேக்குகள் & விலைகள்','पॅक आणि किंमती','ਪੈਕ ਅਤੇ ਕੀਮਤਾਂ'],
+'A pack for <span class="gt">every budget</span>':['<span class="gt">हर बजट</span> के लिए एक पैक','<span class="gt">ಪ್ರತಿ ಬಜೆಟ್‌ಗೂ</span> ಒಂದು ಪ್ಯಾಕ್','<span class="gt">ഏത് ബജറ്റിനും</span> ഒരു പാക്ക്','<span class="gt">ప్రతి బడ్జెట్‌కు</span> ఒక ప్యాక్','<span class="gt">ஒவ்வொரு பட்ஜெட்டுக்கும்</span> ஒரு பேக்','<span class="gt">प्रत्येक बजेटसाठी</span> एक पॅक','<span class="gt">ਹਰ ਬਜਟ</span> ਲਈ ਇੱਕ ਪੈਕ'],
+'For business owners':['दुकानदारों के लिए','ಅಂಗಡಿ ಮಾಲೀಕರಿಗೆ','കടയുടമകൾക്ക്','షాపు యజమానుల కోసం','கடை உரிமையாளர்களுக்கு','दुकानदारांसाठी','ਦੁਕਾਨਦਾਰਾਂ ਲਈ'],
+'Post your first offer <span class="gt">in 2 minutes</span>':['<span class="gt">2 मिनट में</span> पहला ऑफ़र डालें','<span class="gt">2 ನಿಮಿಷದಲ್ಲಿ</span> ಮೊದಲ ಆಫರ್ ಹಾಕಿ','<span class="gt">2 മിനിറ്റിൽ</span> ആദ്യ ഓഫർ ഇടൂ','<span class="gt">2 నిమిషాల్లో</span> మొదటి ఆఫర్ పెట్టండి','<span class="gt">2 நிமிடத்தில்</span> முதல் சலுகையை இடுங்கள்','<span class="gt">2 मिनिटांत</span> पहिली ऑफर टाका','<span class="gt">2 ਮਿੰਟਾਂ ਵਿੱਚ</span> ਪਹਿਲਾ ਆਫ਼ਰ ਪਾਓ'],
+'We make a <span class="gt">reel</span> for your shop':['हम आपकी दुकान की <span class="gt">रील</span> बनाते हैं','ನಿಮ್ಮ ಅಂಗಡಿಗೆ ನಾವು <span class="gt">ರೀಲ್</span> ಮಾಡುತ್ತೇವೆ','നിങ്ങളുടെ കടയ്ക്കായി ഞങ്ങൾ <span class="gt">റീൽ</span> ഉണ്ടാക്കും','మీ షాపు కోసం మేము <span class="gt">రీల్</span> చేస్తాం','உங்கள் கடைக்கு நாங்கள் <span class="gt">ரீல்</span> செய்கிறோம்','तुमच्या दुकानासाठी आम्ही <span class="gt">रील</span> बनवतो','ਅਸੀਂ ਤੁਹਾਡੀ ਦੁਕਾਨ ਦੀ <span class="gt">ਰੀਲ</span> ਬਣਾਉਂਦੇ ਹਾਂ'],
+// faq + cta
+'Questions? <span class="gt">Answered.</span>':['सवाल? <span class="gt">जवाब यहाँ।</span>','ಪ್ರಶ್ನೆಗಳೇ? <span class="gt">ಉತ್ತರ ಇಲ್ಲಿದೆ.</span>','ചോദ്യങ്ങൾ? <span class="gt">ഉത്തരം ഇവിടെ.</span>','ప్రశ్నలా? <span class="gt">సమాధానాలు ఇక్కడ.</span>','கேள்விகளா? <span class="gt">பதில்கள் இதோ.</span>','प्रश्न? <span class="gt">उत्तरे इथे.</span>','ਸਵਾਲ? <span class="gt">ਜਵਾਬ ਇੱਥੇ।</span>'],
+'Deals are waiting around the corner.':['ऑफ़र नुक्कड़ पर आपका इंतज़ार कर रहे हैं।','ಆಫರ್‌ಗಳು ನಿಮ್ಮ ಬೀದಿಯಲ್ಲೇ ಕಾಯುತ್ತಿವೆ.','ഓഫറുകൾ തൊട്ടടുത്ത് കാത്തിരിക്കുന്നു.','ఆఫర్లు మీ వీధిలోనే ఎదురుచూస్తున్నాయి.','சலுகைகள் உங்கள் தெருவிலேயே காத்திருக்கின்றன.','ऑफर्स तुमच्या कोपऱ्यावर वाट पाहत आहेत.','ਆਫ਼ਰ ਤੁਹਾਡੇ ਨੇੜੇ ਹੀ ਉਡੀਕ ਕਰ ਰਹੇ ਹਨ।'],
+'Create a free account to save favourites and claim coupons.':['पसंदीदा सेव करने और कूपन पाने के लिए मुफ़्त अकाउंट बनाएँ।','ಇಷ್ಟವಾದವನ್ನು ಉಳಿಸಲು ಮತ್ತು ಕೂಪನ್ ಪಡೆಯಲು ಉಚಿತ ಖಾತೆ ತೆರೆಯಿರಿ.','ഇഷ്ടമുള്ളവ സേവ് ചെയ്യാനും കൂപ്പൺ നേടാനും സൗജന്യ അക്കൗണ്ട് തുടങ്ങൂ.','నచ్చినవి సేవ్ చేయడానికి, కూపన్లు పొందడానికి ఉచిత ఖాతా తెరవండి.','பிடித்தவற்றைச் சேமிக்கவும் கூப்பன் பெறவும் இலவசக் கணக்கைத் தொடங்குங்கள்.','आवडते सेव्ह करण्यासाठी आणि कूपन मिळवण्यासाठी मोफत खाते उघडा.','ਪਸੰਦੀਦਾ ਸੇਵ ਕਰਨ ਅਤੇ ਕੂਪਨ ਲੈਣ ਲਈ ਮੁਫ਼ਤ ਖਾਤਾ ਬਣਾਓ।'],
+'Join free →':['मुफ़्त जुड़ें →','ಉಚಿತವಾಗಿ ಸೇರಿ →','സൗജന്യമായി ചേരൂ →','ఉచితంగా చేరండి →','இலவசமாகச் சேருங்கள் →','मोफत सामील व्हा →','ਮੁਫ਼ਤ ਜੁੜੋ →'],
+'Your next 100 customers are within 5 km.':['आपके अगले 100 ग्राहक 5 किमी के अंदर हैं।','ನಿಮ್ಮ ಮುಂದಿನ 100 ಗ್ರಾಹಕರು 5 ಕಿ.ಮೀ ಒಳಗೆ ಇದ್ದಾರೆ.','നിങ്ങളുടെ അടുത്ത 100 ഉപഭോക്താക്കൾ 5 കി.മീ ഉള്ളിലുണ്ട്.','మీ తదుపరి 100 కస్టమర్లు 5 కి.మీ లోపలే ఉన్నారు.','உங்கள் அடுத்த 100 வாடிக்கையாளர்கள் 5 கி.மீ.க்குள் இருக்கிறார்கள்.','तुमचे पुढचे 100 ग्राहक 5 किमीमध्येच आहेत.','ਤੁਹਾਡੇ ਅਗਲੇ 100 ਗਾਹਕ 5 ਕਿ.ਮੀ. ਅੰਦਰ ਹਨ।'],
+'Join Bazaar Buzz free and start reaching them today.':['Bazaar Buzz से मुफ़्त जुड़ें और आज ही उन तक पहुँचें।','Bazaar Buzz ಗೆ ಉಚಿತವಾಗಿ ಸೇರಿ, ಇಂದೇ ಅವರನ್ನು ತಲುಪಿ.','Bazaar Buzz-ൽ സൗജന്യമായി ചേർന്ന് ഇന്ന് തന്നെ അവരിലേക്ക് എത്തൂ.','Bazaar Buzz లో ఉచితంగా చేరి, ఈరోజే వారిని చేరుకోండి.','Bazaar Buzz-ல் இலவசமாகச் சேர்ந்து இன்றே அவர்களை அடையுங்கள்.','Bazaar Buzz मध्ये मोफत सामील व्हा आणि आजच त्यांच्यापर्यंत पोहोचा.','Bazaar Buzz ਨਾਲ ਮੁਫ਼ਤ ਜੁੜੋ ਅਤੇ ਅੱਜ ਹੀ ਉਹਨਾਂ ਤੱਕ ਪਹੁੰਚੋ।'],
+'Get started free →':['मुफ़्त शुरू करें →','ಉಚಿತವಾಗಿ ಶುರು ಮಾಡಿ →','സൗജന്യമായി തുടങ്ങൂ →','ఉచితంగా మొదలుపెట్టండి →','இலவசமாகத் தொடங்குங்கள் →','मोफत सुरू करा →','ਮੁਫ਼ਤ ਸ਼ੁਰੂ ਕਰੋ →'],
+// auth
+'or use email':['या ईमेल से','ಅಥವಾ ಇಮೇಲ್ ಬಳಸಿ','അല്ലെങ്കിൽ ഇമെയിൽ','లేదా ఇమెయిల్‌తో','அல்லது மின்னஞ்சல்','किंवा ईमेलने','ਜਾਂ ਈਮੇਲ ਨਾਲ'],
+'Email':['ईमेल','ಇಮೇಲ್','ഇമെയിൽ','ఇమెయిల్','மின்னஞ்சல்','ईमेल','ਈਮੇਲ'],
+'Password':['पासवर्ड','ಪಾಸ್‌ವರ್ಡ್','പാസ്‌വേഡ്','పాస్‌వర్డ్','கடவுச்சொல்','पासवर्ड','ਪਾਸਵਰਡ'],
+'Full name':['पूरा नाम','ಪೂರ್ಣ ಹೆಸರು','മുഴുവൻ പേര്','పూర్తి పేరు','முழுப் பெயர்','पूर्ण नाव','ਪੂਰਾ ਨਾਮ'],
+'Create account':['अकाउंट बनाएँ','ಖಾತೆ ತೆರೆಯಿರಿ','അക്കൗണ്ട് തുടങ്ങൂ','ఖాతా తెరవండి','கணக்கைத் தொடங்கு','खाते उघडा','ਖਾਤਾ ਬਣਾਓ'],
+'Welcome back 👋':['फिर से स्वागत है 👋','ಮತ್ತೆ ಸ್ವಾಗತ 👋','വീണ്ടും സ്വാഗതം 👋','మళ్ళీ స్వాగతం 👋','மீண்டும் வருக 👋','पुन्हा स्वागत आहे 👋','ਮੁੜ ਜੀ ਆਇਆਂ ਨੂੰ 👋'],
+'Join Bazaar Buzz ✨':['Bazaar Buzz से जुड़ें ✨','Bazaar Buzz ಗೆ ಸೇರಿ ✨','Bazaar Buzz-ൽ ചേരൂ ✨','Bazaar Buzz లో చేరండి ✨','Bazaar Buzz-ல் சேருங்கள் ✨','Bazaar Buzz मध्ये सामील व्हा ✨','Bazaar Buzz ਨਾਲ ਜੁੜੋ ✨']
+};
+const ROTW={en:['café','kirana store','wedding venue','salon','bakery','gym'],
+ hi:['कैफ़े','किराना स्टोर','शादी हॉल','सैलून','बेकरी','जिम'],kn:['ಕೆಫೆ','ಕಿರಾಣಿ ಅಂಗಡಿ','ಮದುವೆ ಹಾಲ್','ಸಲೂನ್','ಬೇಕರಿ','ಜಿಮ್'],
+ ml:['കഫേ','പലചരക്ക് കട','കല്യാണ ഹാൾ','സലൂൺ','ബേക്കറി','ജിം'],te:['కేఫ్','కిరాణా షాపు','పెళ్లి హాల్','సెలూన్','బేకరీ','జిమ్'],
+ ta:['கஃபே','மளிகைக் கடை','திருமண மண்டபம்','சலூன்','பேக்கரி','ஜிம்'],mr:['कॅफे','किराणा दुकान','लग्न हॉल','सलून','बेकरी','जिम'],
+ pa:['ਕੈਫ਼ੇ','ਕਰਿਆਨਾ ਸਟੋਰ','ਵਿਆਹ ਹਾਲ','ਸੈਲੂਨ','ਬੇਕਰੀ','ਜਿਮ']};
+let LANG='en';try{LANG=localStorage.getItem('pp_lang')||'en'}catch(e){}
+if(!LANGS.some(l=>l[0]===LANG))LANG='en';
+const t=(s,vars)=>{let out=LANG==='en'||!T[s]?s:T[s][LIDX[LANG]];if(vars)for(const k in vars)out=out.split('{'+k+'}').join(vars[k]);return out};
+const H1BIZ_EN='Put your %ROT% in front of everyone nearby.';
+function rotSpan(){return`<span class="rot gt" id="rot"><span>${(ROTW[LANG]||ROTW.en)[0]}</span></span>`}
+function loadScriptFont(l){const fam=LFONT[l];if(!fam||document.getElementById('font-'+fam))return;const k=document.createElement('link');k.id='font-'+fam;k.rel='stylesheet';k.href=`https://fonts.googleapis.com/css2?family=Noto+Sans+${fam}:wght@400;500;600;700&display=swap`;document.head.appendChild(k)}
+function applyStatic(){
+  document.querySelectorAll('[data-t]').forEach(el=>{
+    if(el._en==null)el._en=el.dataset.t||el.innerHTML.trim();
+    let html;
+    if(el._en==='%H1BIZ%')html=(LANG==='en'?H1BIZ_EN:t('%H1BIZ%')).replace('%ROT%',rotSpan());
+    else html=t(el._en);
+    if(el.hasAttribute('data-split'))el._orig=html;else el.innerHTML=html;
+  });
+  document.querySelectorAll('[data-tp]').forEach(el=>{if(el._en==null)el._en=el.getAttribute('placeholder');el.setAttribute('placeholder',t(el._en))});
+}
+function setLang(l,first){
+  LANG=l;try{localStorage.setItem('pp_lang',l)}catch(e){}
+  document.documentElement.lang=l;loadScriptFont(l);
+  document.querySelectorAll('.lang-sel').forEach(s=>s.value=l);
+  applyStatic();
+  if(first)return;
+  try{renderAuth();renderAll();renderReelRow();setView(root.dataset.view||'exp');setAuthMode(authMode)}catch(e){}
+  setTimeout(moveSeg,60);
+}
+
 
 /* ============ DATA ============ */
 const STATES={
@@ -1299,7 +1571,7 @@ function moveSeg(){$$('[data-seg]').forEach(seg=>{const on=seg.querySelector('bu
 function setView(v,scrollTo){
   const apply=()=>{root.dataset.view=v;try{localStorage.setItem('pp_view',v)}catch(e){}
     $$('[data-view-btn]').forEach(b=>b.classList.toggle('on',b.dataset.viewBtn===v));
-    $('#navLinks').innerHTML=$('#mobileLinks').innerHTML=LINKS[v].map(([h,t])=>`<a href="${h}">${t}</a>`).join('');
+    $('#navLinks').innerHTML=$('#mobileLinks').innerHTML=LINKS[v].map(([h,x])=>`<a href="${h}">${t(x)}</a>`).join('');
     renderFaq();splitWords();moveSeg();if(typeof renderReelRow==='function')try{renderReelRow()}catch(e){}
     $$('.reveal').forEach(el=>{if(el.offsetParent!==null&&el.getBoundingClientRect().top<innerHeight)el.classList.add('in');else io.observe(el)});
     $$('[data-count]').forEach(el=>{if(!el._done)cio.observe(el)});
@@ -1326,7 +1598,7 @@ if(matchMedia('(hover:hover)').matches&&!reduce){
 const days=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],vals=[38,52,45,70,64,92,100];
 $('#bars').innerHTML=days.map((d,i)=>`<div><i data-h="${vals[i]}"></i><span>${d}</span></div>`).join('');
 new IntersectionObserver((es,o)=>es.forEach(e=>{if(!e.isIntersecting)return;$$('#bars i').forEach((b,i)=>setTimeout(()=>b.style.height=b.dataset.h+'%',i*90));$('#ringFg').style.strokeDashoffset=283*(1-.47);o.disconnect()}),{threshold:.3}).observe($('#dash'));
-let wi=0;setInterval(()=>{const r=$('#rot');if(!r)return;wi=(wi+1)%WORDS.length;r.innerHTML='<span>'+WORDS[wi]+'</span>'},2200);
+let wi=0;setInterval(()=>{const r=$('#rot');if(!r)return;const W=ROTW[LANG]||ROTW.en;wi=(wi+1)%W.length;r.innerHTML='<span>'+W[wi]+'</span>'},2200);
 const mq=['Cafés','Kirana stores','Wedding venues','Salons','Gyms','Bakeries','Street food','Fashion','Mobile shops','Events','Coaching','Tiffin services'];
 $('#marquee').innerHTML=[...mq,...mq].map(x=>'<span>'+x+'</span>').join('');
 let ri=0;const slides=$$('.slide'),pbars=$$('#prog i');
@@ -1380,18 +1652,18 @@ function dealCard(d,i=0){
   const phone=(d.phone||'').replace(/[^0-9]/g,''),wa=phone?'https://wa.me/'+(phone.length===10?'91'+phone:phone)+'?text='+encodeURIComponent('Hi! I saw your offer "'+d.offer+'" on Bazaar Buzz'):'';
   return`<article class="deal" style="animation-delay:${Math.min(i*.04,.4)}s">
     <div class="deal-top" style="background:linear-gradient(135deg,hsl(${h} 85% 60% / .55),hsl(${(h+40)%360} 80% 45% / .25))"><span class="em">${ci[2]}</span>
-      ${boost?'<span class="badge boost">⚡ Boosted</span>':d.sample?'':'<span class="badge">🆕 New</span>'}
+      ${boost?'<span class="badge boost">'+t('⚡ Boosted')+'</span>':d.sample?'':'<span class="badge">🆕 New</span>'}
       ${d.km!=null?'<span class="dist">📍 '+fmtDist(d.km)+'</span>':''}
       <button class="heart ${saved.has(d.id)?'on':''}" data-save="${esc(d.id)}" aria-label="Save">${saved.has(d.id)?'❤️':'🤍'}</button></div>
-    <div class="deal-body"><span class="cat">${ci[1]} · valid ${esc(d.valid)}</span>${d.id==='preview'?'':rateChip(d.shop)}<h4>${esc(d.shop)}</h4><div class="offer">${esc(d.offer)}</div><div class="item">${esc(d.item)}</div>
-      <div class="deal-actions">${wa?`<a href="${wa}" target="_blank" rel="noopener">WhatsApp</a>`:`<button data-demo>WhatsApp</button>`}<a href="${dir}" target="_blank" rel="noopener">Directions</a><button class="claim" data-claim="${esc(d.id)}">Claim</button></div></div></article>`;
+    <div class="deal-body"><span class="cat">${t(ci[1])}${LANG==='en'?' · valid '+esc(d.valid):''}</span>${d.id==='preview'?'':rateChip(d.shop)}<h4>${esc(d.shop)}</h4><div class="offer">${esc(d.offer)}</div><div class="item">${esc(d.item)}</div>
+      <div class="deal-actions">${wa?`<a href="${wa}" target="_blank" rel="noopener">WhatsApp</a>`:`<button data-demo>WhatsApp</button>`}<a href="${dir}" target="_blank" rel="noopener">${t('Directions')}</a><button class="claim" data-claim="${esc(d.id)}">${t('Claim')}</button></div></div></article>`;
 }
 function renderDeals(){
   const list=filtered(),loc=gpsOn?'you':esc(cityName);
   $('#dealGrid').className='deal-grid'+(vmode==='list'?' list':'');
   $('#dealGrid').innerHTML=list.length?list.map(dealCard).join(''):`<div class="empty"><div style="font-size:2.4rem">${cat==='saved'?'🤍':'🔍'}</div><h4 style="margin:10px 0 6px">${cat==='saved'?'No saved deals yet':'No deals found'}</h4>${cat==='saved'?'Tap the heart on any deal to save it here.':'Try a bigger distance, another category, or a different search.'}</div>`;
-  $('#rcount').innerHTML=cat==='saved'?`<b>${list.length}</b> saved deal${list.length===1?'':'s'}`:`<b>${list.length}</b> deal${list.length===1?'':'s'} within <b>${radius} km</b> of ${gpsOn?'<b>you</b>':`<b>${loc}</b>, ${esc(stateName)}`}`;
-  const chips=[];if(cat!=='all')chips.push(`<span>${catInfo(cat)[2]||'❤️'} ${cat==='saved'?'Saved':catInfo(cat)[1]} <button data-clear="cat" aria-label="Remove">×</button></span>`);
+  $('#rcount').innerHTML=cat==='saved'?`<b>${list.length}</b> ${LANG==='en'?'saved deal'+(list.length===1?'':'s'):t('Saved')}`:LANG==='en'?`<b>${list.length}</b> deal${list.length===1?'':'s'} within <b>${radius} km</b> of ${gpsOn?'<b>you</b>':`<b>${loc}</b>, ${esc(stateName)}`}`:(gpsOn?t('{n} deals within {r} km of you',{n:`<b>${list.length}</b>`,r:`<b>${radius}</b>`}):t('{n} deals within {r} km of {p}',{n:`<b>${list.length}</b>`,r:`<b>${radius}</b>`,p:`<b>${loc}</b>`}));
+  const chips=[];if(cat!=='all')chips.push(`<span>${catInfo(cat)[2]||'❤️'} ${cat==='saved'?t('Saved'):t(catInfo(cat)[1])} <button data-clear="cat" aria-label="Remove">×</button></span>`);
   if(query.trim())chips.push(`<span>🔎 “${esc(query.trim())}” <button data-clear="q" aria-label="Remove">×</button></span>`);
   $('#activeF').innerHTML=chips.join('');
   renderFcats();
@@ -1400,19 +1672,19 @@ function renderDeals(){
 }
 function renderFcats(){
   const r=inRange(),cnt=c=>c==='all'?r.length:c==='saved'?saved.size:r.filter(d=>d.cat===c).length;
-  $('#fcats').innerHTML=[...CATS,['saved','Saved','❤️']].map(c=>`<button class="fcat ${c[0]===cat?'on':''}" data-cat="${c[0]}"><span>${c[2]}</span>${c[1]}<span class="n">${cnt(c[0])}</span></button>`).join('');
+  $('#fcats').innerHTML=[...CATS,['saved','Saved','❤️']].map(c=>`<button class="fcat ${c[0]===cat?'on':''}" data-cat="${c[0]}"><span>${c[2]}</span>${t(c[1])}<span class="n">${cnt(c[0])}</span></button>`).join('');
 }
 function renderTrending(){$('#trend').innerHTML=allDeals().filter(d=>d.km<=10).sort(SORTS.top).slice(0,8).map(dealCard).join('')}
 function renderRail(){
   const r=allDeals().filter(d=>d.km<=25);
   $('#catRail').innerHTML=CATS.slice(1).map(c=>{const n=r.filter(d=>d.cat===c[0]).length;
-    return`<div class="cat-item ${c[0]===spotCat?'on':''}" data-spot="${c[0]}" role="button" tabindex="0" style="--h:${HUE[c[0]]}"><div class="cat-circle"><span class="em">${c[2]}</span>${n?`<span class="cat-count">${n}</span>`:''}</div><b>${c[1]}</b></div>`}).join('');
+    return`<div class="cat-item ${c[0]===spotCat?'on':''}" data-spot="${c[0]}" role="button" tabindex="0" style="--h:${HUE[c[0]]}"><div class="cat-circle"><span class="em">${c[2]}</span>${n?`<span class="cat-count">${n}</span>`:''}</div><b>${t(c[1])}</b></div>`}).join('');
 }
 function renderSpot(animate){
   const c=catInfo(spotCat),list=allDeals().filter(d=>d.cat===spotCat&&d.km<=25).sort(SORTS.top),h=HUE[spotCat];
   const el=$('#spot');
-  el.innerHTML=`<div class="spot-l"><span class="big-e">${c[2]}</span><h3>Best ${c[1]} near ${gpsOn?'you':esc(cityName)}</h3><p>${list.length} offer${list.length===1?'':'s'} within 25 km${list.length?`, closest just ${fmtDist(list.slice().sort(SORTS.near)[0].km)} away`:''}.</p>
-    <button class="btn btn-primary btn-sm magnetic" data-seeall="${spotCat}">See all ${c[1]} →</button></div>
+  el.innerHTML=`<div class="spot-l"><span class="big-e">${c[2]}</span><h3>${LANG==='en'?`Best ${c[1]} near ${gpsOn?'you':esc(cityName)}`:gpsOn?t('Best {c} near you',{c:t(c[1])}):t('Best {c} near {p}',{c:t(c[1]),p:esc(cityName)})}</h3><p>${LANG==='en'?`${list.length} offer${list.length===1?'':'s'} within 25 km${list.length?`, closest just ${fmtDist(list.slice().sort(SORTS.near)[0].km)} away`:''}.`:t('{n} offers within 25 km',{n:list.length})}</p>
+    <button class="btn btn-primary btn-sm magnetic" data-seeall="${spotCat}">${t('See all {c} →',{c:t(c[1])})}</button></div>
     <div class="spot-list">${list.slice(0,3).map((d,i)=>`<div class="mini" data-seeall="${spotCat}" style="animation-delay:${i*.07}s"><div class="mi" style="background:hsl(${h} 85% 60% / .25)">${c[2]}</div><div class="mt"><b>${esc(d.shop)}</b><span>${esc(d.offer)}</span></div><div class="md">${fmtDist(d.km)}${PACK_RANK[d.pack]>=2?'<span class="bst">⚡ Boosted</span>':''}</div></div>`).join('')||'<div class="empty" style="padding:30px">No offers in this category yet. Be the first shop to post!</div>'}</div>`;
   if(animate){el.classList.remove('swap');void el.offsetWidth;el.classList.add('swap')}
 }
@@ -1477,7 +1749,7 @@ addEventListener('keydown',e=>{if(e.key==='Escape'&&$$('.overlay.show').length){
 let authMode='login';
 function setAuthMode(m){authMode=m;$$('.auth-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));
   $('#signupOnly').style.display=$('#roleBox').style.display=m==='signup'?'block':'none';
-  $('#authBtn').textContent=m==='signup'?'Create account':'Log in';$('#authTitle').textContent=m==='signup'?'Join Bazaar Buzz ✨':'Welcome back 👋';
+  $('#authBtn').textContent=t(m==='signup'?'Create account':'Log in');$('#authTitle').textContent=t(m==='signup'?'Join Bazaar Buzz ✨':'Welcome back 👋');
   $('#authErr').textContent='';$('#aName').required=m==='signup';$('#aPass').autocomplete=m==='signup'?'new-password':'current-password'}
 function showAuthPane(which){$('#authMain').style.display=which==='main'?'block':'none';$('#socialDemo').style.display=which==='demo'?'block':'none'}
 function openAuth(m='login',sub,role){
@@ -1512,7 +1784,7 @@ async function emailAuth(){
       else{if(!users[email]||users[email].h!==h)throw new Error('Wrong email or password.');const u=users[email];finishLogin({email,name:u.name,role:u.role,plan:u.plan||'free'})}
     }
   }catch(e){$('#authErr').textContent=e.message}
-  finally{btn.disabled=false;btn.textContent=authMode==='signup'?'Create account':'Log in'}
+  finally{btn.disabled=false;btn.textContent=t(authMode==='signup'?'Create account':'Log in')}
 }
 $('#authBtn').onclick=emailAuth;onEnter($('#authForm'),emailAuth);
 
@@ -1548,8 +1820,8 @@ $('#socGo').onclick=socialDemo;onEnter($('#socialDemo'),socialDemo);
 async function logout(){if(API.on)try{await api('/logout',{})}catch(e){}
   session=null;API.token=null;store.set('pp_token',null);store.set('pp_session',null);renderAuth();loadSocial();toast('Logged out')}
 function renderAuth(){
-  const html=session?`<div class="user-chip"><span class="avatar">${esc(((session.name||'?')[0]).toUpperCase())}</span>${esc((session.name||'').split(' ')[0])}${session.role==='business'?` · <span style="color:var(--dim);text-transform:capitalize">${esc(session.plan)}</span>`:''}</div><button class="btn btn-ghost btn-sm" data-logout>Log out</button>`
-    :`<button class="btn btn-ghost btn-sm" data-auth="login">Log in</button><button class="btn btn-primary btn-sm" data-auth="signup">Sign up</button>`;
+  const html=session?`<div class="user-chip"><span class="avatar">${esc(((session.name||'?')[0]).toUpperCase())}</span>${esc((session.name||'').split(' ')[0])}${session.role==='business'?` · <span style="color:var(--dim);text-transform:capitalize">${esc(session.plan)}</span>`:''}</div><button class="btn btn-ghost btn-sm" data-logout>${t('Log out')}</button>`
+    :`<button class="btn btn-ghost btn-sm" data-auth="login">${t('Log in')}</button><button class="btn btn-primary btn-sm" data-auth="signup">${t('Sign up')}</button>`;
   $('#navAuth').innerHTML=$('#mobileAuth').innerHTML=html;$$('[data-logout]').forEach(b=>b.onclick=logout);
   root.dataset.session=session?'in':'out';root.dataset.urole=session?session.role:'guest';
   $$('.uname').forEach(el=>el.textContent=session?(session.name||'friend').split(' ')[0]:'friend');
@@ -1655,19 +1927,19 @@ async function loadSocial(){
 function ratingFor(shop){const k=placeKey(shop),list=reviews.filter(v=>v.place===k);return{n:list.length,avg:list.length?list.reduce((a,v)=>a+v.rating,0)/list.length:0,list}}
 const starStr=n=>'★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n));
 function rateChip(shop){const r=ratingFor(shop);
-  return`<button class="rate-chip" data-rate="${esc(shop)}">${r.n?`<span class="st">★</span> ${r.avg.toFixed(1)} · ${r.n} review${r.n===1?'':'s'}`:'<span class="st">☆</span> Rate this place'}</button>`}
+  return`<button class="rate-chip" data-rate="${esc(shop)}">${r.n?`<span class="st">★</span> ${r.avg.toFixed(1)} · ${r.n} ${LANG==='en'?'review'+(r.n===1?'':'s'):t('reviews')}`:'<span class="st">☆</span> '+t('Rate this place')}</button>`}
 function allReels(){return[...userReels,...SAMPLE_REELS]}
 function shownReels(){return allReels().filter(r=>reelFilter==='all'||r.role===reelFilter)}
 function dealForShop(shop){const k=placeKey(shop);return allDeals().filter(d=>placeKey(d.shop)===k).sort((a,b)=>a.km-b.km)[0]}
 
 function renderReelRow(){
   const list=shownReels();
-  const add=`<div class="rcard add" data-postreel role="button" tabindex="0"><div class="plus">＋</div><b>Post your reel</b><span>${root.dataset.view==='biz'?'Show off your shop':'Review a place you visited'}</span></div>`;
+  const add=`<div class="rcard add" data-postreel role="button" tabindex="0"><div class="plus">＋</div><b>${t('Post your reel')}</b><span>${t(root.dataset.view==='biz'?'Show off your shop':'Review a place you visited')}</span></div>`;
   $('#reelRow').innerHTML=add+list.map((r,i)=>{
     const lk=reelLikes[r.id]||{n:0},rt=ratingFor(r.shop);
     return`<div class="rcard" data-openreel="${esc(r.id)}" style="animation-delay:${i*.05}s" role="button" tabindex="0" aria-label="Play reel from ${esc(r.shop)}">
       <video muted playsinline loop preload="${r.poster?'none':'metadata'}" ${r.poster?`poster="${esc(r.poster)}"`:''} src="${esc(r.src)}${r.poster?'':'#t=0.5'}"></video>
-      <span class="rc-tag ${r.role==='business'?'biz':'rev'}">${r.role==='business'?'🏪 Shop':'⭐ Review'}</span>
+      <span class="rc-tag ${r.role==='business'?'biz':'rev'}">${t(r.role==='business'?'🏪 Shop':'⭐ Review')}</span>
       <div class="rc-grad"></div><div class="rc-play">▶</div>
       <div class="rc-info"><b>${esc(r.shop)}</b><span>${r.rating?`${'★'.repeat(r.rating)} · `:''}❤️ ${lk.n||0}${rt.n?` · ★ ${rt.avg.toFixed(1)}`:''}</span></div></div>`}).join('');
 }
@@ -1836,7 +2108,9 @@ function renderFaq(){const v=root.dataset.view;
   $$('.qa').forEach(qa=>qa.querySelector('button').onclick=()=>{const o=qa.classList.toggle('open'),an=qa.querySelector('.ans');an.style.maxHeight=o?an.scrollHeight+'px':0})}
 
 /* ============ INIT ============ */
+document.querySelectorAll('.lang-sel').forEach(sel=>{sel.innerHTML=LANGS.map(([c,n])=>`<option value="${c}">${n}</option>`).join('');sel.value=LANG;sel.onchange=()=>setLang(sel.value)});
 (async function init(){
+  setLang(LANG,true);
   let loc=null;try{loc=JSON.parse(localStorage.getItem('pp_loc'))}catch(e){}
   if(loc&&STATES[loc[0]]&&STATES[loc[0]].some(c=>c[0]===loc[1])){stateName=loc[0];cityName=loc[1]}
   stateSel.value=stateName;fillCities();citySel.value=cityName;const c=STATES[stateName].find(x=>x[0]===cityName);center=[c[1],c[2]];
