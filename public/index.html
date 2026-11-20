@@ -92,6 +92,7 @@ section{padding:clamp(70px,9vw,120px) 0;position:relative}
 main{display:flex;flex-direction:column}
 [data-view=exp] .only-biz,[data-view=biz] .only-exp{display:none!important}
 [data-view=biz] #deals{order:20}
+[data-view=biz] #shorts{order:5}
 [data-view=biz] #faq{order:30}
 #faq,#ctaBand{order:40}#ctaBand{order:41}
 
@@ -430,6 +431,88 @@ nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate
   .deal-grid.list .deal-top{width:auto;min-height:0;height:110px}
 }
 
+/* ================= REELS ================= */
+.reel-row{display:flex;gap:16px;overflow-x:auto;padding:6px 4px 22px;scroll-snap-type:x mandatory;scrollbar-width:none}
+.reel-row::-webkit-scrollbar{display:none}
+.rcard{flex:0 0 clamp(160px,18vw,210px);aspect-ratio:9/16;border-radius:22px;overflow:hidden;position:relative;cursor:pointer;scroll-snap-align:start;background:#000;border:1px solid var(--line);transition:transform .35s var(--ease),box-shadow .35s;animation:cardIn .6s var(--ease) both}
+.rcard:hover{transform:translateY(-6px) scale(1.02);box-shadow:var(--shadow)}
+.rcard video,.rcard img{width:100%;height:100%;object-fit:cover;display:block}
+.rcard .rc-grad{position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.82));pointer-events:none}
+.rcard .rc-info{position:absolute;left:12px;right:12px;bottom:12px;color:#fff;pointer-events:none}
+.rcard .rc-info b{display:block;font-size:.9rem;line-height:1.25}
+.rcard .rc-info span{font-size:.75rem;opacity:.85}
+.rcard .rc-play{position:absolute;top:50%;left:50%;width:54px;height:54px;margin:-27px;border-radius:50%;background:rgba(255,255,255,.22);backdrop-filter:blur(6px);display:grid;place-items:center;color:#fff;font-size:1.3rem;transition:transform .3s var(--spring),opacity .3s}
+.rcard:hover .rc-play{transform:scale(1.15);opacity:0}
+.rcard .rc-tag{position:absolute;top:10px;left:10px;padding:3px 9px;border-radius:999px;font-size:.68rem;font-weight:800;color:#fff;background:rgba(0,0,0,.45);backdrop-filter:blur(6px)}
+.rcard .rc-tag.biz{background:var(--grad)}
+.rcard .rc-tag.rev{background:linear-gradient(120deg,#F59E0B,#F97316)}
+.rcard.add{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:var(--grad-soft);border:2px dashed var(--line2);color:var(--text);text-align:center;padding:16px}
+.rcard.add .plus{width:62px;height:62px;border-radius:50%;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:2rem;box-shadow:var(--glow);animation:bob 3s ease-in-out infinite}
+.rcard.add b{font-size:1rem}.rcard.add span{font-size:.8rem;color:var(--muted)}
+.reel-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}
+
+/* full-screen viewer */
+.rviewer{position:fixed;inset:0;z-index:120;background:#000;display:none}
+.rviewer.show{display:block;animation:fade .25s}
+.rv-feed{height:100%;overflow-y:auto;scroll-snap-type:y mandatory;scrollbar-width:none;overscroll-behavior:contain}
+.rv-feed::-webkit-scrollbar{display:none}
+.rv-slide{height:100vh;height:100dvh;scroll-snap-align:start;scroll-snap-stop:always;position:relative;display:flex;justify-content:center;align-items:center}
+.rv-stage{position:relative;height:100%;aspect-ratio:9/16;max-width:100%;background:#111;overflow:hidden}
+@media (min-width:700px){.rv-stage{height:calc(100% - 32px);border-radius:24px}}
+.rv-stage video{width:100%;height:100%;object-fit:cover;display:block}
+.rv-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 20%,transparent 55%,rgba(0,0,0,.85));pointer-events:none}
+.rv-rail{position:absolute;right:10px;bottom:150px;display:grid;gap:16px;z-index:3}
+.rv-btn{display:flex;flex-direction:column;align-items:center;gap:3px;color:#fff;font-size:.72rem;font-weight:700;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.rv-btn .ic{width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.16);backdrop-filter:blur(8px);display:grid;place-items:center;font-size:1.35rem;transition:transform .3s var(--spring),background .2s}
+.rv-btn:hover .ic{transform:scale(1.1);background:rgba(255,255,255,.26)}
+.rv-btn.liked .ic{background:rgba(255,61,127,.35);animation:beat .45s var(--spring)}
+.rv-meta{position:absolute;left:14px;right:76px;bottom:22px;color:#fff;z-index:3}
+.rv-who{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.rv-who .av{width:38px;height:38px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-weight:800;border:2px solid #fff}
+.rv-who b{font-size:1rem}
+.rv-who .pill{padding:2px 9px;border-radius:999px;font-size:.68rem;font-weight:800;background:rgba(255,255,255,.2)}
+.rv-who .pill.biz{background:var(--grad)}
+.rv-who .pill.rev{background:linear-gradient(120deg,#F59E0B,#F97316)}
+.rv-cap{font-size:.92rem;line-height:1.45;margin-bottom:10px;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.rv-stars{color:#FBBF24;letter-spacing:2px;font-size:1rem;margin-bottom:6px}
+.rv-actions{display:flex;gap:8px;flex-wrap:wrap}
+.rv-actions a,.rv-actions button{padding:.5em 1em;border-radius:999px;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);color:#fff}
+.rv-actions .go{background:var(--grad)}
+.rv-close{position:fixed;top:16px;left:16px;z-index:5;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);color:#fff;font-size:1.3rem}
+.rv-top{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:5;color:#fff;font-family:'Space Grotesk',system-ui,sans-serif;font-weight:700;font-size:1.05rem;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.rv-progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.2);z-index:4}
+.rv-progress i{display:block;height:100%;width:0;background:#fff}
+.rv-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:3.4rem;color:#fff;opacity:0;pointer-events:none;transition:opacity .3s}
+.rv-hint.show{opacity:.9}
+.rv-heart{position:absolute;font-size:5rem;pointer-events:none;animation:heartPop .9s var(--ease) forwards;z-index:4}
+@keyframes heartPop{0%{transform:translate(-50%,-50%) scale(0);opacity:0}25%{transform:translate(-50%,-50%) scale(1.2);opacity:1}100%{transform:translate(-50%,-120%) scale(1);opacity:0}}
+.rv-nav{position:fixed;right:24px;top:50%;transform:translateY(-50%);display:grid;gap:12px;z-index:5}
+.rv-nav button{width:46px;height:46px;border-radius:50%;background:rgba(255,255,255,.16);color:#fff;font-size:1.1rem}
+@media (max-width:700px){.rv-nav{display:none}}
+
+/* star picker + reviews */
+.stars-pick{display:flex;gap:6px;font-size:2.2rem;margin:8px 0 4px}
+.stars-pick button{color:var(--line2);transition:transform .2s var(--spring),color .2s;line-height:1}
+.stars-pick button.on{color:#FBBF24}
+.stars-pick button:hover{transform:scale(1.2)}
+.rate-chip{display:inline-flex;align-items:center;gap:5px;font-size:.8rem;font-weight:700;color:var(--muted);padding:2px 0;align-self:flex-start}
+.rate-chip .st{color:#F59E0B}
+.rate-chip:hover{color:var(--c1)}
+.rv-list{display:grid;gap:10px;max-height:240px;overflow:auto;margin-top:16px}
+.rv-item{padding:12px 14px;border-radius:14px;background:var(--surface2);font-size:.9rem}
+.rv-item .top{display:flex;justify-content:space-between;gap:10px;margin-bottom:4px;font-weight:700}
+.rv-item .top span{color:#F59E0B;letter-spacing:1px}
+.rv-item p{color:var(--muted)}
+.avg-big{display:flex;align-items:center;gap:14px;margin:10px 0}
+.avg-big b{font-family:'Space Grotesk',system-ui,sans-serif;font-size:2.6rem;line-height:1}
+.avg-big .st{color:#F59E0B;font-size:1.2rem;letter-spacing:2px}
+.upl-drop{border:2px dashed var(--line2);border-radius:18px;padding:22px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
+.upl-drop:hover{border-color:var(--c1);background:var(--grad-soft)}
+.upl-drop input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.upl-prev{width:100%;max-height:260px;border-radius:14px;background:#000;margin-top:12px;display:none}
+.upl-bar{height:8px;border-radius:999px;background:var(--surface2);overflow:hidden;margin-top:12px;display:none}
+.upl-bar i{display:block;height:100%;width:0;background:var(--grad);transition:width .2s}
+.modal.wide{max-width:520px}
 /* ================= REEL ================= */
 .reel-in{display:grid;grid-template-columns:1fr 1fr;gap:clamp(30px,5vw,60px);align-items:center}
 .phone-wrap{position:relative;perspective:1200px}
@@ -518,7 +601,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 .dock span{min-width:44px;text-align:center;font-weight:700;font-size:12px;color:var(--muted)}
 
 /* ================= MODALS ================= */
-.overlay{position:fixed;inset:0;z-index:100;background:rgba(5,7,18,.6);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
+.overlay{position:fixed;inset:0;z-index:140;background:rgba(5,7,18,.6);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
 .overlay.show{display:flex;animation:fade .25s}
 @keyframes fade{from{opacity:0}}
 .modal{background:var(--surface);border:1px solid var(--line2);border-radius:28px;width:100%;max-width:450px;padding:clamp(24px,4vw,36px);position:relative;animation:rise .45s var(--spring);box-shadow:var(--shadow);margin:auto}
@@ -660,7 +743,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
         <button type="button" class="btn btn-primary magnetic" id="heroGo">Find deals</button>
       </div>
       <div class="quick only-exp">Popular:
-        <button data-q="coffee">☕ Coffee</button><button data-q="thali">🍛 Thali</button><button data-q="salon">💇 Salon</button><button data-q="students">🎓 Student offers</button>
+        <button data-q="coffee">☕ Coffee</button><button data-q="thali">🍛 Thali</button><button data-q="salon">💇 Salon</button><button data-q="students">🎓 Student offers</button><button data-goto-reels>🎬 Reels</button>
       </div>
 
       <div class="hero-ctas only-biz">
@@ -731,6 +814,19 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
       <div class="arrows"><button class="icon-btn" data-scroll="-1" aria-label="Previous">←</button><button class="icon-btn" data-scroll="1" aria-label="Next">→</button></div>
     </div>
     <div class="trend" id="trend"></div>
+  </div>
+</section>
+
+<section id="shorts" style="order:3">
+  <div class="wrap">
+    <div class="row-head reveal">
+      <div><span class="tag">🎬 Bazaar Reels</span><h2>Watch what's <span class="gt">buzzing nearby</span></h2>
+        <p style="color:var(--muted);margin-top:10px;max-width:560px" class="only-exp">Short videos from shops near you, plus honest reels and ratings from explorers like you.</p>
+        <p style="color:var(--muted);margin-top:10px;max-width:560px" class="only-biz">Post a short video of your shop. Reels get far more attention than photos.</p></div>
+      <div class="arrows"><button class="btn btn-primary btn-sm magnetic" data-postreel>＋ Post a reel</button><button class="icon-btn" data-rrow="-1" aria-label="Previous">←</button><button class="icon-btn" data-rrow="1" aria-label="Next">→</button></div>
+    </div>
+    <div class="reel-tabs" id="reelTabs"><button class="chip on" data-rf="all">✨ All</button><button class="chip" data-rf="business">🏪 From shops</button><button class="chip" data-rf="customer">⭐ Explorer reviews</button></div>
+    <div class="reel-row reveal" id="reelRow"></div>
   </div>
 </section>
 
@@ -991,6 +1087,50 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
     <button class="btn btn-ghost" id="cpCopy" style="margin-top:10px">Copy code</button>
   </div>
 </div>
+<!-- REEL VIEWER -->
+<div class="rviewer" id="rviewer" aria-modal="true" role="dialog">
+  <button class="rv-close" id="rvClose" aria-label="Close reels">✕</button>
+  <div class="rv-nav"><button id="rvUp" aria-label="Previous reel">↑</button><button id="rvDown" aria-label="Next reel">↓</button></div>
+  <div class="rv-feed" id="rvFeed"></div>
+</div>
+
+<!-- POST REEL MODAL -->
+<div class="overlay" id="reelModal">
+  <div class="modal wide">
+    <button class="x" data-close>×</button>
+    <h3>Post a reel 🎬</h3>
+    <p class="sub" id="prSub">Share a short video (up to 30 MB, MP4/WebM/MOV).</p>
+    <div id="reelForm">
+      <div class="upl-drop" id="uplDrop"><input type="file" id="prFile" accept="video/mp4,video/webm,video/quicktime,video/*" aria-label="Choose video">
+        <div style="font-size:2rem">📹</div><b id="prFileName">Tap to choose a video</b><div style="color:var(--dim);font-size:.82rem">Vertical 9:16 videos look best</div></div>
+      <video class="upl-prev" id="prPrev" muted playsinline loop></video>
+      <label for="prShop">Shop / place</label><input class="inp" id="prShop" list="shopList" maxlength="40" placeholder="e.g. Brew Corner Café"><datalist id="shopList"></datalist>
+      <div id="prRateBox"><label>Your rating</label><div class="stars-pick" id="prStars"></div></div>
+      <div id="prOfferBox" style="display:none"><label for="prOffer">Offer to show (optional)</label><input class="inp" id="prOffer" maxlength="50" placeholder="e.g. 20% off this week"></div>
+      <label for="prCap" id="prCapLbl">Caption</label><textarea class="inp" id="prCap" maxlength="160" rows="2" placeholder="What's special here?"></textarea>
+      <div class="upl-bar" id="prBar"><i></i></div>
+      <div class="err" id="prErr"></div>
+      <button type="button" class="btn btn-primary" id="prGo">Post reel 🚀</button>
+    </div>
+  </div>
+</div>
+
+<!-- RATE MODAL -->
+<div class="overlay" id="rateModal">
+  <div class="modal wide">
+    <button class="x" data-close>×</button>
+    <h3 id="rtShop">Rate this place</h3>
+    <div class="avg-big" id="rtAvg"></div>
+    <div id="rtForm">
+      <label>Your rating</label><div class="stars-pick" id="rtStars"></div>
+      <label for="rtText">Your review (optional)</label><textarea class="inp" id="rtText" maxlength="300" rows="2" placeholder="How was the food, service, prices?"></textarea>
+      <div class="err" id="rtErr"></div>
+      <button type="button" class="btn btn-primary" id="rtGo">Submit rating ⭐</button>
+    </div>
+    <div class="rv-list" id="rtList"></div>
+  </div>
+</div>
+
 <div class="toast" id="toast"></div>
 
 <script>
@@ -1074,9 +1214,11 @@ const FAQS=[
   ['biz','How is this better than Instagram ads?','Instagram ads need skill and budget, and often reach people far away. Bazaar Buzz is built for local shops: post in 2 minutes, choose a radius like 5 km, and see real actions like calls, directions and coupon claims.'],
   ['biz','What do I get with the Insta reel?','On Premium and Featured, our team visits your shop, shoots and edits a 20–30 second reel, and posts it on Bazaar Buzz\'s local Instagram page with your offer and a link to claim it.'],
   ['biz','How do payments work?','Pay securely with UPI, cards or net banking through Razorpay. Packs renew monthly or yearly and you can cancel anytime.'],
+  ['exp','Can I post reels and rate places?','Yes! Log in, tap “Post a reel”, upload a short video of a place you visited and give it a star rating. You can also rate any shop straight from its deal card.'],
+  ['biz','Can I post reels of my shop?','Yes. Business accounts can upload short videos (up to 30 MB) from the Reels section. They appear in the Bazaar Reels feed for everyone nearby, with your offer and a Claim button.'],
   ['both','Which cities are you in?','You can browse every state and major city in India. We\'re launching with real shops in Tumakuru first, then Bengaluru and nearby cities.']
 ];
-const LINKS={exp:[['#trending','Trending'],['#categories','Categories'],['#deals','Deals near me'],['#faq','FAQ']],biz:[['#why','How it works'],['#dashboard','Dashboard'],['#pricing','Pricing'],['#post','Post offer']]};
+const LINKS={exp:[['#trending','Trending'],['#shorts','Reels'],['#categories','Categories'],['#deals','Deals near me'],['#faq','FAQ']],biz:[['#why','How it works'],['#shorts','Reels'],['#dashboard','Dashboard'],['#pricing','Pricing'],['#post','Post offer']]};
 const WORDS=['café','kirana store','wedding venue','salon','bakery','gym'];
 
 /* ============ HELPERS ============ */
@@ -1158,7 +1300,7 @@ function setView(v,scrollTo){
   const apply=()=>{root.dataset.view=v;try{localStorage.setItem('pp_view',v)}catch(e){}
     $$('[data-view-btn]').forEach(b=>b.classList.toggle('on',b.dataset.viewBtn===v));
     $('#navLinks').innerHTML=$('#mobileLinks').innerHTML=LINKS[v].map(([h,t])=>`<a href="${h}">${t}</a>`).join('');
-    renderFaq();splitWords();moveSeg();
+    renderFaq();splitWords();moveSeg();if(typeof renderReelRow==='function')try{renderReelRow()}catch(e){}
     $$('.reveal').forEach(el=>{if(el.offsetParent!==null&&el.getBoundingClientRect().top<innerHeight)el.classList.add('in');else io.observe(el)});
     $$('[data-count]').forEach(el=>{if(!el._done)cio.observe(el)});
   };
@@ -1241,7 +1383,7 @@ function dealCard(d,i=0){
       ${boost?'<span class="badge boost">⚡ Boosted</span>':d.sample?'':'<span class="badge">🆕 New</span>'}
       ${d.km!=null?'<span class="dist">📍 '+fmtDist(d.km)+'</span>':''}
       <button class="heart ${saved.has(d.id)?'on':''}" data-save="${esc(d.id)}" aria-label="Save">${saved.has(d.id)?'❤️':'🤍'}</button></div>
-    <div class="deal-body"><span class="cat">${ci[1]} · valid ${esc(d.valid)}</span><h4>${esc(d.shop)}</h4><div class="offer">${esc(d.offer)}</div><div class="item">${esc(d.item)}</div>
+    <div class="deal-body"><span class="cat">${ci[1]} · valid ${esc(d.valid)}</span>${d.id==='preview'?'':rateChip(d.shop)}<h4>${esc(d.shop)}</h4><div class="offer">${esc(d.offer)}</div><div class="item">${esc(d.item)}</div>
       <div class="deal-actions">${wa?`<a href="${wa}" target="_blank" rel="noopener">WhatsApp</a>`:`<button data-demo>WhatsApp</button>`}<a href="${dir}" target="_blank" rel="noopener">Directions</a><button class="claim" data-claim="${esc(d.id)}">Claim</button></div></div></article>`;
 }
 function renderDeals(){
@@ -1327,9 +1469,9 @@ $('#cpCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('#cpCod
 
 /* ============ MODALS ============ */
 function open(s){$(s).classList.add('show');document.body.style.overflow='hidden'}
-function close(){$$('.overlay').forEach(o=>o.classList.remove('show'));document.body.style.overflow=''}
+function close(){$$('.overlay').forEach(o=>o.classList.remove('show'));document.body.style.overflow=document.getElementById('rviewer')?.classList.contains('show')?'hidden':''}
 $$('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o||e.target.closest('[data-close]'))close()}));
-addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&$$('.overlay.show').length){close();e.stopImmediatePropagation()}});
 
 /* ============ AUTH ============ */
 let authMode='login';
@@ -1354,6 +1496,7 @@ function finishLogin(user,token){
   store.set('pp_session',API.on?null:user);
   close();renderAuth();toast(`Hi ${(user.name||'there').split(' ')[0]}! You're logged in 🎉`);
   ['aName','aEmail','aPass','sName','sEmail'].forEach(i=>$('#'+i).value='');
+  loadSocial();
   if(user.role==='business'&&root.dataset.view!=='biz')setView('biz','#post');
 }
 async function emailAuth(){
@@ -1403,7 +1546,7 @@ async function socialDemo(){
 $('#socGo').onclick=socialDemo;onEnter($('#socialDemo'),socialDemo);
 
 async function logout(){if(API.on)try{await api('/logout',{})}catch(e){}
-  session=null;API.token=null;store.set('pp_token',null);store.set('pp_session',null);renderAuth();toast('Logged out')}
+  session=null;API.token=null;store.set('pp_token',null);store.set('pp_session',null);renderAuth();loadSocial();toast('Logged out')}
 function renderAuth(){
   const html=session?`<div class="user-chip"><span class="avatar">${esc(((session.name||'?')[0]).toUpperCase())}</span>${esc((session.name||'').split(' ')[0])}${session.role==='business'?` · <span style="color:var(--dim);text-transform:capitalize">${esc(session.plan)}</span>`:''}</div><button class="btn btn-ghost btn-sm" data-logout>Log out</button>`
     :`<button class="btn btn-ghost btn-sm" data-auth="login">Log in</button><button class="btn btn-primary btn-sm" data-auth="signup">Sign up</button>`;
@@ -1487,6 +1630,206 @@ async function postDeal(){
 }
 $('#postBtn').onclick=postDeal;onEnter($('#postForm'),postDeal);
 
+/* ============ REELS + RATINGS ============ */
+const SAMPLE_REELS=[
+  {id:'s-chai',src:'reels/chai.mp4',poster:'reels/chai.jpg',shop:'Sharma Chai Point',cat:'cafe',role:'business',by:'Sharma Chai Point',caption:'Garma garam chai sirf ₹10 mein ☕ Buy 2 get 1 FREE every evening!',offer:'2+1 free chai',sample:true},
+  {id:'s-bakery',src:'reels/bakery.mp4',poster:'reels/bakery.jpg',shop:'Sweet Crumbs Bakery',cat:'bakery',role:'business',by:'Sweet Crumbs Bakery',caption:'Fresh pastries daily 🧁 Buy 1 Get 1 FREE after 7 PM',offer:'Buy 1 get 1 on pastries',sample:true},
+  {id:'s-mango',src:'reels/mango.mp4',poster:'reels/mango.jpg',shop:'Fresh Fruit Corner',cat:'kirana',role:'business',by:'Fresh Fruit Corner',caption:'Alphonso aam aa gaye! 🥭 Seedha farm se, ₹80/kg today only',offer:'Mangoes ₹80/kg',sample:true},
+  {id:'s-mobile',src:'reels/mobile.mp4',poster:'reels/mobile.jpg',shop:'MobileCare Point',cat:'electronics',role:'business',by:'MobileCare Point',caption:'Phone repair in 30 min 📱 Free screen guard with every repair',offer:'Screen guard free',sample:true},
+  {id:'s-kirana',src:'reels/kirana.mp4',poster:'reels/kirana.jpg',shop:'Gupta Kirana Store',cat:'kirana',role:'business',by:'Gupta Kirana Store',caption:'Ghar ka saara saaman, ek jagah 🛒 Free home delivery on ₹500+',offer:'Free delivery ₹500+',sample:true},
+  {id:'s-kurta',src:'reels/kurta.mp4',poster:'reels/kurta.jpg',shop:'Trendz Fashion Hub',cat:'fashion',role:'business',by:'Trendz Fashion Hub',caption:'Wedding season sale 👗 All kurtas 40% OFF this week',offer:'Flat 40% off kurtas',sample:true}
+];
+const placeKey=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,60);
+let userReels=[],reelLikes={},reviews=[],reelFilter='all',localSeq=0;
+
+async function loadSocial(){
+  if(API.on){
+    try{const j=await api('/reels');userReels=j.reels;reelLikes=j.likes||{}}catch(e){}
+    try{reviews=(await api('/reviews')).reviews}catch(e){}
+  }else{
+    reviews=store.get('pp_reviews',[]);const lk=store.get('pp_likes',{}),me=session?session.email:null;
+    reelLikes={};for(const[k,arr]of Object.entries(lk))reelLikes[k]={n:arr.length,liked:!!(me&&arr.includes(me))};
+  }
+  renderReelRow();renderDeals();renderTrending();
+}
+function ratingFor(shop){const k=placeKey(shop),list=reviews.filter(v=>v.place===k);return{n:list.length,avg:list.length?list.reduce((a,v)=>a+v.rating,0)/list.length:0,list}}
+const starStr=n=>'★'.repeat(Math.round(n))+'☆'.repeat(5-Math.round(n));
+function rateChip(shop){const r=ratingFor(shop);
+  return`<button class="rate-chip" data-rate="${esc(shop)}">${r.n?`<span class="st">★</span> ${r.avg.toFixed(1)} · ${r.n} review${r.n===1?'':'s'}`:'<span class="st">☆</span> Rate this place'}</button>`}
+function allReels(){return[...userReels,...SAMPLE_REELS]}
+function shownReels(){return allReels().filter(r=>reelFilter==='all'||r.role===reelFilter)}
+function dealForShop(shop){const k=placeKey(shop);return allDeals().filter(d=>placeKey(d.shop)===k).sort((a,b)=>a.km-b.km)[0]}
+
+function renderReelRow(){
+  const list=shownReels();
+  const add=`<div class="rcard add" data-postreel role="button" tabindex="0"><div class="plus">＋</div><b>Post your reel</b><span>${root.dataset.view==='biz'?'Show off your shop':'Review a place you visited'}</span></div>`;
+  $('#reelRow').innerHTML=add+list.map((r,i)=>{
+    const lk=reelLikes[r.id]||{n:0},rt=ratingFor(r.shop);
+    return`<div class="rcard" data-openreel="${esc(r.id)}" style="animation-delay:${i*.05}s" role="button" tabindex="0" aria-label="Play reel from ${esc(r.shop)}">
+      <video muted playsinline loop preload="${r.poster?'none':'metadata'}" ${r.poster?`poster="${esc(r.poster)}"`:''} src="${esc(r.src)}${r.poster?'':'#t=0.5'}"></video>
+      <span class="rc-tag ${r.role==='business'?'biz':'rev'}">${r.role==='business'?'🏪 Shop':'⭐ Review'}</span>
+      <div class="rc-grad"></div><div class="rc-play">▶</div>
+      <div class="rc-info"><b>${esc(r.shop)}</b><span>${r.rating?`${'★'.repeat(r.rating)} · `:''}❤️ ${lk.n||0}${rt.n?` · ★ ${rt.avg.toFixed(1)}`:''}</span></div></div>`}).join('');
+}
+$('#reelRow').addEventListener('mouseover',e=>{const c=e.target.closest('.rcard video')||e.target.closest('.rcard')?.querySelector('video');if(c&&c.paused)c.play().catch(()=>{})});
+$('#reelRow').addEventListener('mouseout',e=>{const card=e.target.closest('.rcard');if(card&&!card.contains(e.relatedTarget)){const v=card.querySelector('video');if(v){v.pause()}}});
+$('#reelTabs').onclick=e=>{const b=e.target.closest('[data-rf]');if(!b)return;reelFilter=b.dataset.rf;$$('#reelTabs .chip').forEach(x=>x.classList.toggle('on',x===b));renderReelRow()};
+$$('[data-rrow]').forEach(b=>b.onclick=()=>$('#reelRow').scrollBy({left:+b.dataset.rrow*440,behavior:'smooth'}));
+
+/* ----- full-screen viewer ----- */
+let rvList=[],rvObs=null,rvDelArm=null;
+function openViewer(id){
+  rvList=shownReels();let idx=Math.max(0,rvList.findIndex(r=>r.id===id));
+  $('#rvFeed').innerHTML=rvList.map((r,i)=>{
+    const lk=reelLikes[r.id]||{n:0,liked:false},rt=ratingFor(r.shop),deal=r.role==='business'?dealForShop(r.shop):null;
+    return`<div class="rv-slide" data-i="${i}"><div class="rv-stage">
+      <video playsinline muted loop preload="${Math.abs(i-idx)<=1?'auto':'none'}" ${r.poster?`poster="${esc(r.poster)}"`:''} src="${esc(r.src)}"></video>
+      <div class="rv-shade"></div><div class="rv-hint">⏸</div>
+      <div class="rv-rail">
+        <button class="rv-btn ${lk.liked?'liked':''}" data-like="${esc(r.id)}"><span class="ic">${lk.liked?'❤️':'🤍'}</span><span class="n">${lk.n||0}</span></button>
+        <button class="rv-btn" data-rate="${esc(r.shop)}"><span class="ic">⭐</span><span>${rt.n?rt.avg.toFixed(1):'Rate'}</span></button>
+        <button class="rv-btn" data-rate="${esc(r.shop)}"><span class="ic">💬</span><span>${rt.n}</span></button>
+        <button class="rv-btn" data-share="${esc(r.shop)}"><span class="ic">↗️</span><span>Share</span></button>
+        ${r.mine?`<button class="rv-btn" data-delreel="${esc(r.id)}"><span class="ic">🗑️</span><span>Delete</span></button>`:''}
+      </div>
+      <div class="rv-meta">
+        <div class="rv-who"><span class="av">${esc((r.by||'?')[0].toUpperCase())}</span><b>${esc(r.shop)}</b><span class="pill ${r.role==='business'?'biz':'rev'}">${r.role==='business'?'Shop':'Review by '+esc((r.by||'').split(' ')[0])}</span></div>
+        ${r.rating?`<div class="rv-stars">${starStr(r.rating)}</div>`:''}
+        <div class="rv-cap">${esc(r.caption||'')}</div>
+        <div class="rv-actions">
+          ${deal?`<button class="go" data-claim="${esc(deal.id)}">🎟️ ${esc(r.offer||deal.offer)}</button><a href="https://www.google.com/maps/dir/?api=1&destination=${deal.lat.toFixed(6)},${deal.lng.toFixed(6)}" target="_blank" rel="noopener">📍 ${fmtDist(deal.km)}</a>`:r.offer?`<span class="go" style="padding:.5em 1em;border-radius:999px;font-size:.82rem;font-weight:700;background:var(--grad)">🎟️ ${esc(r.offer)}</span>`:''}
+          <button data-rate="${esc(r.shop)}">⭐ Rate</button>
+        </div>
+      </div>
+      <div class="rv-progress"><i></i></div>
+    </div></div>`}).join('');
+  $('#rviewer').classList.add('show');document.body.style.overflow='hidden';
+  const feed=$('#rvFeed');feed.scrollTop=idx*feed.clientHeight;
+  rvObs&&rvObs.disconnect();
+  rvObs=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target.querySelector('video');
+    if(e.isIntersecting&&e.intersectionRatio>.6){v.preload='auto';v.play().catch(()=>{});const n=e.target.nextElementSibling?.querySelector('video');if(n)n.preload='auto'}
+    else v.pause()}),{root:feed,threshold:[0,.6,1]});
+  $$('.rv-slide').forEach(sl=>{rvObs.observe(sl);const v=sl.querySelector('video'),bar=sl.querySelector('.rv-progress i');
+    v.addEventListener('timeupdate',()=>{if(v.duration)bar.style.width=(v.currentTime/v.duration*100)+'%'});
+    let last=0;sl.querySelector('.rv-stage').addEventListener('click',e=>{if(e.target.closest('button,a'))return;const now=Date.now();
+      if(now-last<300){const r=rvList[+sl.dataset.i];if(!(reelLikes[r.id]||{}).liked)toggleLike(r.id);const h=document.createElement('div');h.className='rv-heart';h.textContent='❤️';
+        const rc=sl.querySelector('.rv-stage').getBoundingClientRect();h.style.left=(e.clientX-rc.left)+'px';h.style.top=(e.clientY-rc.top)+'px';sl.querySelector('.rv-stage').appendChild(h);setTimeout(()=>h.remove(),900);last=0;return}
+      last=now;setTimeout(()=>{if(last!==now)return;const hint=sl.querySelector('.rv-hint');if(v.paused){v.play();hint.textContent='▶'}else{v.pause();hint.textContent='⏸'}hint.classList.add('show');setTimeout(()=>hint.classList.remove('show'),500)},300)})});
+}
+function closeViewer(){$('#rviewer').classList.remove('show');document.body.style.overflow='';$$('#rvFeed video').forEach(v=>v.pause());rvObs&&rvObs.disconnect();$('#rvFeed').innerHTML=''}
+function rvStep(d){const f=$('#rvFeed');f.scrollBy({top:d*f.clientHeight,behavior:'smooth'})}
+$('#rvClose').onclick=closeViewer;$('#rvUp').onclick=()=>rvStep(-1);$('#rvDown').onclick=()=>rvStep(1);
+addEventListener('keydown',e=>{if(!$('#rviewer').classList.contains('show')||$$('.overlay.show').length)return;
+  if(e.key==='Escape')closeViewer();if(e.key==='ArrowDown'||e.key==='j'){e.preventDefault();rvStep(1)}if(e.key==='ArrowUp'||e.key==='k'){e.preventDefault();rvStep(-1)}});
+
+async function toggleLike(id){
+  if(!session){openAuth('login','Log in to like reels ❤️');return}
+  let res;
+  try{if(API.on)res=await api('/reels/'+encodeURIComponent(id)+'/like',{});
+    else{const lk=store.get('pp_likes',{}),arr=lk[id]||(lk[id]=[]),i=arr.indexOf(session.email);if(i>=0)arr.splice(i,1);else arr.push(session.email);store.set('pp_likes',lk);res={n:arr.length,liked:i<0}}}
+  catch(e){toast('⚠️ '+e.message);return}
+  reelLikes[id]=res;
+  $$(`[data-like="${CSS.escape(id)}"]`).forEach(b=>{b.classList.toggle('liked',res.liked);b.querySelector('.ic').textContent=res.liked?'❤️':'🤍';b.querySelector('.n').textContent=res.n});
+  renderReelRow();
+}
+async function deleteReel(id,btn){
+  if(rvDelArm!==id){rvDelArm=id;btn.querySelector('span:last-child').textContent='Tap again';setTimeout(()=>{if(rvDelArm===id){rvDelArm=null;btn.querySelector('span:last-child').textContent='Delete'}},2500);return}
+  rvDelArm=null;
+  try{if(API.on)await api('/reels/'+encodeURIComponent(id),null,'DELETE')}catch(e){toast('⚠️ '+e.message);return}
+  userReels=userReels.filter(r=>r.id!==id);closeViewer();renderReelRow();toast('Reel deleted');
+}
+document.addEventListener('click',e=>{
+  const o=e.target.closest('[data-openreel]');if(o){openViewer(o.dataset.openreel);return}
+  if(e.target.closest('[data-postreel]')){openPostReel();return}
+  const lk=e.target.closest('[data-like]');if(lk){toggleLike(lk.dataset.like);return}
+  const rt=e.target.closest('[data-rate]');if(rt){openRate(rt.dataset.rate);return}
+  const sh=e.target.closest('[data-share]');if(sh){const url=location.origin+location.pathname+'#shorts';
+    (navigator.clipboard?navigator.clipboard.writeText(`${sh.dataset.share} on Bazaar Buzz: ${url}`):Promise.reject()).then(()=>toast('🔗 Link copied, share it anywhere!')).catch(()=>toast('Share this link: '+url));return}
+  const dl=e.target.closest('[data-delreel]');if(dl){deleteReel(dl.dataset.delreel,dl);return}
+  if(e.target.closest('[data-goto-reels]'))$('#shorts').scrollIntoView({behavior:'smooth'});
+});
+$('#reelRow').addEventListener('keydown',e=>{if(e.key==='Enter')e.target.click()});
+
+/* ----- star picker ----- */
+function makeStars(box,val,onChange){
+  box.innerHTML=[1,2,3,4,5].map(n=>`<button type="button" data-v="${n}" aria-label="${n} star${n>1?'s':''}">★</button>`).join('');
+  const set=v=>{box.dataset.val=v;box.querySelectorAll('button').forEach(b=>b.classList.toggle('on',+b.dataset.v<=v))};
+  box.onclick=e=>{const b=e.target.closest('[data-v]');if(b){set(+b.dataset.v);onChange&&onChange(+b.dataset.v)}};
+  box.onmouseover=e=>{const b=e.target.closest('[data-v]');if(b)box.querySelectorAll('button').forEach(x=>x.classList.toggle('on',+x.dataset.v<=+b.dataset.v))};
+  box.onmouseleave=()=>set(+box.dataset.val||0);set(val||0);
+}
+
+/* ----- rate a place ----- */
+let rateShop='';
+function renderRateModal(){
+  const r=ratingFor(rateShop),mine=r.list.find(v=>v.mine||(session&&!API.on&&v.email===session.email));
+  $('#rtShop').textContent=rateShop;
+  $('#rtAvg').innerHTML=r.n?`<b>${r.avg.toFixed(1)}</b><div><div class="st">${starStr(r.avg)}</div><span style="color:var(--muted);font-size:.9rem">${r.n} rating${r.n===1?'':'s'} from explorers</span></div>`:`<span style="color:var(--muted)">No ratings yet. Be the first to rate ${esc(rateShop)}!</span>`;
+  makeStars($('#rtStars'),mine?mine.rating:0);$('#rtText').value=mine?mine.text||'':'';$('#rtGo').textContent=mine?'Update my rating ⭐':'Submit rating ⭐';$('#rtErr').textContent='';
+  $('#rtList').innerHTML=r.list.slice(0,30).map(v=>`<div class="rv-item"><div class="top">${esc(v.by||'Explorer')}${v.mine?' (you)':''}<span>${'★'.repeat(v.rating)}</span></div>${v.text?`<p>${esc(v.text)}</p>`:''}${v.viaReel?'<p style="font-size:.78rem">🎬 from their reel</p>':''}</div>`).join('');
+}
+function openRate(shop){rateShop=shop;renderRateModal();open('#rateModal')}
+$('#rtGo').onclick=async()=>{
+  if(!session){close();openAuth('login','Log in to rate '+rateShop+' ⭐');return}
+  const rating=+$('#rtStars').dataset.val||0,text=$('#rtText').value.trim();
+  if(!rating){$('#rtErr').textContent='Tap the stars to choose a rating.';return}
+  try{
+    if(API.on){await api('/reviews',{place:placeKey(rateShop),shop:rateShop,rating,text});reviews=(await api('/reviews')).reviews}
+    else{const list=store.get('pp_reviews',[]),k=placeKey(rateShop),ex=list.find(v=>v.place===k&&v.email===session.email);
+      if(ex)Object.assign(ex,{rating,text});else list.unshift({id:'rv'+Date.now(),place:k,shop:rateShop,by:session.name,email:session.email,rating,text,mine:true,createdAt:new Date().toISOString()});
+      store.set('pp_reviews',list);reviews=list.map(v=>({...v,mine:v.email===session.email}))}
+  }catch(e){$('#rtErr').textContent=e.message;return}
+  renderRateModal();renderDeals();renderTrending();renderReelRow();toast('⭐ Thanks for rating '+rateShop+'!');
+};
+
+/* ----- post a reel ----- */
+let prFile=null,prUrl=null;
+function openPostReel(){
+  if(!session){openAuth('signup','Create a free account to post reels 🎬',root.dataset.view==='biz'?'business':'customer');return}
+  const biz=session.role==='business';
+  $('#prSub').textContent=biz?'Show customers your shop, products and offers. Up to 30 MB, MP4/WebM/MOV.':'Visited a place? Post a reel and rate it so others know. Up to 30 MB.';
+  $('#prRateBox').style.display=biz?'none':'';$('#prOfferBox').style.display=biz?'':'none';
+  $('#prCapLbl').textContent=biz?'Caption':'Your review';$('#prCap').placeholder=biz?'What\'s special at your shop?':'How was it? Food, service, prices…';
+  $('#shopList').innerHTML=[...new Set(allDeals().map(d=>d.shop).concat(SAMPLE_REELS.map(r=>r.shop)))].map(s=>`<option value="${esc(s)}">`).join('');
+  makeStars($('#prStars'),0);$('#prErr').textContent='';$('#prBar').style.display='none';$('#prGo').disabled=false;$('#prGo').textContent='Post reel 🚀';
+  open('#reelModal');
+}
+$('#prFile').onchange=e=>{
+  const f=e.target.files[0];$('#prErr').textContent='';
+  if(!f)return;
+  if(!/^video\//.test(f.type)){$('#prErr').textContent='That file is not a video.';return}
+  if(f.size>30*1024*1024){$('#prErr').textContent='Video is too large (max 30 MB). Try a shorter clip.';return}
+  prFile=f;if(prUrl)URL.revokeObjectURL(prUrl);prUrl=URL.createObjectURL(f);
+  const v=$('#prPrev');v.src=prUrl;v.style.display='block';v.play().catch(()=>{});
+  $('#prFileName').textContent='✅ '+f.name+' ('+(f.size/1048576).toFixed(1)+' MB)';
+};
+$('#prGo').onclick=()=>{
+  const shop=$('#prShop').value.trim(),caption=$('#prCap').value.trim(),rating=+$('#prStars').dataset.val||0,offer=$('#prOffer').value.trim(),biz=session&&session.role==='business';
+  if(!session){close();openAuth('login');return}
+  if(!prFile){$('#prErr').textContent='Choose a video first.';return}
+  if(!shop){$('#prErr').textContent='Which shop or place is this reel about?';$('#prShop').focus();return}
+  if(!biz&&!rating){$('#prErr').textContent='Tap the stars to rate the place.';return}
+  const d=dealForShop(shop),meta={shop,caption,rating:biz?0:rating,offer:biz?offer:'',cat:d?d.cat:''};
+  const done=r=>{userReels.unshift(r);if(r.rating){loadSocial()}prFile=null;$('#prFile').value='';$('#prPrev').style.display='none';$('#prFileName').textContent='Tap to choose a video';$('#prShop').value='';$('#prCap').value='';$('#prOffer').value='';
+    close();reelFilter='all';$$('#reelTabs .chip').forEach(x=>x.classList.toggle('on',x.dataset.rf==='all'));renderReelRow();toast('🎬 Your reel is live!');setTimeout(()=>$('#shorts').scrollIntoView({behavior:'smooth'}),300)};
+  if(API.on){
+    const xhr=new XMLHttpRequest();xhr.open('POST','/api/reels');xhr.setRequestHeader('Content-Type',prFile.type||'video/mp4');
+    xhr.setRequestHeader('Authorization','Bearer '+API.token);xhr.setRequestHeader('X-Meta',encodeURIComponent(JSON.stringify(meta)));
+    $('#prBar').style.display='block';$('#prGo').disabled=true;$('#prGo').textContent='Uploading…';
+    xhr.upload.onprogress=e=>{if(e.lengthComputable)$('#prBar i').style.width=(e.loaded/e.total*100)+'%'};
+    xhr.onload=()=>{let j={};try{j=JSON.parse(xhr.responseText)}catch(e){}
+      if(xhr.status>=200&&xhr.status<300)done(j.reel);else{$('#prErr').textContent=j.error||'Upload failed. Please try again.';$('#prGo').disabled=false;$('#prGo').textContent='Post reel 🚀'}};
+    xhr.onerror=()=>{$('#prErr').textContent='Upload failed. Check your internet and try again.';$('#prGo').disabled=false;$('#prGo').textContent='Post reel 🚀'};
+    xhr.send(prFile);
+  }else{
+    const r={id:'local'+(++localSeq),src:prUrl,by:session.name,role:session.role,shop,place:placeKey(shop),caption,rating:meta.rating,offer:meta.offer,mine:true,createdAt:new Date().toISOString()};
+    prUrl=null;
+    if(r.rating){const list=store.get('pp_reviews',[]),k=r.place,ex=list.find(v=>v.place===k&&v.email===session.email);
+      if(ex)Object.assign(ex,{rating:r.rating,text:caption,viaReel:true});else list.unshift({id:'rv'+Date.now(),place:k,shop,by:session.name,email:session.email,rating:r.rating,text:caption,viaReel:true,mine:true});store.set('pp_reviews',list)}
+    toast('Preview mode: your reel stays until you refresh. On the live site it is saved to the server.');done(r);
+  }
+};
+
 /* ============ FAQ ============ */
 function renderFaq(){const v=root.dataset.view;
   $('#faqList').innerHTML=FAQS.filter(f=>f[0]===v||f[0]==='both').map(([,q,a])=>`<div class="qa card"><button>${q}<span>+</span></button><div class="ans"><p>${a}</p></div></div>`).join('');
@@ -1515,7 +1858,7 @@ function renderFaq(){const v=root.dataset.view;
   }else{
     session=store.get('pp_session',null);
   }
-  renderAuth();renderAll();
+  renderAuth();renderAll();loadSocial();
 })();
 
 </script>
