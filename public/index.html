@@ -1852,12 +1852,12 @@ async function claim(id){
   try{if(API.on)code=(await api('/claims',{dealId:id,shop:d.shop})).code;
     else{code='BB'+Math.random().toString(36).slice(2,8).toUpperCase();const cl=store.get('pp_claims',[]);cl.push({id,code,at:Date.now()});store.set('pp_claims',cl)}}
   catch(e){toast('⚠️ '+e.message);return}
-  $('#cpShop').textContent=d.shop;$('#cpOffer').textContent=d.offer;$('#cpCode').textContent=code;open('#couponModal');
+  $('#cpShop').textContent=d.shop;$('#cpOffer').textContent=d.offer;$('#cpCode').textContent=code;openModal('#couponModal');
 }
 $('#cpCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('#cpCode').textContent);toast('Code copied ✅')}catch(e){toast('Copy failed. Note the code: '+$('#cpCode').textContent)}};
 
 /* ============ MODALS ============ */
-function open(s){$(s).classList.add('show');document.body.style.overflow='hidden';motionModal(s)}
+function openModal(s){$(s).classList.add('show');document.body.style.overflow='hidden';motionModal(s)}
 function close(){$$('.overlay').forEach(o=>o.classList.remove('show'));document.body.style.overflow=document.getElementById('rviewer')?.classList.contains('show')?'hidden':''}
 $$('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o||e.target.closest('[data-close]'))close()}));
 addEventListener('keydown',e=>{if(e.key==='Escape'&&$$('.overlay.show').length){close();e.stopImmediatePropagation()}});
@@ -1874,7 +1874,7 @@ function openAuth(m='login',sub,role){
   $('#authSub').textContent=sub||(m==='signup'?'Create a free account in seconds.':'Log in to claim deals and manage your shop.');
   if(role){$$('input[name=role]').forEach(r=>r.checked=r.value===role)}
   const b=$('#serverBadge');b.className='server-badge '+(API.on?'on':'off');b.textContent=API.on?'Connected to Bazaar Buzz server':'Preview mode: accounts saved in this browser';
-  setupGoogle();open('#authModal');
+  setupGoogle();openModal('#authModal');
 }
 $$('.auth-tabs button').forEach(b=>b.onclick=()=>setAuthMode(b.dataset.mode));
 document.addEventListener('click',e=>{const a=e.target.closest('button[data-auth],a[data-auth]');if(a){e.preventDefault();openAuth(a.dataset.auth,null,a.dataset.role)}});
@@ -1967,7 +1967,7 @@ function openCheckout(p){
       <button class="btn btn-primary" id="payNow" style="width:100%;padding:.95em">Pay ${inr(total)} securely</button>
       <div class="secure">🔒 Secured by Razorpay · We never store card details</div>
       ${RAZORPAY_KEY?'':'<p class="small-note" style="color:var(--amber)">Test mode: no money will be charged.</p>'}</div>`;
-  open('#payModal');$('#payNow').onclick=()=>pay(p,total);
+  openModal('#payModal');$('#payNow').onclick=()=>pay(p,total);
 }
 function loadRzp(){return new Promise(r=>{if(window.Razorpay)return r(true);const s=document.createElement('script');s.src='https://checkout.razorpay.com/v1/checkout.js';s.onload=()=>r(true);s.onerror=()=>r(false);document.head.appendChild(s)})}
 async function pay(p,total){const method=$('input[name=pm]:checked').value;
@@ -2143,7 +2143,7 @@ function renderRateModal(){
   makeStars($('#rtStars'),mine?mine.rating:0);$('#rtText').value=mine?mine.text||'':'';$('#rtGo').textContent=mine?'Update my rating ⭐':'Submit rating ⭐';$('#rtErr').textContent='';
   $('#rtList').innerHTML=r.list.slice(0,30).map(v=>`<div class="rv-item"><div class="top">${esc(v.by||'Explorer')}${v.mine?' (you)':''}<span>${'★'.repeat(v.rating)}</span></div>${v.text?`<p>${esc(v.text)}</p>`:''}${v.viaReel?'<p style="font-size:.78rem">🎬 from their reel</p>':''}</div>`).join('');
 }
-function openRate(shop){rateShop=shop;renderRateModal();open('#rateModal')}
+function openRate(shop){rateShop=shop;renderRateModal();openModal('#rateModal')}
 $('#rtGo').onclick=async()=>{
   if(!session){close();openAuth('login','Log in to rate '+rateShop+' ⭐');return}
   const rating=+$('#rtStars').dataset.val||0,text=$('#rtText').value.trim();
@@ -2167,7 +2167,7 @@ function openPostReel(){
   $('#prCapLbl').textContent=biz?'Caption':'Your review';$('#prCap').placeholder=biz?'What\'s special at your shop?':'How was it? Food, service, prices…';
   $('#shopList').innerHTML=[...new Set(allDeals().map(d=>d.shop).concat(SAMPLE_REELS.map(r=>r.shop)))].map(s=>`<option value="${esc(s)}">`).join('');
   makeStars($('#prStars'),0);$('#prErr').textContent='';$('#prBar').style.display='none';$('#prGo').disabled=false;$('#prGo').textContent='Post reel 🚀';
-  open('#reelModal');
+  openModal('#reelModal');
 }
 $('#prFile').onchange=e=>{
   const f=e.target.files[0];$('#prErr').textContent='';
