@@ -18,6 +18,8 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%236366F1'/%3E%3Cstop offset='1' stop-color='%2322D3EE'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath fill='white' d='M32 12c-8.8 0-16 7.2-16 16 0 10.8 14 23 14.6 23.6.8.6 2 .6 2.8 0C34 51 48 38.8 48 28c0-8.8-7.2-16-16-16zm0 22a6 6 0 110-12 6 6 0 010 12z'/%3E%3C/svg%3E">
 <!--SEO-->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Bazaar Buzz","alternateName":"BazaarBuzz","description":"Hyperlocal deals and promotion platform for small businesses in India."}</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
+<script src="/transition.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -803,6 +805,35 @@ svg.i.filled{fill:currentColor;color:#E0565B}
 .g-note{font-size:.8rem;color:var(--dim);text-align:center}
 
 a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.user-chip:hover{border-color:var(--line2)}
+
+
+/* ---- GSAP layer ---- */
+.g-on .sec-head h2 .sl{overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.steps-line{--draw:1}
+.g-on .steps-line::before{transform:scaleX(var(--draw));transform-origin:left;animation:none;opacity:.55}
+.g-on .steps-line .step.reveal,.g-on .plans .plan{transition:none}
+.foot-word{font-family:Fraunces,serif;font-weight:700;font-size:clamp(3.4rem,15vw,12rem);line-height:.9;letter-spacing:-.04em;text-align:center;color:transparent;-webkit-text-stroke:1.5px var(--line2);margin:40px 0 18px;overflow:hidden;white-space:nowrap;user-select:none}
+.foot-word div{display:inline-block}
+#heroGl{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.2s}
+#heroGl.on{opacity:1}
+.hero{position:relative}
+/* ---- phone sign-in ---- */
+.method{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:14px 0 6px}
+.method button{height:38px;border-radius:11px;border:1px solid var(--line2);background:none;color:var(--muted);font:inherit;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .2s}
+.method button.on{background:var(--text);color:var(--bg);border-color:var(--text)}
+.ph-row{display:flex;gap:8px;align-items:stretch}
+.ph-row .cc{display:grid;place-items:center;padding:0 14px;border-radius:14px;background:var(--surface2);border:1px solid var(--line2);font-weight:700;color:var(--muted)}
+.ph-row .inp{flex:1;letter-spacing:.06em;font-size:1.05rem}
+.ph-help{font-size:.8rem;color:var(--dim);margin:8px 0 2px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ph-sent{font-size:.9rem;color:var(--muted);margin:6px 0 12px;line-height:1.45}
+.ph-link{background:none;border:0;color:var(--c1);font:inherit;font-weight:700;cursor:pointer;padding:0}
+.otp{display:grid;grid-template-columns:repeat(6,1fr);gap:8px}
+.otp input{width:100%;min-width:0;height:54px;text-align:center;font-size:1.4rem;font-weight:700;border-radius:13px;border:1.5px solid var(--line2);background:var(--surface2);color:var(--text);outline:none;transition:border-color .15s,box-shadow .15s,transform .15s;font-family:inherit}
+.otp input:focus{border-color:var(--c1);box-shadow:0 0 0 3px var(--ring,rgba(168,78,44,.16));background:var(--surface)}
+.otp input.fill{border-color:var(--text)}
+.otp.bad input{border-color:var(--danger);animation:shake .35s}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+@media (max-width:380px){.otp{gap:5px}.otp input{height:48px;font-size:1.2rem}}
 /* ---- mobile app tab bar ---- */
 .tabbar{display:none}
 .watch-all{display:none}
@@ -1162,6 +1193,7 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
       <div><h5>Business</h5><ul><li><a href="#pricing" data-view-link="biz" data-t>Pricing</a></li><li><a href="#reels" data-view-link="biz">Shop reels</a></li><li><a href="#post" data-view-link="biz" data-t>Post an offer</a></li></ul></div>
       <div><h5>Contact</h5><ul><li>hello@bazaarbuzz.in</li><li>Tumakuru, Karnataka</li><li id="adminLink" style="display:none"><a href="/admin" target="_blank" rel="noopener">🔐 Admin panel</a></li><li><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></li></ul></div>
     </div>
+    <div class="foot-word" aria-hidden="true">Bazaar Buzz</div>
     <div class="copy"><span>© 2026 Bazaar Buzz. All rights reserved.</span><span>Made with ❤️ in India</span></div>
   </div>
 </footer>
@@ -1181,7 +1213,7 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
       <h3 id="authTitle" data-t>Welcome back 👋</h3>
       <p class="sub" id="authSub">Log in to claim deals and manage your shop.</p>
       <div class="social" id="socialBox" style="display:none"><div id="gWrap" class="g-wrap"></div></div>
-      <div class="divider" id="socDivider" style="display:none" data-t>or use email</div>
+      <div class="divider" id="socDivider" style="display:none">or</div>
       <div class="auth-tabs"><button data-mode="login" class="on" data-t>Log in</button><button data-mode="signup" data-t>Sign up</button></div>
       <div id="authForm">
         <div id="signupOnly" style="display:none">
@@ -1191,8 +1223,23 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
           <label>I am</label>
           <div class="role"><label><input type="radio" name="role" value="customer" checked> 🧭 Exploring</label><label><input type="radio" name="role" value="business"> 🏪 A business</label></div>
         </div>
+        <div class="method" id="methodBox" style="display:none" role="tablist" aria-label="Sign-in method"><button type="button" data-method="phone" class="on">Phone</button><button type="button" data-method="email">Email</button></div>
+        <div id="emailBox">
         <label for="aEmail" data-t>Email</label><input class="inp" id="aEmail" type="email" required placeholder="you@example.com" autocomplete="email">
         <label for="aPass" data-t>Password</label><input class="inp" id="aPass" type="password" required minlength="6" placeholder="At least 6 characters" autocomplete="current-password">
+        </div>
+        <div id="phoneBox" style="display:none">
+          <div id="phStep1">
+            <label for="aPhone">Mobile number</label>
+            <div class="ph-row"><span class="cc">+91</span><input class="inp" id="aPhone" type="tel" inputmode="numeric" maxlength="11" placeholder="98765 43210" autocomplete="tel-national"></div>
+            <p class="ph-help">We'll text you a 6-digit code to confirm it's your number.</p>
+          </div>
+          <div id="phStep2" style="display:none">
+            <p class="ph-sent">Enter the code we sent to <b id="phTo"></b> <button type="button" class="ph-link" id="phChange">Change</button></p>
+            <div class="otp" id="otpBoxes"><input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit 1" autocomplete="one-time-code"><input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit 2"><input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit 3"><input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit 4"><input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit 5"><input inputmode="numeric" pattern="[0-9]*" maxlength="1" aria-label="Digit 6"></div>
+            <p class="ph-help" id="phResendRow"><span id="phTimer"></span><button type="button" class="ph-link" id="phResend" style="display:none">Resend code</button></p>
+          </div>
+        </div>
         <div class="err" id="authErr"></div>
         <button type="button" class="btn btn-primary" id="authBtn" data-t>Log in</button>
       </div>
@@ -1267,6 +1314,10 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
 <button id="toTop" aria-label="Back to top"><svg class="i" aria-hidden="true"><use href="#i-arrow-up"/></svg></button>
 <div class="toast" id="toast"></div>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/motion@14.14.0/dist/motion.js"></script>
 <script>
 /* ============ CONFIG ============
@@ -1618,13 +1669,14 @@ function initMotion(){
   springIn(heroBits,{y:28,st:.08,d:.25});
   try{animate('.radar-box',{opacity:[0,1],scale:[.86,1],rotate:[-6,0]},{type:'spring',bounce:.25,duration:1.1,delay:.2})}catch(e){}
   try{animate('.float-card',{opacity:[0,1],y:[30,0]},{delay:stagger(.15,{startDelay:.7}),type:'spring',bounce:.35})}catch(e){}
-  // scroll-linked: hero parallax + progress bar
-  try{scroll(animate('.radar-box',{y:[0,140],scale:[1,.88],opacity:[1,.35]},{ease:'linear'}),{target:$('.hero'),offset:['start start','end start']})}catch(e){}
-  try{scroll(animate('.hero .hero-in>div:first-child',{y:[0,-60],opacity:[1,.2]},{ease:'linear'}),{target:$('.hero'),offset:['start start','end start']})}catch(e){}
-  try{const pb=$('#progress');pb.style.width='100%';pb.style.transformOrigin='0 50%';scroll(animate(pb,{scaleX:[0,1]},{ease:'linear'}))}catch(e){}
+  const G=document.documentElement.classList.contains('g-on');
+  // scroll-linked: hero parallax + progress bar (GSAP handles these when loaded)
+  if(!G)try{scroll(animate('.radar-box',{y:[0,140],scale:[1,.88],opacity:[1,.35]},{ease:'linear'}),{target:$('.hero'),offset:['start start','end start']})}catch(e){}
+  if(!G)try{scroll(animate('.hero .hero-in>div:first-child',{y:[0,-60],opacity:[1,.2]},{ease:'linear'}),{target:$('.hero'),offset:['start start','end start']})}catch(e){}
+  if(!G)try{const pb=$('#progress');pb.style.width='100%';pb.style.transformOrigin='0 50%';scroll(animate(pb,{scaleX:[0,1]},{ease:'linear'}))}catch(e){}
   // section heads + grids spring in when scrolled into view
   inView('.sec-head,.row-head',el=>{springIn([...el.children],{y:24,st:.08})},{amount:.4});
-  inView('.steps,.plans,.paths,.dash,.problem,.reel-list',el=>{springIn([...el.children],{y:36,st:.09})},{amount:.25});
+  inView(G?'.paths,.dash,.problem,.reel-list':'.steps,.plans,.paths,.dash,.problem,.reel-list',el=>{springIn([...el.children],{y:36,st:.09})},{amount:.25});
   inView('.cat-rail',el=>{springIn([...el.children],{y:18,s:.9,st:.04})},{amount:.3});
   // hover lift + press squish
   const lift=(sel,y)=>hover(sel,el=>{animate(el,{y:-y},{type:'spring',stiffness:420,damping:26});return()=>animate(el,{y:0},{type:'spring',stiffness:420,damping:26})});
@@ -1634,6 +1686,69 @@ function initMotion(){
   let lastY=scrollY;addEventListener('scroll',()=>{const y=scrollY,nav=$('#nav');if(Math.abs(y-lastY)<6)return;
     const hide=y>lastY&&y>420&&!$('#mobileMenu').classList.contains('show');if(nav._h!==hide){nav._h=hide;animate(nav,{y:hide?-100:0},{type:'spring',stiffness:380,damping:34})}lastY=y},{passive:true});
 }
+/* ============ GSAP + LENIS MOTION LAYER ============ */
+var lenis=null;
+const GSAP_OK=()=>!!(window.gsap&&window.ScrollTrigger)&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+function initGsap(){
+  if(!GSAP_OK())return false;
+  const g=window.gsap,ST=window.ScrollTrigger;
+  g.registerPlugin(ST);if(window.SplitText)g.registerPlugin(window.SplitText);
+  document.documentElement.classList.add('g-on');
+  /* Lenis smooth wheel scrolling, driven by GSAP's ticker so ScrollTrigger stays in sync */
+  if(window.Lenis&&matchMedia('(pointer:fine)').matches){
+    try{lenis=new Lenis({lerp:.1,smoothWheel:true,anchors:{offset:-90},prevent:n=>!!(n.closest&&n.closest('.overlay,.mobile-menu,.rv,.reel-row,select,[data-lenis-prevent]'))});
+      lenis.on('scroll',ST.update);g.ticker.add(t=>lenis.raf(t*1000));g.ticker.lagSmoothing(0);}catch(e){lenis=null}
+  }
+  const mm=g.matchMedia();
+  mm.add({desk:'(min-width:861px)',all:'(min-width:0px)'},ctx=>{
+    const{desk}=ctx.conditions;
+    /* reading progress bar */
+    g.fromTo('#progress',{scaleX:0},{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.3}});
+    /* hero: content drifts up, radar sinks and shrinks */
+    g.to('.hero .hero-in>div:first-child',{yPercent:-12,autoAlpha:.25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+    g.to('.radar-box',{y:desk?160:60,scale:.86,rotate:-4,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
+    g.to('#heroGl',{autoAlpha:0,ease:'none',scrollTrigger:{trigger:'.hero',start:'center top',end:'bottom top',scrub:true}});
+    /* section headings: words rise out of a mask, then the split is undone so translations still work */
+    if(window.SplitText)g.utils.toArray('.sec-head h2').forEach(h=>{
+      if(!h.offsetParent)return;
+      const sp=new SplitText(h,{type:'lines,words',linesClass:'sl'});
+      g.from(sp.words,{yPercent:115,rotate:4,duration:.9,ease:'expo.out',stagger:.045,
+        scrollTrigger:{trigger:h,start:'top 86%',once:true},onComplete:()=>sp.revert()});
+    });
+    /* how it works: the connecting line draws as you scroll, cards rise one by one */
+    g.utils.toArray('.steps-line').forEach(box=>{
+      box.querySelectorAll('.step').forEach(c=>c.classList.remove('reveal','d1','d2','d3'));
+      if(!box.offsetParent)return;
+      const cards=box.querySelectorAll('.step');
+      const tl=g.timeline({scrollTrigger:{trigger:box,start:'top 82%',end:desk?'bottom 60%':'bottom 85%',scrub:desk?.6:false,toggleActions:'play none none none'}});
+      tl.fromTo(box,{'--draw':0},{'--draw':1,ease:'none',duration:1},0)
+        .from(cards,{y:70,rotate:(i)=>i%2?2:-2,autoAlpha:0,ease:'power3.out',duration:.6,stagger:.18},0)
+        .from(box.querySelectorAll('.step .num'),{scale:.4,autoAlpha:0,ease:'back.out(2)',duration:.4,stagger:.18},.15);
+    });
+    /* marquee speeds up with scroll velocity, then eases back */
+    const mq=$('#marquee');
+    if(mq){mq.style.animation='none';
+      const loop=g.to(mq,{xPercent:-50,ease:'none',duration:34,repeat:-1});
+      let boost=g.to({},{});
+      ST.create({start:0,end:'max',onUpdate:s=>{const v=g.utils.clamp(-6,6,s.getVelocity()/320);boost.kill();
+        loop.timeScale(1+Math.abs(v));boost=g.to(loop,{timeScale:1,duration:1.1,ease:'power2.out'})}});
+      mq.parentElement.addEventListener('mouseenter',()=>g.to(loop,{timeScale:.15,duration:.4}));
+      mq.parentElement.addEventListener('mouseleave',()=>g.to(loop,{timeScale:1,duration:.6}));
+    }
+    /* footer wordmark: letters climb into place */
+    const fw=$('.foot-word');
+    if(fw&&window.SplitText){const sp=new SplitText(fw,{type:'chars'});
+      g.from(sp.chars,{yPercent:100,ease:'power4.out',stagger:.035,scrollTrigger:{trigger:fw,start:'top bottom',end:'bottom bottom',scrub:desk?.8:false,toggleActions:'play none none none'}})}
+    /* pricing cards fan in on desktop */
+    if(desk)g.from('.plans .plan',{y:90,rotate:i=>(i-1.5)*3,autoAlpha:0,duration:.9,ease:'expo.out',stagger:.08,scrollTrigger:{trigger:'.plans',start:'top 80%',once:true}});
+  });
+  /* layout changes (fonts, view switch, language) need a refresh */
+  document.fonts&&document.fonts.ready.then(()=>ST.refresh());
+  addEventListener('load',()=>ST.refresh());
+  return true;
+}
+function gsapRefresh(){if(window.ScrollTrigger&&document.documentElement.classList.contains('g-on'))setTimeout(()=>ScrollTrigger.refresh(),80)}
+
 /* re-animate freshly rendered lists */
 function motionList(sel){if(!MOTION_OK())return;const el=$(sel);if(!el)return;springIn([...el.children].slice(0,18),{y:18,st:.035})}
 /* modal + toast springs */
@@ -1723,9 +1838,10 @@ function setView(v,scrollTo){
     renderFaq();splitWords();moveSeg();checkNav();if(typeof renderReelRow==='function')try{renderReelRow()}catch(e){}
     $$('.reveal').forEach(el=>{if(el.offsetParent!==null&&el.getBoundingClientRect().top<innerHeight)el.classList.add('in');else io.observe(el)});
     $$('[data-count]').forEach(el=>{if(!el._done)cio.observe(el)});
+    if(typeof gsapRefresh==='function')gsapRefresh();
   };
   if(document.startViewTransition&&!reduce&&root.dataset.view!==v)document.startViewTransition(apply);else apply();
-  if(scrollTo)setTimeout(()=>$(scrollTo)?.scrollIntoView({behavior:'smooth'}),60);
+  if(scrollTo)setTimeout(()=>{const el=$(scrollTo);if(!el)return;if(lenis)lenis.scrollTo(el,{offset:-90});else el.scrollIntoView({behavior:'smooth'})},60);
 }
 document.addEventListener('click',e=>{
   const b=e.target.closest('[data-view-btn]');if(b){const v=b.dataset.viewBtn;setView(v,b.classList.contains('path')?(v==='exp'?'#trending':'#why'):null);$('#mobileMenu').classList.remove('show');setTimeout(moveSeg,50)}
@@ -1887,24 +2003,25 @@ async function claim(id){
 $('#cpCopy').onclick=async()=>{try{await navigator.clipboard.writeText($('#cpCode').textContent);toast('Code copied ✅')}catch(e){toast('Copy failed. Note the code: '+$('#cpCode').textContent)}};
 
 /* ============ MODALS ============ */
-function openModal(s){$(s).classList.add('show');document.body.style.overflow='hidden';motionModal(s)}
-function close(){$$('.overlay').forEach(o=>o.classList.remove('show'));document.body.style.overflow=document.getElementById('rviewer')?.classList.contains('show')?'hidden':''}
+function openModal(s){if(lenis)lenis.stop();$(s).classList.add('show');document.body.style.overflow='hidden';motionModal(s)}
+function close(){if(lenis)lenis.start();$$('.overlay').forEach(o=>o.classList.remove('show'));document.body.style.overflow=document.getElementById('rviewer')?.classList.contains('show')?'hidden':''}
 $$('.overlay').forEach(o=>o.addEventListener('click',e=>{if(e.target===o||e.target.closest('[data-close]'))close()}));
 addEventListener('keydown',e=>{if(e.key==='Escape'&&$$('.overlay.show').length){close();e.stopImmediatePropagation()}});
 
 /* ============ AUTH ============ */
 let authMode='login';
-function setAuthMode(m){authMode=m;$$('.auth-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));
+function setAuthMode(m,keepPhone){authMode=m;$$('.auth-tabs button').forEach(b=>b.classList.toggle('on',b.dataset.mode===m));
   $('#signupOnly').style.display=$('#roleBox').style.display=m==='signup'?'block':'none';
   $('#authBtn').textContent=t(m==='signup'?'Create account':'Log in');$('#authTitle').textContent=t(m==='signup'?'Join Bazaar Buzz ✨':'Welcome back 👋');
-  $('#authErr').textContent='';$('#aName').required=m==='signup';$('#aPass').autocomplete=m==='signup'?'new-password':'current-password'}
+  $('#authErr').textContent='';$('#aName').required=m==='signup';$('#aPass').autocomplete=m==='signup'?'new-password':'current-password';
+  if(typeof syncAuthBtn==='function'&&method==='phone')syncAuthBtn()}
 function showAuthPane(){$('#authMain').style.display='block'}
 function openAuth(m='login',sub,role){
   showAuthPane('main');setAuthMode(m);
   $('#authSub').textContent=sub||(m==='signup'?'Create a free account in seconds.':'Log in to claim deals and manage your shop.');
   if(role){$$('input[name=role]').forEach(r=>r.checked=r.value===role)}
   const b=$('#serverBadge');b.className='server-badge '+(API.on?'on':'off');b.textContent=API.on?'Connected to Bazaar Buzz server':'Preview mode: accounts saved in this browser';
-  setupGoogle();openModal('#authModal');
+  setupGoogle();ph.needName=false;if(ph.step===2)phStep(1,true);setMethod(phoneOn()?'phone':'email');openModal('#authModal');
 }
 $$('.auth-tabs button').forEach(b=>b.onclick=()=>setAuthMode(b.dataset.mode));
 document.addEventListener('click',e=>{const a=e.target.closest('button[data-auth],a[data-auth]');if(a){e.preventDefault();openAuth(a.dataset.auth,null,a.dataset.role)}});
@@ -1933,7 +2050,74 @@ async function emailAuth(){
   }catch(e){$('#authErr').textContent=e.message}
   finally{btn.disabled=false;btn.textContent=t(authMode==='signup'?'Create account':'Log in')}
 }
-$('#authBtn').onclick=emailAuth;onEnter($('#authForm'),emailAuth);
+/* ----- phone + SMS code ----- */
+var method='email',ph={step:1,phone:'',timer:null,needName:false};
+const phoneOn=()=>!!(API.on&&API.cfg.phoneEnabled);
+function setMethod(m){
+  method=phoneOn()?m:'email';
+  $('#methodBox').style.display=phoneOn()?'grid':'none';
+  $$('#methodBox [data-method]').forEach(b=>{b.classList.toggle('on',b.dataset.method===method);b.setAttribute('aria-selected',b.dataset.method===method)});
+  $('#emailBox').style.display=method==='email'?'':'none';$('#phoneBox').style.display=method==='phone'?'':'none';
+  $('#aEmail').required=$('#aPass').required=method==='email';
+  $('#authErr').textContent='';phStep(method==='phone'?ph.step:1,true);syncAuthBtn();
+}
+function syncAuthBtn(){$('#authBtn').textContent=method==='phone'?(ph.step===1?'Send code':(ph.needName?'Create account':'Verify & continue')):t(authMode==='signup'?'Create account':'Log in')}
+$$('#methodBox [data-method]').forEach(b=>b.onclick=()=>{setMethod(b.dataset.method);(method==='phone'?$('#aPhone'):$('#aEmail')).focus()});
+function phStep(n,quiet){
+  ph.step=n;$('#phStep1').style.display=n===1?'':'none';$('#phStep2').style.display=n===2?'':'none';
+  if(n===1){clearInterval(ph.timer);ph.needName=false}
+  if(n===2&&!quiet){otpClear();setTimeout(()=>otpIn()[0].focus(),60)}
+  syncAuthBtn();
+}
+const otpIn=()=>$$('#otpBoxes input');
+const otpVal=()=>otpIn().map(i=>i.value).join('');
+function otpClear(){otpIn().forEach(i=>{i.value='';i.classList.remove('fill')});$('#otpBoxes').classList.remove('bad')}
+function otpFill(str,from=0){const d=String(str).replace(/\D/g,'').split('');const ins=otpIn();
+  d.forEach((c,k)=>{if(ins[from+k]){ins[from+k].value=c;ins[from+k].classList.add('fill')}});
+  const nxt=ins[Math.min(5,from+d.length)];nxt&&nxt.focus();if(otpVal().length===6)phoneAuth()}
+otpIn().forEach((inp,i)=>{
+  inp.addEventListener('input',()=>{$('#otpBoxes').classList.remove('bad');const v=inp.value.replace(/\D/g,'');
+    if(v.length>1){inp.value='';otpFill(v,i);return}inp.value=v;inp.classList.toggle('fill',!!v);if(v&&i<5)otpIn()[i+1].focus();if(otpVal().length===6)phoneAuth()});
+  inp.addEventListener('keydown',e=>{if(e.key==='Backspace'&&!inp.value&&i>0){const p=otpIn()[i-1];p.value='';p.classList.remove('fill');p.focus();e.preventDefault()}
+    else if(e.key==='ArrowLeft'&&i>0)otpIn()[i-1].focus();else if(e.key==='ArrowRight'&&i<5)otpIn()[i+1].focus();else if(e.key==='Enter')phoneAuth()});
+  inp.addEventListener('paste',e=>{e.preventDefault();otpClear();otpFill((e.clipboardData||window.clipboardData).getData('text'),0)});
+  inp.addEventListener('focus',()=>inp.select());
+});
+$('#aPhone').addEventListener('input',()=>{let d=$('#aPhone').value.replace(/\D/g,'');if(d.length>10&&d.startsWith('91'))d=d.slice(2);d=d.slice(0,10);$('#aPhone').value=d.length>5?d.slice(0,5)+' '+d.slice(5):d});
+function phCountdown(sec){clearInterval(ph.timer);let n=sec;const tick=()=>{$('#phTimer').textContent=n>0?`Resend code in ${n}s`:'';$('#phResend').style.display=n>0?'none':'';n--;if(n<-1)clearInterval(ph.timer)};tick();ph.timer=setInterval(tick,1000)}
+$('#phChange').onclick=()=>{phStep(1);$('#aPhone').focus()};
+$('#phResend').onclick=()=>sendCode(true);
+async function sendCode(resend){
+  const raw=$('#aPhone').value.replace(/\D/g,'');
+  if(!/^[6-9]\d{9}$/.test(raw)){$('#authErr').textContent='Enter your 10-digit mobile number (it starts with 6, 7, 8 or 9).';$('#aPhone').focus();return}
+  if(authMode==='signup'&&!resend&&$('#aName').value.trim().length<2){$('#authErr').textContent='Please enter your name first.';$('#aName').focus();return}
+  const btn=$('#authBtn');btn.disabled=true;if(!resend)btn.textContent='Sending…';$('#authErr').textContent='';
+  try{const j=await api('/otp/send',{phone:raw});ph.phone=raw;$('#phTo').textContent=j.phone;
+    if(!resend)phStep(2);else{otpClear();otpIn()[0].focus();toast('New code sent')}
+    phCountdown(j.wait||30);tryWebOtp()}
+  catch(e){$('#authErr').textContent=e.message}
+  finally{btn.disabled=false;syncAuthBtn()}
+}
+async function phoneAuth(){
+  if(ph.step===1)return sendCode();
+  const code=otpVal(),btn=$('#authBtn');
+  if(code.length<6){$('#authErr').textContent='Enter all 6 digits of the code.';otpIn()[code.length].focus();return}
+  if(btn.disabled)return;
+  const name=$('#aName').value.trim(),role=$('input[name=role]:checked').value;
+  if(ph.needName&&name.length<2){$('#authErr').textContent='Please enter your name to finish.';$('#aName').focus();return}
+  btn.disabled=true;btn.textContent='Checking…';$('#authErr').textContent='';
+  try{const j=await api('/otp/verify',{phone:ph.phone,code,name:(authMode==='signup'||ph.needName)?name:'',role});
+    if(j.needName){ph.needName=true;setAuthMode('signup',true);$('#authTitle').textContent='Almost done';$('#authSub').textContent='Your number is confirmed. Tell us your name to finish.';$('#aName').focus();return}
+    clearInterval(ph.timer);finishLogin(j.user,j.token);phStep(1);$('#aPhone').value='';}
+  catch(e){$('#authErr').textContent=e.message;$('#otpBoxes').classList.add('bad');if(/expired|new code/i.test(e.message)){$('#phResend').style.display='';$('#phTimer').textContent=''}}
+  finally{btn.disabled=false;syncAuthBtn()}
+}
+/* Android Chrome can read the SMS code automatically */
+let otpAbort=null;
+function tryWebOtp(){if(!('OTPCredential' in window))return;try{otpAbort&&otpAbort.abort();otpAbort=new AbortController();
+  navigator.credentials.get({otp:{transport:['sms']},signal:otpAbort.signal}).then(c=>{if(c&&c.code&&ph.step===2){otpClear();otpFill(c.code)}}).catch(()=>{})}catch(e){}}
+const authSubmit=()=>method==='phone'?phoneAuth():emailAuth();
+$('#authBtn').onclick=authSubmit;onEnter($('#authForm'),authSubmit);
 
 /* social login */
 let gReady=false;
@@ -2144,7 +2328,7 @@ async function deleteReel(id,btn){
   userReels=userReels.filter(r=>r.id!==id);closeViewer();renderReelRow();toast('Reel deleted');
 }
 document.addEventListener('click',e=>{
-  const o=e.target.closest('[data-openreel]');if(o){if(API.on){location.href='/reels?r='+encodeURIComponent(o.dataset.openreel)}else openViewer(o.dataset.openreel);return}
+  const o=e.target.closest('[data-openreel]');if(o){if(API.on){(window.bbGo||(u=>location.href=u))('/reels?r='+encodeURIComponent(o.dataset.openreel))}else openViewer(o.dataset.openreel);return}
   if(e.target.closest('[data-postreel]')){openPostReel();return}
   const lk=e.target.closest('[data-like]');if(lk){toggleLike(lk.dataset.like);return}
   const rt=e.target.closest('[data-rate]');if(rt){openRate(rt.dataset.rate);return}
@@ -2274,15 +2458,57 @@ document.querySelectorAll('.lang-sel').forEach(sel=>{sel.innerHTML=LANGS.map(([c
 function initTabbar(){
   const me=$('#tbMe');
   const paint=()=>{$('#tbMeTxt').textContent=session?session.name.split(' ')[0]:t('Log in')};paint();
-  me.onclick=()=>{if(session){if(API.on)location.href='/me';else $('#burger').click()}else openAuth('login')};
+  me.onclick=()=>{if(session){if(API.on)(window.bbGo||(u=>location.href=u))('/me');else $('#burger').click()}else openAuth('login')};
   const _ra=renderAuth;renderAuth=function(){_ra.apply(this,arguments);try{paint()}catch(e){}};
   const ids=['top','deals','pricing','shorts'],els=ids.map(i=>document.getElementById(i)).filter(Boolean);
   const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){$$('#tabbar [data-tb]').forEach(a=>a.classList.toggle('on',a.dataset.tb===e.target.id))}},{rootMargin:'-45% 0px -50% 0px'});
   els.forEach(el=>io.observe(el));
   let ly=scrollY;addEventListener('scroll',()=>{const y=scrollY,tb=$('#tabbar');if(y>ly+8&&y>300)tb.style.transform='translateY(120%)';else if(y<ly-8)tb.style.transform='';ly=y},{passive:true});
 }
-addEventListener('load',()=>setTimeout(initMotion,50));if(document.readyState==='complete')setTimeout(initMotion,50);
+let _mo=false;const bootMotion=()=>{if(_mo)return;_mo=true;try{initGsap()}catch(e){console.warn(e)}initMotion()};addEventListener('load',()=>setTimeout(bootMotion,50));if(document.readyState==='complete')setTimeout(bootMotion,50);
 
+</script>
+<script type="module">
+/* OGL hero background: a slow, soft colour flow in the brand palette. Skipped on small/low-power devices. */
+const ok=!matchMedia('(prefers-reduced-motion: reduce)').matches&&innerWidth>=700&&!(navigator.connection&&navigator.connection.saveData)&&(navigator.hardwareConcurrency||4)>=4;
+const hero=document.querySelector('.hero');
+if(ok&&hero){(async()=>{try{
+  const {Renderer,Program,Mesh,Triangle}=await import('https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js');
+  const renderer=new Renderer({dpr:Math.min(1.5,devicePixelRatio||1),alpha:true,premultipliedAlpha:false,antialias:false});
+  const gl=renderer.gl;gl.canvas.id='heroGl';gl.canvas.setAttribute('aria-hidden','true');hero.prepend(gl.canvas);
+  const rgb=v=>{const h=getComputedStyle(document.documentElement).getPropertyValue(v).trim().replace('#','');const n=parseInt(h.length===3?h.split('').map(c=>c+c).join(''):h,16);return[(n>>16&255)/255,(n>>8&255)/255,(n&255)/255]};
+  const program=new Program(gl,{transparent:true,
+    vertex:`attribute vec2 uv;attribute vec2 position;varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,0.,1.);}`,
+    fragment:`precision highp float;varying vec2 vUv;uniform float uTime;uniform vec2 uRes;uniform vec2 uMouse;uniform vec3 uA;uniform vec3 uB;uniform vec3 uBg;uniform float uDark;
+      vec3 hash3(vec2 p){vec3 q=vec3(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)),dot(p,vec2(419.2,371.9)));return fract(sin(q)*43758.5453);}
+      float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
+        float a=dot(hash3(i).xy-.5,f),b=dot(hash3(i+vec2(1,0)).xy-.5,f-vec2(1,0)),c=dot(hash3(i+vec2(0,1)).xy-.5,f-vec2(0,1)),d=dot(hash3(i+vec2(1,1)).xy-.5,f-vec2(1,1));
+        return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}
+      float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*noise(p);p*=2.02;a*=.5;}return v;}
+      void main(){vec2 uv=vUv;vec2 p=(uv-.5)*vec2(uRes.x/uRes.y,1.)*1.6;float t=uTime*.045;
+        vec2 q=vec2(fbm(p+t),fbm(p+vec2(5.2,1.3)-t));vec2 r=vec2(fbm(p+3.*q+vec2(1.7,9.2)+t*.6+uMouse*.25),fbm(p+3.*q+vec2(8.3,2.8)-t*.5));
+        float f=fbm(p+2.5*r);
+        float blobA=smoothstep(.05,.55,f+.25*q.x+.35*(uv.x-.35));
+        float blobB=smoothstep(.1,.6,r.y+.3*(1.-uv.y)-.15);
+        vec3 col=mix(uBg,uA,blobA*.22*(1.+uDark*.4));col=mix(col,uB,blobB*.14*(1.+uDark*.4));
+        float vig=smoothstep(1.25,.35,length((uv-vec2(.62,.5))*vec2(1.2,1.)));
+        float grain=(fract(sin(dot(uv*uRes+uTime,vec2(12.9898,78.233)))*43758.5453)-.5)*.035;
+        float alpha=(blobA*.6+blobB*.5)*vig;
+        gl_FragColor=vec4(col+grain,clamp(alpha,0.,1.)*.9);}`,
+    uniforms:{uTime:{value:0},uRes:{value:[1,1]},uMouse:{value:[0,0]},uA:{value:rgb('--c1')},uB:{value:rgb('--c2')},uBg:{value:rgb('--bg')},uDark:{value:0}}});
+  const mesh=new Mesh(gl,{geometry:new Triangle(gl),program});
+  const size=()=>{renderer.setSize(hero.clientWidth,hero.clientHeight);program.uniforms.uRes.value=[gl.canvas.width,gl.canvas.height]};
+  const theme=()=>{const d=document.documentElement.dataset.theme==='dark';program.uniforms.uDark.value=d?1:0;program.uniforms.uA.value=rgb('--c1');program.uniforms.uB.value=rgb('--c2');program.uniforms.uBg.value=rgb('--bg')};
+  size();theme();addEventListener('resize',size);
+  new MutationObserver(()=>setTimeout(theme,30)).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  let tm=[0,0],mo=[0,0];addEventListener('pointermove',e=>{tm=[e.clientX/innerWidth-.5,e.clientY/innerHeight-.5]},{passive:true});
+  let vis=true,raf=0;new IntersectionObserver(([e])=>{vis=e.isIntersecting;if(vis&&!raf)raf=requestAnimationFrame(loop)}).observe(hero);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&vis&&!raf)raf=requestAnimationFrame(loop)});
+  const t0=performance.now();
+  function loop(now){raf=0;if(!vis||document.hidden)return;mo[0]+=(tm[0]-mo[0])*.04;mo[1]+=(tm[1]-mo[1])*.04;
+    program.uniforms.uTime.value=(now-t0)/1000;program.uniforms.uMouse.value=mo;renderer.render({scene:mesh});raf=requestAnimationFrame(loop)}
+  raf=requestAnimationFrame(loop);requestAnimationFrame(()=>gl.canvas.classList.add('on'));
+}catch(e){console.warn('Hero WebGL skipped:',e.message)}})()}
 </script>
 </body>
 </html>
