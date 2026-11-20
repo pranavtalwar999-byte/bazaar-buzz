@@ -18,6 +18,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%236366F1'/%3E%3Cstop offset='1' stop-color='%2322D3EE'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath fill='white' d='M32 12c-8.8 0-16 7.2-16 16 0 10.8 14 23 14.6 23.6.8.6 2 .6 2.8 0C34 51 48 38.8 48 28c0-8.8-7.2-16-16-16zm0 22a6 6 0 110-12 6 6 0 010 12z'/%3E%3C/svg%3E">
 <!--SEO-->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Bazaar Buzz","alternateName":"BazaarBuzz","description":"Hyperlocal deals and promotion platform for small businesses in India."}</script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","postprocessing":"https://cdn.jsdelivr.net/npm/postprocessing@6.36.4/build/index.js"}}</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.css">
 <script src="/transition.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -817,6 +818,30 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
 #heroGl{position:absolute;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0;transition:opacity 1.2s}
 #heroGl.on{opacity:1}
 .hero{position:relative}
+
+/* ---- 3D neighbourhood ---- */
+.city-in{display:grid;grid-template-columns:.8fr 1.2fr;gap:clamp(24px,4vw,56px);align-items:center}
+.city-copy h2{margin:14px 0 12px}
+.city-copy p{color:var(--muted);font-size:1.02rem;line-height:1.6;max-width:440px}
+.city-stats{list-style:none;display:flex;gap:26px;margin-top:26px;flex-wrap:wrap}
+.city-stats b{display:block;font-family:Fraunces,serif;font-size:1.7rem}
+.city-stats span{font-size:.82rem;color:var(--dim)}
+.city-stage{position:relative;height:clamp(360px,52vw,560px);border-radius:28px;overflow:hidden;background:radial-gradient(120% 90% at 50% 20%,var(--surface),var(--bg2));border:1px solid var(--line);touch-action:pan-y;cursor:grab;user-select:none}
+.city-stage.grab{cursor:grabbing}
+.city-canvas{position:absolute;inset:0;width:100%!important;height:100%!important;opacity:0;transition:opacity 1s}
+.city-stage.on .city-canvas{opacity:1}
+.city-stage.on .city-fallback{opacity:0}
+.city-fallback{position:absolute;inset:0;display:grid;place-items:center;transition:opacity .8s;pointer-events:none}
+.city-fallback p{position:absolute;bottom:22px;font-weight:600;color:var(--dim);font-size:.9rem}
+.cf-grid{width:70%;aspect-ratio:1;transform:perspective(700px) rotateX(58deg) rotateZ(-38deg);background:
+  repeating-linear-gradient(0deg,transparent 0 46px,var(--line2) 46px 52px),repeating-linear-gradient(90deg,transparent 0 46px,var(--line2) 46px 52px);
+  border-radius:20px;box-shadow:inset 0 0 0 1px var(--line)}
+.city-tip{position:absolute;z-index:3;transform:translate(-50%,calc(-100% - 26px));background:var(--surface);color:var(--text);border:1px solid var(--line2);border-radius:14px;padding:10px 13px;min-width:170px;max-width:240px;box-shadow:var(--shadow);pointer-events:none;opacity:0;transition:opacity .2s;display:grid;gap:2px}
+.city-tip.show{opacity:1}
+.city-tip b{font-size:.92rem}.city-tip span{font-size:.84rem;color:var(--c1);font-weight:600}.city-tip em{font-style:normal;font-size:.74rem;color:var(--dim)}
+.city-hint{position:absolute;left:16px;bottom:14px;z-index:2;display:flex;align-items:center;gap:6px;font-size:.76rem;font-weight:600;color:var(--muted);background:var(--glass);border:1px solid var(--line);padding:6px 11px;border-radius:999px;backdrop-filter:blur(8px);pointer-events:none}
+.city-hint svg.i{width:14px;height:14px}
+@media (max-width:860px){.city-in{grid-template-columns:1fr}.city-stage{height:380px}}
 /* ---- phone sign-in ---- */
 .method{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin:14px 0 6px}
 .method button{height:38px;border-radius:11px;border:1px solid var(--line2);background:none;color:var(--muted);font:inherit;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .2s}
@@ -1052,6 +1077,29 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
     </div>
   </div>
 </section>
+
+<section id="city3d" style="order:5">
+  <div class="wrap city-in">
+    <div class="city-copy">
+      <span class="tag"><span class="live"></span> Live in 3D</span>
+      <h2 class="only-exp">Your neighbourhood, <span class="gt">lit up with deals</span></h2>
+      <h2 class="only-biz">See where your offer <span class="gt">shows up</span></h2>
+      <p class="only-exp">Every glowing pin is a real offer from a shop near you. Drag to look around, hover a pin to peek, tap it to see the deal.</p>
+      <p class="only-biz">Your shop becomes a glowing pin on everyone's map nearby. Bigger packs glow brighter and reach further.</p>
+      <ul class="city-stats">
+        <li><b id="cityPins">8</b><span>offers on this street</span></li>
+        <li><b id="cityNear">0.4 km</b><span>closest deal</span></li>
+        <li><b>₹0</b><span>to explore</span></li>
+      </ul>
+    </div>
+    <div class="city-stage" id="cityStage" aria-label="3D map of nearby shops with deals">
+      <div class="city-fallback" id="cityFallback"><div class="cf-grid"></div><p>Nearby offers, mapped</p></div>
+      <div class="city-tip" id="cityTip" role="status"></div>
+      <div class="city-hint"><svg class="i" aria-hidden="true"><use href="#i-compass"/></svg>Drag to look around</div>
+    </div>
+  </div>
+</section>
+
 
 <section id="how-exp" class="only-exp" style="order:6">
   <div class="wrap">
@@ -2509,6 +2557,151 @@ if(ok&&hero){(async()=>{try{
   raf=requestAnimationFrame(loop);requestAnimationFrame(()=>gl.canvas.classList.add('on'));
   if(window.ScrollTrigger)ScrollTrigger.create({trigger:hero,start:'center top',end:'bottom top',onUpdate:s=>{gl.canvas.style.opacity=String(1-s.progress)},onLeaveBack:()=>{gl.canvas.style.opacity=''}});
 }catch(e){console.warn('Hero WebGL skipped:',e.message)}})()}
+</script>
+<script type="module">
+/* 3D neighbourhood (three.js + pmndrs/postprocessing + GSAP ScrollTrigger).
+   Loads only when the section is near the screen, renders only while visible, and skips weak devices. */
+const stage=document.getElementById('cityStage');
+const weak=matchMedia('(prefers-reduced-motion: reduce)').matches||(navigator.connection&&navigator.connection.saveData)||(navigator.hardwareConcurrency||4)<4;
+if(stage&&!weak){
+  const io=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){io.disconnect();boot().catch(e=>console.warn('3D map skipped:',e.message))}},{rootMargin:'400px'});
+  io.observe(stage);
+}
+async function boot(){
+  const THREE=await import('three');
+  let PP=null;const small=innerWidth<760;
+  if(!small){try{PP=await import('postprocessing')}catch(e){PP=null}}
+  const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim()||'#888';
+  const dark=()=>document.documentElement.dataset.theme==='dark';
+  const W=()=>stage.clientWidth,H=()=>stage.clientHeight;
+  const renderer=new THREE.WebGLRenderer({antialias:!PP,alpha:true,powerPreference:'high-performance'});
+  renderer.setPixelRatio(Math.min(small?1.25:1.6,devicePixelRatio||1));renderer.setSize(W(),H());
+  renderer.outputColorSpace=THREE.SRGBColorSpace;renderer.shadowMap.enabled=!small;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+  renderer.domElement.className='city-canvas';stage.prepend(renderer.domElement);
+  const scene=new THREE.Scene();
+  const camera=new THREE.PerspectiveCamera(36,W()/H(),0.1,200);
+  const hemi=new THREE.HemisphereLight(0xfff6ea,0x6b5a4a,1.1);scene.add(hemi);
+  const sun=new THREE.DirectionalLight(0xffe2c4,2.2);sun.position.set(12,20,8);sun.castShadow=!small;
+  sun.shadow.mapSize.set(1024,1024);Object.assign(sun.shadow.camera,{left:-16,right:16,top:16,bottom:-16,near:1,far:60});sun.shadow.bias=-0.0006;scene.add(sun);
+
+  /* palette follows the site theme */
+  const P={};const paint=()=>{const d=dark();Object.assign(P,{
+    ground:d?0x1f1e1b:0xe9e3d7,road:d?0x2a2926:0xd8d0c2,line:d?0x4a4740:0xf7f3ea,
+    blocks:d?[0x3a3833,0x46423b,0x35403a,0x4a3a33,0x3f3d38]:[0xf3eee6,0xe6d9c6,0xd8c3a5,0xc9d6cc,0xe9d5c9],
+    roof:d?0x2b2a27:0xbfae96,awning:[0xa84e2c,0x2e6a55,0xc98a1b,0x8a3b5b],tree:d?0x3f6b56:0x6f9c7d,
+    pin:new THREE.Color(css('--c1')),fog:new THREE.Color(css('--bg'))});
+    scene.fog=new THREE.Fog(P.fog,26,58);hemi.intensity=d?.55:1.1;sun.intensity=d?1.1:2.2};
+  paint();
+
+  /* ground + roads */
+  const city=new THREE.Group();scene.add(city);
+  const mat=c=>new THREE.MeshStandardMaterial({color:c,roughness:.9,metalness:0});
+  const ground=new THREE.Mesh(new THREE.PlaneGeometry(120,120),mat(P.ground));ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;city.add(ground);
+  const N=4,cell=5.2,road=1.5;const roads=[];
+  for(let k=-N;k<=N;k++){
+    for(const vert of [0,1]){const r=new THREE.Mesh(new THREE.PlaneGeometry(vert?road:cell*N*2+road,vert?cell*N*2+road:road),mat(P.road));
+      r.rotation.x=-Math.PI/2;r.position.set(vert?k*cell:0,0.01,vert?0:k*cell);r.receiveShadow=true;city.add(r);roads.push(r)}
+  }
+  /* buildings with awnings, trees */
+  const rnd=(()=>{let s=7;return()=>(s=(s*16807)%2147483647)/2147483647})();
+  const shops=[];const geo=new THREE.BoxGeometry(1,1,1);
+  for(let gx=-N;gx<N;gx++)for(let gz=-N;gz<N;gz++){
+    const cx=gx*cell+cell/2,cz=gz*cell+cell/2;
+    for(let q=0;q<4;q++){
+      if(rnd()<.18){const tr=new THREE.Group();const tk=new THREE.Mesh(new THREE.CylinderGeometry(.08,.1,.6,6),mat(0x7a5a3c));tk.position.y=.3;
+        const cr=new THREE.Mesh(new THREE.IcosahedronGeometry(.55,0),mat(P.tree));cr.position.y=.95;cr.castShadow=true;tr.add(tk,cr);
+        tr.position.set(cx+(q%2?1:-1)*1.15,0,cz+(q<2?1:-1)*1.15);tr.userData.tree=cr;city.add(tr);continue}
+      const h=.7+rnd()*(Math.abs(gx)+Math.abs(gz)<3?2.6:1.4),w=1.7+rnd()*.3,d=1.7+rnd()*.3;
+      const b=new THREE.Mesh(geo,mat(P.blocks[Math.floor(rnd()*P.blocks.length)]));b.scale.set(w,h,d);
+      b.position.set(cx+(q%2?1:-1)*1.15,h/2,cz+(q<2?1:-1)*1.15);b.castShadow=b.receiveShadow=true;city.add(b);
+      const roof=new THREE.Mesh(geo,mat(P.roof));roof.scale.set(w*.6,.12,d*.6);roof.position.set(b.position.x,h+.06,b.position.z);city.add(roof);
+      const face=q<2?1:-1,aw=new THREE.Mesh(new THREE.BoxGeometry(w*.86,.06,.5),mat(P.awning[Math.floor(rnd()*4)]));
+      aw.position.set(b.position.x,Math.min(h-.15,.75),b.position.z+face*(d/2+.22));aw.rotation.x=face*.35;aw.castShadow=true;city.add(aw);
+      shops.push({b,h,face});
+    }
+  }
+  /* deal pins */
+  const deals=(()=>{try{return allDeals().filter(d=>d.km<=25).sort((a,b)=>a.km-b.km).slice(0,8)}catch(e){return[]}})();
+  document.getElementById('cityPins').textContent=deals.length||8;
+  if(deals[0])document.getElementById('cityNear').textContent=(deals[0].km<1?Math.round(deals[0].km*1000)+' m':deals[0].km.toFixed(1)+' km');
+  const pinMat=()=>new THREE.MeshStandardMaterial({color:P.pin,emissive:P.pin,emissiveIntensity:PP?1.6:.55,roughness:.35,metalness:.1});
+  const pinGeo=new THREE.SphereGeometry(.34,24,16),tipGeo=new THREE.ConeGeometry(.24,.5,24);
+  const centre=shops.slice().sort((a,b)=>a.b.position.length()-b.b.position.length());
+  const pins=[];const used=new Set();
+  (deals.length?deals:Array.from({length:8},(_,i)=>({shop:'Local shop',offer:'New offer',km:.3+i*.2}))).forEach((d,i)=>{
+    let s=centre[(i*3+1)%centre.length];for(let k=0;used.has(s)&&k<centre.length;k++)s=centre[(i*3+1+k)%centre.length];used.add(s);
+    const g=new THREE.Group(),m=pinMat();
+    const head=new THREE.Mesh(pinGeo,m),tip=new THREE.Mesh(tipGeo,m);tip.rotation.x=Math.PI;tip.position.y=-.38;head.castShadow=true;
+    const dot=new THREE.Mesh(new THREE.SphereGeometry(.13,16,12),new THREE.MeshBasicMaterial({color:0xffffff}));dot.position.z=.27;
+    g.add(head,tip,dot);g.position.set(s.b.position.x,s.h+1.15,s.b.position.z);
+    const ring=new THREE.Mesh(new THREE.RingGeometry(.5,.62,40),new THREE.MeshBasicMaterial({color:P.pin,transparent:true,opacity:.6,side:THREE.DoubleSide}));
+    ring.rotation.x=-Math.PI/2;ring.position.set(s.b.position.x,s.h+.08,s.b.position.z);
+    const beam=new THREE.Mesh(new THREE.CylinderGeometry(.02,.02,1,8),new THREE.MeshBasicMaterial({color:P.pin,transparent:true,opacity:.5}));
+    beam.position.set(s.b.position.x,s.h+.55,s.b.position.z);
+    scene.add(g,ring,beam);g.userData={deal:d,ring,beam,base:g.position.y,ph:i*.8,hover:0};pins.push(g);
+  });
+
+  /* post-processing: soft bloom on the pins + vignette (desktop only) */
+  let composer=null;
+  if(PP){try{
+    composer=new PP.EffectComposer(renderer,{frameBufferType:THREE.HalfFloatType});
+    composer.addPass(new PP.RenderPass(scene,camera));
+    const bloom=new PP.BloomEffect({luminanceThreshold:.62,luminanceSmoothing:.2,intensity:1.15,mipmapBlur:true,radius:.7});
+    composer.addPass(new PP.EffectPass(camera,bloom,new PP.VignetteEffect({darkness:.32,offset:.3}),new PP.SMAAEffect()));
+  }catch(e){composer=null}}
+
+  /* camera rig: scroll moves it through the street, drag orbits, mouse adds parallax */
+  const rig={angle:.75,height:13,dist:21,target:new THREE.Vector3(0,0,0)},drag={on:false,x:0,dx:0,v:0},mouse={x:0,y:0};
+  if(window.gsap&&window.ScrollTrigger){
+    gsap.timeline({scrollTrigger:{trigger:'#city3d',start:'top bottom',end:'bottom top',scrub:1}})
+      .fromTo(rig,{angle:1.15,height:17,dist:26},{angle:.25,height:8.5,dist:15.5,ease:'none'});
+  }
+  stage.addEventListener('pointerdown',e=>{drag.on=true;drag.x=e.clientX;stage.setPointerCapture(e.pointerId);stage.classList.add('grab')});
+  stage.addEventListener('pointerup',e=>{drag.on=false;stage.classList.remove('grab')});
+  stage.addEventListener('pointermove',e=>{const r=stage.getBoundingClientRect();mouse.x=(e.clientX-r.left)/r.width*2-1;mouse.y=-((e.clientY-r.top)/r.height*2-1);
+    if(drag.on){const d=(e.clientX-drag.x)/r.width*3.2;drag.dx+=d;drag.v=d;drag.x=e.clientX}});
+  stage.addEventListener('pointerleave',()=>{mouse.x=mouse.y=-9});
+
+  /* hover + click on pins */
+  const ray=new THREE.Raycaster(),tip=document.getElementById('cityTip');let hovered=null,downAt=0;
+  stage.addEventListener('pointerdown',()=>downAt=performance.now());
+  stage.addEventListener('click',()=>{if(performance.now()-downAt>250||!hovered)return;const d=hovered.userData.deal;
+    try{searchFor(d.shop)}catch(e){location.hash='#deals'}});
+  const v3=new THREE.Vector3();
+  function pick(){
+    if(mouse.x<-2){hovered=null;tip.classList.remove('show');stage.style.cursor='';return}
+    ray.setFromCamera(mouse,camera);const hit=ray.intersectObjects(pins,true)[0];const g=hit?hit.object.parent:null;
+    if(g!==hovered){hovered=g;stage.style.cursor=g?'pointer':'';
+      if(g){const d=g.userData.deal;tip.innerHTML=`<b>${String(d.shop).replace(/[<&]/g,'')}</b><span>${String(d.offer||'').replace(/[<&]/g,'')}</span><em>${d.km<1?Math.round(d.km*1000)+' m':(+d.km).toFixed(1)+' km'} away · tap to view</em>`;tip.classList.add('show')}
+      else tip.classList.remove('show')}
+    if(g){v3.copy(g.position).project(camera);tip.style.left=((v3.x+1)/2*W())+'px';tip.style.top=((1-v3.y)/2*H())+'px'}
+  }
+
+  /* loop: renders only while on screen */
+  let vis=false,raf=0;const clock=new THREE.Clock();
+  new IntersectionObserver(([e])=>{vis=e.isIntersecting;if(vis&&!raf){clock.getDelta();raf=requestAnimationFrame(loop)}}).observe(stage);
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&vis&&!raf)raf=requestAnimationFrame(loop)});
+  const resize=()=>{camera.aspect=W()/H();camera.updateProjectionMatrix();renderer.setSize(W(),H());composer&&composer.setSize(W(),H())};
+  addEventListener('resize',resize);
+  new MutationObserver(()=>{paint();ground.material.color.set(P.ground);roads.forEach(r=>r.material.color.set(P.road));
+    pins.forEach(p=>{p.children[0].material.color.copy(P.pin);p.children[0].material.emissive.copy(P.pin);p.userData.ring.material.color.copy(P.pin);p.userData.beam.material.color.copy(P.pin)})})
+    .observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  stage.classList.add('on');
+  function loop(){
+    raf=0;if(!vis||document.hidden)return;
+    const dt=Math.min(.05,clock.getDelta()),t=clock.elapsedTime;
+    if(!drag.on){drag.v*=.92;drag.dx+=drag.v}
+    const a=rig.angle+drag.dx+(mouse.x>-2?mouse.x*.12:0)+Math.sin(t*.12)*.06;
+    camera.position.set(Math.sin(a)*rig.dist,rig.height+(mouse.y>-2?mouse.y*.8:0),Math.cos(a)*rig.dist);camera.lookAt(rig.target);
+    pins.forEach(p=>{const u=p.userData;u.hover+=((p===hovered?1:0)-u.hover)*.15;
+      p.position.y=u.base+Math.sin(t*2+u.ph)*.18+u.hover*.25;p.rotation.y=t*1.2+u.ph;p.scale.setScalar(1+u.hover*.35);
+      const k=(t*.8+u.ph)%1;u.ring.scale.setScalar(1+k*2.2);u.ring.material.opacity=.6*(1-k)});
+    pick();
+    composer?composer.render(dt):renderer.render(scene,camera);
+    raf=requestAnimationFrame(loop);
+  }
+  raf=requestAnimationFrame(loop);vis=true;
+}
 </script>
 </body>
 </html>
