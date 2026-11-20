@@ -525,6 +525,7 @@ async function xAuth(req, res, url) {
   if (!CFG.X_CLIENT_ID || !CFG.X_CLIENT_SECRET) { res.writeHead(302, { Location: '/?authError=' + encodeURIComponent('X login is not configured') }); return res.end(); }
   const redirect = CFG.BASE_URL + '/auth/x/callback';
   if (url.pathname === '/auth/x/start') {
+    for (const [k, v] of pending) if (Date.now() - v.at > 10 * 60e3) pending.delete(k);
     const state = b64url(crypto.randomBytes(16)), verifier = b64url(crypto.randomBytes(32));
     const challenge = b64url(crypto.createHash('sha256').update(verifier).digest());
     pending.set(state, { verifier, role: url.searchParams.get('role') || 'customer', at: Date.now() });
@@ -535,16 +536,20 @@ async function xAuth(req, res, url) {
   const st = pending.get(url.searchParams.get('state'));
   pending.delete(url.searchParams.get('state'));
   try {
-    if (!st || !url.searchParams.get('code')) throw new Error('Login cancelled');
+    if (!st || Date.now() - st.at > 10 * 60e3 || !url.searchParams.get('code')) throw new Error('X login was cancelled or took too long. Please try again.');
     const tok = await fetch('https://api.x.com/2/oauth2/token', {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded', Authorization: 'Basic ' + Buffer.from(CFG.X_CLIENT_ID + ':' + CFG.X_CLIENT_SECRET).toString('base64') },
       body: new URLSearchParams({ code: url.searchParams.get('code'), grant_type: 'authorization_code', redirect_uri: redirect, code_verifier: st.verifier }),
     }).then((r) => r.json());
     if (!tok.access_token) throw new Error('X token exchange failed');
-    const me = await fetch('https://api.x.com/2/users/me', { headers: { Authorization: 'Bearer ' + tok.access_token } }).then((r) => r.json());
+    const me = await fetch('https://api.x.com/2/users/me?user.fields=profile_image_url', { headers: { Authorization: 'Bearer ' + tok.access_token } }).then((r) => r.json());
     if (!me.data) throw new Error('Could not read X profile');
-    const u = upsertSocial({ provider: 'x', providerId: me.data.id, email: '@' + me.data.username, name: me.data.name, role: st.role });
+    // match on X's permanent account id only: @usernames can change hands
+    const u = upsertSocial({ provider: 'x', providerId: me.data.id, email: '', name: me.data.name, role: st.role });
+    u.xHandle = me.data.username;
+    if (!u.avatar && /^https:\/\/pbs\.twimg\.com\//.test(me.data.profile_image_url || '')) u.avatar = me.data.profile_image_url.replace('_normal.', '_400x400.');
+    save();
     res.writeHead(302, { Location: '/?token=' + newSession(u) }); res.end();
   } catch (e) {
     res.writeHead(302, { Location: '/?authError=' + encodeURIComponent(e.message) }); res.end();
@@ -631,5 +636,6 @@ const server = http.createServer(async (req, res) => {
   console.log(`  💾 Data saved in:       ${DB_FILE}`);
   console.log(`  ☁️  Cloud storage:       ${CLOUD ? 'Supabase ON' : 'off (local file only)'}`);
   console.log(`  Google login: ${CFG.GOOGLE_CLIENT_ID ? 'ON' : 'OFF (set GOOGLE_CLIENT_ID)'}`);
+  console.log(`  X login:      ${CFG.X_CLIENT_ID && CFG.X_CLIENT_SECRET ? 'ON' : 'OFF (set X_CLIENT_ID + X_CLIENT_SECRET)'}`);
   console.log(`  Phone login:  ${smsReady() ? 'ON (' + CFG.SMS_PROVIDER + ')' : 'OFF (set SMS_PROVIDER + keys)'}\n`);
 }));
