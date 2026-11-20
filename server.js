@@ -31,7 +31,7 @@ const CLOUD = !!(CFG.SUPABASE_URL && CFG.SUPABASE_SERVICE_KEY);
 /* ---------------- DATABASE (JSON file) ---------------- */
 const DATA_DIR = path.join(__dirname, 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
-let db = { users: [], sessions: {}, deals: [], claims: [], payments: [], reels: [], reviews: [], likes: {} };
+let db = { users: [], sessions: {}, deals: [], claims: [], payments: [], reels: [], reviews: [], likes: {}, comments: {} };
 const UPLOADS = path.join(__dirname, 'data', 'uploads');
 const MAX_VIDEO = 30 * 1024 * 1024;
 fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -212,7 +212,9 @@ async function api(req, res, url) {
     const u = optUser(req);
     const likes = {};
     for (const [rid, arr] of Object.entries(db.likes)) likes[rid] = { n: arr.length, liked: !!(u && arr.includes(u.id)) };
-    return send(res, 200, { reels: db.reels.map((r) => pubReel(r, u)), likes });
+    const comments = {};
+    for (const [rid, arr] of Object.entries(db.comments || {})) comments[rid] = arr.length;
+    return send(res, 200, { reels: db.reels.map((r) => pubReel(r, u)), likes, comments });
   }
   if (p === '/api/reels' && method === 'POST') {
     const u = getUser(req);
@@ -247,6 +249,26 @@ async function api(req, res, url) {
     const i = arr.indexOf(u.id); if (i >= 0) arr.splice(i, 1); else arr.push(u.id);
     save();
     return send(res, 200, { n: arr.length, liked: i < 0 });
+  }
+  if ((m = p.match(/^\/api\/reels\/([\w-]+)\/comments$/))) {
+    db.comments = db.comments || {};
+    const u = optUser(req), arr = db.comments[m[1]] || [];
+    const pub = (c) => ({ id: c.id, by: c.by, role: c.role, text: c.text, createdAt: c.createdAt, mine: !!(u && u.id === c.userId) });
+    if (method === 'GET') return send(res, 200, { comments: arr.map(pub) });
+    if (method === 'POST') {
+      if (!u) return send(res, 401, { error: 'Log in to comment.' });
+      const b = await readBody(req), text = clean(b.text, 300);
+      if (!text) return send(res, 400, { error: 'Write something first.' });
+      const c = { id: id('c'), userId: u.id, by: u.name, role: u.role, text, createdAt: now() };
+      (db.comments[m[1]] = arr).push(c); save();
+      return send(res, 201, { comment: pub(c), n: arr.length });
+    }
+  }
+  if ((m = p.match(/^\/api\/reels\/([\w-]+)\/comments\/([\w-]+)$/)) && method === 'DELETE') {
+    const u = getUser(req), arr = (db.comments || {})[m[1]] || [], i = arr.findIndex((c) => c.id === m[2]);
+    if (!u || i < 0 || arr[i].userId !== u.id) return send(res, 403, { error: 'You can only delete your own comments.' });
+    arr.splice(i, 1); save();
+    return send(res, 200, { ok: true, n: arr.length });
   }
   if ((m = p.match(/^\/api\/reels\/([\w-]+)$/)) && method === 'DELETE') {
     const u = getUser(req); const r = db.reels.find((x) => x.id === m[1]);
@@ -392,7 +414,7 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname === '/admin') return admin(req, res, url);
     if (url.pathname.startsWith('/uploads/')) return serveUpload(req, res, url);
     if (url.pathname === '/robots.txt') { res.writeHead(200, { 'Content-Type': 'text/plain' }); return res.end(`User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nSitemap: ${CFG.BASE_URL}/sitemap.xml\n`); }
-    if (url.pathname === '/sitemap.xml') { res.writeHead(200, { 'Content-Type': 'application/xml' }); return res.end(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${CFG.BASE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url></urlset>`); }
+    if (url.pathname === '/sitemap.xml') { res.writeHead(200, { 'Content-Type': 'application/xml' }); return res.end(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${CFG.BASE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url><url><loc>${CFG.BASE_URL}/reels</loc><changefreq>daily</changefreq><priority>0.8</priority></url></urlset>`); }
     if (url.pathname.startsWith('/google') && url.pathname.endsWith('.html') && CFG.GOOGLE_VERIFY_FILE && url.pathname === '/' + CFG.GOOGLE_VERIFY_FILE) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end('google-site-verification: ' + CFG.GOOGLE_VERIFY_FILE); }
     return serveStatic(req, res, url);
   } catch (e) {
