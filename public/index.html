@@ -1222,6 +1222,22 @@ section .tag,.hero .tag{display:none!important}
 @keyframes fillx{to{transform:none}}
 .offscreen,.offscreen *{animation-play-state:paused!important}
 .phone-wrap .phone{position:relative;left:auto;right:auto;top:auto;width:min(270px,70vw);aspect-ratio:1/2;margin:0 auto;padding:0;border:10px solid var(--phone);overflow:hidden;transform:none}
+/* "More" menu: links that don't fit in the bar (long labels in Indian languages) */
+.nav-links a.nl-off{display:none!important}
+.nav-more{position:relative;flex:none}
+.nav-more[hidden]{display:none!important}
+.nm-btn{display:flex;align-items:center;gap:4px;font:inherit;font-size:.93rem;font-weight:500;color:var(--muted);padding:6px 9px;border-radius:999px;background:none;border:0;cursor:pointer;white-space:nowrap}
+.nm-btn:hover,.nav-more.open .nm-btn{color:var(--text);background:var(--surface2)}
+.nm-btn svg{width:14px;height:14px;transition:transform .2s}
+.nav-more.open .nm-btn svg{transform:rotate(180deg)}
+.nm-pop{position:absolute;top:calc(100% + 12px);left:0;min-width:200px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:6px;box-shadow:0 14px 34px -14px rgba(21,26,45,.3);display:none;flex-direction:column;z-index:90}
+.nav-more.open .nm-pop{display:flex}
+.nm-pop a{padding:9px 12px;border-radius:9px;color:var(--text);font-size:.95rem;white-space:nowrap}
+.nm-pop a:hover{background:var(--surface2)}
+html:not([lang=en]) .nav-links a{padding:6px 7px}
+/* Indian scripts: taller line height so vowel signs don't clip, and a wider measure for the headline */
+html:not([lang=en]) .hero h1{max-width:15ch;line-height:1.12;font-size:clamp(2.4rem,1.3rem + 3.9vw,4.9rem)}
+html:not([lang=en]) .sec-head h2,html:not([lang=en]) .row-head h2,html:not([lang=en]) .street-head h2,html:not([lang=en]) .city-copy h2{line-height:1.15}
 </style>
 </head>
 <body>
@@ -1236,6 +1252,7 @@ section .tag,.hero .tag{display:none!important}
     <a href="#top" class="logo"><span class="logo-mark"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.6 2 4 5.6 4 10c0 5.4 7 11.5 7.3 11.8.4.3 1 .3 1.4 0C13 21.5 20 15.4 20 10c0-4.4-3.6-8-8-8zm0 11a3 3 0 110-6 3 3 0 010 6z"/></svg></span>Bazaar Buzz</a>
     <div class="seg" data-seg><span class="pill"></span><button data-view-btn="exp" data-t>🧭 Explore</button><button data-view-btn="biz" data-t>🏪 Business</button></div>
     <div class="nav-links" id="navLinks"></div>
+    <div class="nav-more" id="navMore" hidden><button type="button" class="nm-btn" id="navMoreBtn" aria-haspopup="true" aria-expanded="false"><span data-t>More</span><svg class="i" aria-hidden="true"><use href="#i-chevron-down"/></svg></button><div class="nm-pop" id="navMorePop"></div></div>
     <div class="nav-search">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
       <input id="navSearch" data-tp placeholder="Search deals, shops…">
@@ -1921,6 +1938,7 @@ const ROTW={en:['café','kirana store','wedding venue','salon','bakery','gym'],
  pa:['ਕੈਫ਼ੇ','ਕਰਿਆਨਾ ਸਟੋਰ','ਵਿਆਹ ਹਾਲ','ਸੈਲੂਨ','ਬੇਕਰੀ','ਜਿਮ']};
 let LANG='en';try{LANG=localStorage.getItem('pp_lang')||'en'}catch(e){}
 if(!LANGS.some(l=>l[0]===LANG))LANG='en';
+T['More']=['और','ಇನ್ನಷ್ಟು','കൂടുതൽ','మరిన్ని','மேலும்','आणखी','ਹੋਰ'];
 for(const k of Object.keys(T))if(/\s*→$/.test(k)){const n=k.replace(/\s*→$/,'');if(!T[n])T[n]=T[k].map(v=>String(v).replace(/\s*→\s*$/,''))}
 const t=(s,vars)=>{let out=LANG==='en'||!T[s]?s:T[s][LIDX[LANG]];if(vars)for(const k in vars)out=out.split('{'+k+'}').join(vars[k]);return out};
 const H1BIZ_EN='Put your %ROT% in front of everyone nearby.';
@@ -2229,12 +2247,35 @@ function splitWords(){
 }
 function checkNav(){
   const nav=document.getElementById('nav');if(!nav)return;const inn=nav.querySelector('.nav-in');
+  const links=document.getElementById('navLinks'),more=document.getElementById('navMore'),pop=document.getElementById('navMorePop');
   for(let i=1;i<=5;i++)nav.classList.remove('c'+i);
-  const over=()=>{const r=inn.getBoundingClientRect(),links=nav.querySelector('.nav-links');
+  const items=links?[...links.children]:[];items.forEach(a=>a.classList.remove('nl-off'));
+  if(more){more.hidden=true;more.classList.remove('open');pop.innerHTML=''}
+  const over=()=>{
     if(links&&links.offsetParent&&links.scrollWidth>links.clientWidth+1)return true;
-    return [...inn.children].some(c=>c.offsetParent&&c.getBoundingClientRect().right>r.right-6)};
-  for(let i=1;i<=5&&over();i++)nav.classList.add('c'+i);
+    const cs=getComputedStyle(inn),kids=[...inn.children].filter(c=>c.offsetParent),gap=parseFloat(cs.columnGap)||0;
+    const need=kids.reduce((w,c)=>w+c.getBoundingClientRect().width,0)+gap*(kids.length-1);
+    return need>inn.clientWidth-(parseFloat(cs.paddingLeft)||0)-(parseFloat(cs.paddingRight)||0)-24};
+  if(over())nav.classList.add('c1');
+  /* wide screens: keep links in the bar and move only the ones that don't fit under "More" */
+  if(more&&innerWidth>=900&&over()){
+    let k=items.length;more.hidden=false;
+    while(k>2&&over()){k--;items[k].classList.add('nl-off')}
+    if(!over()){pop.innerHTML=items.slice(k).map(a=>`<a href="${a.getAttribute('href')}">${a.textContent}</a>`).join('');return}
+    items.forEach(a=>a.classList.remove('nl-off'));more.hidden=true;
+  }
+  for(let i=2;i<=5&&over();i++)nav.classList.add('c'+i);
   if(!nav.classList.contains('c2'))document.getElementById('mobileMenu')?.classList.remove('show');
+}
+{const more=document.getElementById('navMore'),btn=document.getElementById('navMoreBtn');
+  if(more&&btn){
+    const close=()=>{more.classList.remove('open');btn.setAttribute('aria-expanded','false')};
+    btn.addEventListener('click',e=>{e.stopPropagation();const o=more.classList.toggle('open');btn.setAttribute('aria-expanded',String(o))});
+    document.getElementById('navMorePop').addEventListener('click',e=>{if(e.target.closest('a'))close()});
+    document.addEventListener('click',e=>{if(!more.contains(e.target))close()});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+  }
+  document.fonts&&document.fonts.addEventListener&&document.fonts.addEventListener('loadingdone',()=>{try{moveSeg();checkNav()}catch(e){}});
 }
 function moveSeg(){$$('[data-seg]').forEach(seg=>{const on=seg.querySelector('button.on'),pill=seg.querySelector('.pill');if(on&&on.offsetWidth){pill.style.left=on.offsetLeft+'px';pill.style.width=on.offsetWidth+'px'}})}
 function setView(v,scrollTo){
