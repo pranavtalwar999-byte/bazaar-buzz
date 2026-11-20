@@ -1191,6 +1191,23 @@ section .tag,.hero .tag{display:none!important}
 
 [data-theme=dark] .phone{box-shadow:0 30px 60px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.09)}
 @media (max-width:420px){.app-bar{padding-top:40px}.app-bar b{font-size:.98rem}.app-row{grid-template-columns:28px 1fr auto;gap:8px}.ai{width:28px;height:28px}}
+/* v2 polish: looser headline spacing, phones staggered so both app headers show */
+.hero h1{letter-spacing:-.018em;font-stretch:82%;line-height:.97}
+.sec-head h2,.row-head h2,.street-head h2,.city-copy h2{letter-spacing:-.015em;font-stretch:82%}
+.city-copy h2{margin:0 0 16px}
+.ph-back{right:2%;top:0;transform:rotate(4deg)}
+.ph-front{left:2%;top:15%;transform:rotate(-3deg)}
+@media (min-width:761px){
+.phone{width:clamp(212px,19vw,256px)}
+.ph-front{top:12%}
+.note.n2{right:0;top:auto;bottom:-4%;text-align:right;transform:rotate(-2deg);max-width:17ch}
+.scribble.sc2{right:16%;top:auto;bottom:10%;width:86px;transform:none}
+}
+@media (max-width:760px){
+.hero-shot{margin-top:64px}
+.note.n2{right:0;top:-9%}
+.scribble.sc2{display:none}
+}
 </style>
 </head>
 <body>
