@@ -1,0 +1,82 @@
+{
+ "id": "mango",
+ "duration": 10.0,
+ "captions": [
+  {
+   "start": 0.4,
+   "end": 2.6,
+   "text": "Alphonso aam aa gaye, seedha farm se!",
+   "en": "Alphonso mangoes are here, straight from the farm!"
+  },
+  {
+   "start": 2.8,
+   "end": 5.0,
+   "text": "Aaj sirf ₹80 kilo, kal se daam badhenge.",
+   "en": "Only ₹80 a kilo today, prices go up tomorrow."
+  },
+  {
+   "start": 5.3,
+   "end": 7.4,
+   "text": "Bazaar Buzz pe deal save kar lo.",
+   "en": "Save the deal on Bazaar Buzz."
+  },
+  {
+   "start": 7.8,
+   "end": 9.8,
+   "text": "Fresh Fruit Corner, roz subah taaza.",
+   "en": "Fresh Fruit Corner, fresh every morning."
+  }
+ ],
+ "hotspots": [
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.208,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Alphonso",
+   "detail": "Alphonso · ₹80/kg"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.5,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Kesar",
+   "detail": "Kesar · ₹90/kg"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.792,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Banganapalli",
+   "detail": "Banganapalli · ₹60/kg"
+  },
+  {
+   "t0": 3.3,
+   "t1": 5.0,
+   "x": 0.7,
+   "y": 0.39,
+   "kind": "offer",
+   "label": "₹80 /kg",
+   "detail": "Alphonso mangoes · today"
+  },
+  {
+   "t0": 5.8,
+   "t1": 7.6,
+   "x": 0.5,
+   "y": 0.5,
+   "kind": "coupon",
+   "label": "₹80 / KG",
+   "detail": "BB-AAM80"
+  }
+ ],
+ "coupon": {
+  "title": "₹80 / KG",
+  "sub": "Alphonso mangoes · today",
+  "code": "BB-AAM80"
+ }
+}

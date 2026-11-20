@@ -1,0 +1,82 @@
+{
+ "id": "kurta",
+ "duration": 10.0,
+ "captions": [
+  {
+   "start": 0.4,
+   "end": 2.6,
+   "text": "Wedding season sale shuru ho gayi!",
+   "en": "The wedding season sale has started!"
+  },
+  {
+   "start": 2.8,
+   "end": 5.0,
+   "text": "Saare kurte 40% off, sirf is hafte.",
+   "en": "All kurtas 40% off, this week only."
+  },
+  {
+   "start": 5.3,
+   "end": 7.4,
+   "text": "Coupon Bazaar Buzz pe claim karo.",
+   "en": "Claim the coupon on Bazaar Buzz."
+  },
+  {
+   "start": 7.8,
+   "end": 9.8,
+   "text": "Trendz Fashion Hub, har size available.",
+   "en": "Trendz Fashion Hub, every size in stock."
+  }
+ ],
+ "hotspots": [
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.208,
+   "y": 0.559,
+   "kind": "price",
+   "label": "Cotton ₹599",
+   "detail": "Cotton kurta · ₹599"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.5,
+   "y": 0.559,
+   "kind": "price",
+   "label": "Silk ₹1299",
+   "detail": "Silk kurta · ₹1299"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.792,
+   "y": 0.559,
+   "kind": "price",
+   "label": "Kids ₹399",
+   "detail": "Kids kurta · ₹399"
+  },
+  {
+   "t0": 3.3,
+   "t1": 5.0,
+   "x": 0.7,
+   "y": 0.39,
+   "kind": "offer",
+   "label": "40% OFF",
+   "detail": "all kurtas · this week"
+  },
+  {
+   "t0": 5.8,
+   "t1": 7.6,
+   "x": 0.5,
+   "y": 0.5,
+   "kind": "coupon",
+   "label": "40% OFF",
+   "detail": "BB-SHAADI"
+  }
+ ],
+ "coupon": {
+  "title": "40% OFF",
+  "sub": "all kurtas · this week",
+  "code": "BB-SHAADI"
+ }
+}

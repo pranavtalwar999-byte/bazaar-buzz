@@ -1,0 +1,82 @@
+{
+ "id": "mobile",
+ "duration": 10.0,
+ "captions": [
+  {
+   "start": 0.4,
+   "end": 2.6,
+   "text": "Phone toota? 30 minute mein repair!",
+   "en": "Broken phone? Fixed in 30 minutes!"
+  },
+  {
+   "start": 2.8,
+   "end": 5.0,
+   "text": "Har repair ke saath screen guard free.",
+   "en": "A free screen guard with every repair."
+  },
+  {
+   "start": 5.3,
+   "end": 7.4,
+   "text": "Bazaar Buzz pe slot book karo.",
+   "en": "Book a slot on Bazaar Buzz."
+  },
+  {
+   "start": 7.8,
+   "end": 9.8,
+   "text": "MobileCare Point, sab brands ka kaam.",
+   "en": "MobileCare Point, all brands fixed."
+  }
+ ],
+ "hotspots": [
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.208,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Screen ₹999",
+   "detail": "Screen change · ₹999"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.5,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Battery ₹699",
+   "detail": "New battery · ₹699"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.792,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Cover ₹199",
+   "detail": "Phone cover · ₹199"
+  },
+  {
+   "t0": 3.3,
+   "t1": 5.0,
+   "x": 0.7,
+   "y": 0.39,
+   "kind": "offer",
+   "label": "FREE guard",
+   "detail": "with any repair"
+  },
+  {
+   "t0": 5.8,
+   "t1": 7.6,
+   "x": 0.5,
+   "y": 0.5,
+   "kind": "coupon",
+   "label": "FREE GUARD",
+   "detail": "BB-FIX30"
+  }
+ ],
+ "coupon": {
+  "title": "FREE GUARD",
+  "sub": "with any repair",
+  "code": "BB-FIX30"
+ }
+}

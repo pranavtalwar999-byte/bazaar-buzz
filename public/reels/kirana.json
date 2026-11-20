@@ -1,0 +1,82 @@
+{
+ "id": "kirana",
+ "duration": 10.0,
+ "captions": [
+  {
+   "start": 0.4,
+   "end": 2.6,
+   "text": "Ghar ka saara saaman, ek hi jagah!",
+   "en": "Everything for your home, in one place!"
+  },
+  {
+   "start": 2.8,
+   "end": 5.0,
+   "text": "₹500 se upar free home delivery.",
+   "en": "Free home delivery on orders over ₹500."
+  },
+  {
+   "start": 5.3,
+   "end": 7.4,
+   "text": "Order Bazaar Buzz se karo.",
+   "en": "Order through Bazaar Buzz."
+  },
+  {
+   "start": 7.8,
+   "end": 9.8,
+   "text": "Gupta Kirana Store, aapke paas.",
+   "en": "Gupta Kirana Store, right near you."
+  }
+ ],
+ "hotspots": [
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.208,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Oil ₹140",
+   "detail": "Sunflower oil 1 L · ₹140"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.5,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Atta ₹320",
+   "detail": "Atta 10 kg · ₹320"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.792,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Ghee ₹550",
+   "detail": "Ghee 1 L · ₹550"
+  },
+  {
+   "t0": 3.3,
+   "t1": 5.0,
+   "x": 0.7,
+   "y": 0.39,
+   "kind": "offer",
+   "label": "FREE delivery",
+   "detail": "on orders ₹500+"
+  },
+  {
+   "t0": 5.8,
+   "t1": 7.6,
+   "x": 0.5,
+   "y": 0.5,
+   "kind": "coupon",
+   "label": "FREE DELIVERY",
+   "detail": "BB-GHAR5"
+  }
+ ],
+ "coupon": {
+  "title": "FREE DELIVERY",
+  "sub": "on orders ₹500+",
+  "code": "BB-GHAR5"
+ }
+}

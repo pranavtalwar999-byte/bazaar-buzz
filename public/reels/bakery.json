@@ -1,0 +1,82 @@
+{
+ "id": "bakery",
+ "duration": 10.0,
+ "captions": [
+  {
+   "start": 0.4,
+   "end": 2.6,
+   "text": "Fresh pastries, roz subah bake hoti hain!",
+   "en": "Fresh pastries, baked every morning!"
+  },
+  {
+   "start": 2.8,
+   "end": 5.0,
+   "text": "Shaam 7 baje ke baad, ek ke saath ek free.",
+   "en": "After 7 PM, buy one get one free."
+  },
+  {
+   "start": 5.3,
+   "end": 7.4,
+   "text": "Coupon Bazaar Buzz pe milega.",
+   "en": "Get the coupon on Bazaar Buzz."
+  },
+  {
+   "start": 7.8,
+   "end": 9.8,
+   "text": "Sweet Crumbs Bakery, zaroor aana!",
+   "en": "Sweet Crumbs Bakery, do drop by!"
+  }
+ ],
+ "hotspots": [
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.208,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Pastry ₹60",
+   "detail": "Pastry · ₹60"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.5,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Cupcake ₹40",
+   "detail": "Cupcake · ₹40"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.792,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Cake ₹450",
+   "detail": "Cake (1 kg) · ₹450"
+  },
+  {
+   "t0": 3.3,
+   "t1": 5.0,
+   "x": 0.7,
+   "y": 0.39,
+   "kind": "offer",
+   "label": "BOGO",
+   "detail": "pastries after 7 PM"
+  },
+  {
+   "t0": 5.8,
+   "t1": 7.6,
+   "x": 0.5,
+   "y": 0.5,
+   "kind": "coupon",
+   "label": "BUY 1 GET 1",
+   "detail": "BB-BOGO7"
+  }
+ ],
+ "coupon": {
+  "title": "BUY 1 GET 1",
+  "sub": "pastries after 7 PM",
+  "code": "BB-BOGO7"
+ }
+}

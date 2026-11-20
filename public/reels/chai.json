@@ -1,0 +1,82 @@
+{
+ "id": "chai",
+ "duration": 10.0,
+ "captions": [
+  {
+   "start": 0.4,
+   "end": 2.6,
+   "text": "Garma garam chai, sirf ₹10 mein!",
+   "en": "Piping hot chai, just ₹10!"
+  },
+  {
+   "start": 2.8,
+   "end": 5.0,
+   "text": "Har shaam 2 chai lo, teesri bilkul free.",
+   "en": "Every evening, buy 2 and get the 3rd free."
+  },
+  {
+   "start": 5.3,
+   "end": 7.4,
+   "text": "Coupon Bazaar Buzz pe claim karo.",
+   "en": "Claim the coupon on Bazaar Buzz."
+  },
+  {
+   "start": 7.8,
+   "end": 9.8,
+   "text": "Sharma Chai Point, Bus Stand ke paas!",
+   "en": "Sharma Chai Point, near the Bus Stand!"
+  }
+ ],
+ "hotspots": [
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.208,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Chai ₹10",
+   "detail": "Masala chai · ₹10"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.5,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Samosa ₹15",
+   "detail": "Samosa · ₹15"
+  },
+  {
+   "t0": 1.9,
+   "t1": 5.0,
+   "x": 0.792,
+   "y": 0.617,
+   "kind": "price",
+   "label": "Combo ₹20",
+   "detail": "Chai + samosa · ₹20"
+  },
+  {
+   "t0": 3.3,
+   "t1": 5.0,
+   "x": 0.7,
+   "y": 0.39,
+   "kind": "offer",
+   "label": "2+1 FREE",
+   "detail": "free chai · every evening"
+  },
+  {
+   "t0": 5.8,
+   "t1": 7.6,
+   "x": 0.5,
+   "y": 0.5,
+   "kind": "coupon",
+   "label": "BUY 2 GET 1",
+   "detail": "BB-CHAI3"
+  }
+ ],
+ "coupon": {
+  "title": "BUY 2 GET 1",
+  "sub": "free chai · every evening",
+  "code": "BB-CHAI3"
+ }
+}
