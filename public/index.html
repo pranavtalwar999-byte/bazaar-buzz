@@ -1245,6 +1245,9 @@ html:not([lang=en]) .sec-head h2,html:not([lang=en]) .row-head h2,html:not([lang
 .x-mark{font-size:1.2rem;line-height:1}
 [data-theme=dark] .x-login{background:#ECEEF5;color:#0F1419}
 [data-theme=dark] .x-login:hover{background:#fff}
+.x-soon{display:none;font-size:.72rem;font-weight:600;padding:2px 8px;border-radius:999px;background:rgba(255,255,255,.18)}
+.x-login.soon .x-soon{display:inline-block}
+[data-theme=dark] .x-soon{background:rgba(15,20,25,.12)}
 </style>
 </head>
 <body>
@@ -1652,7 +1655,7 @@ html:not([lang=en]) .sec-head h2,html:not([lang=en]) .row-head h2,html:not([lang
     <div id="authMain">
       <h3 id="authTitle" data-t>Welcome back 👋</h3>
       <p class="sub" id="authSub">Log in to claim deals and manage your shop.</p>
-      <div class="social" id="socialBox" style="display:none"><div id="gWrap" class="g-wrap"></div><a class="x-login" id="xLogin" href="/auth/x/start" style="display:none"><span class="x-mark" aria-hidden="true">𝕏</span><span data-t>Continue with X</span></a></div>
+      <div class="social" id="socialBox" style="display:none"><div id="gWrap" class="g-wrap"></div><a class="x-login" id="xLogin" href="/auth/x/start" style="display:none"><span class="x-mark" aria-hidden="true">𝕏</span><span data-t>Continue with X</span><span class="x-soon" data-t>Soon</span></a></div>
       <div class="divider" id="socDivider" style="display:none">or</div>
       <div class="auth-tabs"><button data-mode="login" class="on" data-t>Log in</button><button data-mode="signup" data-t>Sign up</button></div>
       <div id="authForm">
@@ -1946,6 +1949,8 @@ const ROTW={en:['café','kirana store','wedding venue','salon','bakery','gym'],
 let LANG='en';try{LANG=localStorage.getItem('pp_lang')||'en'}catch(e){}
 if(!LANGS.some(l=>l[0]===LANG))LANG='en';
 T['Continue with X']=['X से जारी रखें','X ನೊಂದಿಗೆ ಮುಂದುವರಿಸಿ','X ഉപയോഗിച്ച് തുടരുക','X తో కొనసాగించండి','X மூலம் தொடரவும்','X सह पुढे सुरू ठेवा','X ਨਾਲ ਜਾਰੀ ਰੱਖੋ'];
+T['Soon']=['जल्द','ಶೀಘ್ರದಲ್ಲೇ','ഉടൻ','త్వరలో','விரைவில்','लवकरच','ਜਲਦੀ'];
+T['Sign in with X is being set up. Use Google or email for now.']=['X से साइन इन अभी सेट हो रहा है। फ़िलहाल Google या ईमेल का उपयोग करें।','X ಮೂಲಕ ಸೈನ್ ಇನ್ ಇನ್ನೂ ಸಿದ್ಧವಾಗುತ್ತಿದೆ. ಸದ್ಯಕ್ಕೆ Google ಅಥವಾ ಇಮೇಲ್ ಬಳಸಿ.','X വഴിയുള്ള സൈൻ ഇൻ സജ്ജമാക്കിക്കൊണ്ടിരിക്കുന്നു. ഇപ്പോൾ Google അല്ലെങ്കിൽ ഇമെയിൽ ഉപയോഗിക്കുക.','X తో సైన్ ఇన్ ఇంకా సిద్ధమవుతోంది. ప్రస్తుతానికి Google లేదా ఇమెయిల్ ఉపయోగించండి.','X மூலம் உள்நுழைவு அமைக்கப்பட்டு வருகிறது. இப்போதைக்கு Google அல்லது மின்னஞ்சலைப் பயன்படுத்தவும்.','X ने साइन इन अजून सेट होत आहे. सध्या Google किंवा ईमेल वापरा.','X ਨਾਲ ਸਾਈਨ ਇਨ ਅਜੇ ਤਿਆਰ ਹੋ ਰਿਹਾ ਹੈ। ਫ਼ਿਲਹਾਲ Google ਜਾਂ ਈਮੇਲ ਵਰਤੋ।'];
 T['More']=['और','ಇನ್ನಷ್ಟು','കൂടുതൽ','మరిన్ని','மேலும்','आणखी','ਹੋਰ'];
 for(const k of Object.keys(T))if(/\s*→$/.test(k)){const n=k.replace(/\s*→$/,'');if(!T[n])T[n]=T[k].map(v=>String(v).replace(/\s*→\s*$/,''))}
 const t=(s,vars)=>{let out=LANG==='en'||!T[s]?s:T[s][LIDX[LANG]];if(vars)for(const k in vars)out=out.split('{'+k+'}').join(vars[k]);return out};
@@ -2580,10 +2585,10 @@ $('#authBtn').onclick=authSubmit;onEnter($('#authForm'),authSubmit);
 let gReady=false;
 function setupGoogle(){
   const id=API.on&&API.cfg.googleClientId,box=$('#socialBox'),div=$('#socDivider'),xOn=!!(API.on&&API.cfg.xEnabled);
-  $('#xLogin').style.display=xOn?'':'none';$('#gWrap').style.display=id?'':'none';
-  if(!id&&!xOn){box.style.display='none';div.style.display='none';return}
+  const xb=$('#xLogin');xb.style.display='';xb.classList.toggle('soon',!xOn);xb.setAttribute('aria-disabled',String(!xOn));
+  $('#gWrap').style.display=id?'':'none';
   box.style.display='';div.style.display='';
-  const noG=()=>{$('#gWrap').style.display='none';if(!xOn){box.style.display='none';div.style.display='none'}};
+  const noG=()=>{$('#gWrap').style.display='none'};
   if(!id)return;
   const render=()=>{try{
     if(!gReady){google.accounts.id.initialize({client_id:id,ux_mode:'popup',callback:async r=>{try{const role=$('#roleBox').style.display!=='none'?$('input[name=role]:checked').value:'customer';const j=await api('/auth/google',{credential:r.credential,role});finishLogin(j.user,j.token)}catch(e){$('#authErr').textContent=e.message}}});gReady=true}
@@ -2592,7 +2597,7 @@ function setupGoogle(){
   if(window.google&&google.accounts&&google.accounts.id)return render();
   const s=document.createElement('script');s.src='https://accounts.google.com/gsi/client';s.async=true;s.onload=render;s.onerror=noG;document.head.appendChild(s);
 }
-$('#xLogin').onclick=e=>{const role=$('#roleBox').style.display!=='none'?($('input[name=role]:checked')||{}).value||'customer':'customer';e.currentTarget.href='/auth/x/start?role='+encodeURIComponent(role);
+$('#xLogin').onclick=e=>{if(e.currentTarget.classList.contains('soon')){e.preventDefault();$('#authErr').textContent=t('Sign in with X is being set up. Use Google or email for now.');return}const role=$('#roleBox').style.display!=='none'?($('input[name=role]:checked')||{}).value||'customer':'customer';e.currentTarget.href='/auth/x/start?role='+encodeURIComponent(role);
 }
 
 
