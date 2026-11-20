@@ -173,18 +173,6 @@ async function api(req, res, url) {
     return send(res, 200, { token: newSession(u), user: publicUser(u) });
   }
 
-  // Demo social login — only allowed for providers that are NOT configured with real keys
-  if (p === '/api/auth/demo' && method === 'POST') {
-    const b = await readBody(req);
-    const provider = ['google', 'x', 'apple'].includes(b.provider) ? b.provider : null;
-    if (!provider) return send(res, 400, { error: 'Unknown provider.' });
-    if ((provider === 'google' && CFG.GOOGLE_CLIENT_ID) || (provider === 'x' && CFG.X_CLIENT_ID)) return send(res, 400, { error: 'Use the real sign-in button for this provider.' });
-    const email = clean(b.email, 120).toLowerCase(), name = clean(b.name, 40);
-    if (!name || !validEmail(email)) return send(res, 400, { error: 'Please enter your name and a valid email.' });
-    const u = upsertSocial({ provider: provider + '-demo', email, name, role: b.role });
-    return send(res, 200, { token: newSession(u), user: publicUser(u) });
-  }
-
   if (p === '/api/me') {
     const u = getUser(req);
     return u ? send(res, 200, { user: publicUser(u) }) : send(res, 401, { error: 'Not logged in.' });
@@ -361,7 +349,7 @@ function admin(req, res, url) {
 
 /* ---------------- STATIC FILES ---------------- */
 const PUBLIC = path.join(__dirname, 'public');
-const TYPES = { '.mp4': 'video/mp4', '.webm': 'video/webm', '.mov': 'video/quicktime', '.jpeg': 'image/jpeg', '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.json': 'application/json' };
+const TYPES = { '.webmanifest': 'application/manifest+json', '.mp4': 'video/mp4', '.webm': 'video/webm', '.mov': 'video/quicktime', '.jpeg': 'image/jpeg', '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.json': 'application/json' };
 function sendFile(req, res, file, type, cache) {
   const size = fs.statSync(file).size, range = req.headers.range;
   const base = { 'Content-Type': type, 'Accept-Ranges': 'bytes', 'Cache-Control': cache || 'public, max-age=3600' };
@@ -385,6 +373,7 @@ function serveUpload(req, res, url) {
 function serveStatic(req, res, url) {
   let file = path.normalize(path.join(PUBLIC, decodeURIComponent(url.pathname)));
   if (!file.startsWith(PUBLIC)) { res.writeHead(403); return res.end(); }
+  if (!path.extname(file) && fs.existsSync(file + '.html')) file = file + '.html';
   if (url.pathname === '/' || !fs.existsSync(file) || fs.statSync(file).isDirectory()) file = path.join(PUBLIC, 'index.html');
   if (file.endsWith('index.html')) {
     res.writeHead(200, { 'Content-Type': TYPES['.html'], 'Cache-Control': 'no-cache' });
@@ -416,5 +405,5 @@ const server = http.createServer(async (req, res) => {
   console.log(`  🔐 Admin page:          http://localhost:${PORT}/admin?key=${CFG.ADMIN_KEY}`);
   console.log(`  💾 Data saved in:       ${DB_FILE}`);
   console.log(`  ☁️  Cloud storage:       ${CLOUD ? 'Supabase ON' : 'off (local file only)'}`);
-  console.log(`  Google login: ${CFG.GOOGLE_CLIENT_ID ? 'ON' : 'demo mode'} · X login: ${CFG.X_CLIENT_ID ? 'ON' : 'demo mode'} · Apple login: demo mode\n`);
+  console.log(`  Google login: ${CFG.GOOGLE_CLIENT_ID ? 'ON' : 'OFF (set GOOGLE_CLIENT_ID)'}\n`);
 }));
