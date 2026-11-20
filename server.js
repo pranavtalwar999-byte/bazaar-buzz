@@ -31,7 +31,7 @@ const CLOUD = !!(CFG.SUPABASE_URL && CFG.SUPABASE_SERVICE_KEY);
 /* ---------------- DATABASE (JSON file) ---------------- */
 const DATA_DIR = path.join(__dirname, 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
-let db = { users: [], sessions: {}, deals: [], claims: [], payments: [], reels: [], reviews: [], likes: {}, comments: {} };
+let db = { users: [], sessions: {}, deals: [], claims: [], payments: [], reels: [], reviews: [], likes: {}, comments: {}, follows: {} };
 const UPLOADS = path.join(__dirname, 'data', 'uploads');
 const MAX_VIDEO = 30 * 1024 * 1024;
 fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -83,7 +83,17 @@ function checkPass(pw, user) {
   const h = crypto.scryptSync(pw, user.salt, 64);
   return crypto.timingSafeEqual(h, Buffer.from(user.hash, 'hex'));
 }
-const publicUser = (u) => ({ id: u.id, name: u.name, email: u.email, role: u.role, plan: u.plan, provider: u.provider, createdAt: u.createdAt });
+const publicUser = (u) => (ensureHandle(u), { id: u.id, name: u.name, email: u.email, role: u.role, plan: u.plan, provider: u.provider, createdAt: u.createdAt,
+  handle: u.handle, bio: u.bio || '', city: u.city || '', phone: u.phone || '', avatar: u.avatar || '' });
+function ensureHandle(u) {
+  if (u.handle) return u.handle;
+  const base = (String(u.name || 'user').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '') || 'user').slice(0, 18);
+  let h = base, n = 0;
+  while (db.users.some((x) => x !== u && x.handle === h)) h = base + '_' + (++n < 5 ? Math.floor(10 + Math.random() * 90) : Math.floor(1000 + Math.random() * 9000));
+  u.handle = h; save(); return h;
+}
+const MAX_AVATAR = 4 * 1024 * 1024;
+const profileCard = (u) => (ensureHandle(u), { id: u.id, name: u.name, handle: u.handle, role: u.role, avatar: u.avatar || '' });
 function newSession(user) {
   const token = crypto.randomBytes(24).toString('hex');
   db.sessions[token] = { userId: user.id, createdAt: now() };
@@ -112,7 +122,7 @@ const ROLES = ['customer', 'business'];
 const PLANS = ['free', 'basic', 'premium', 'featured'];
 const slug = (x) => String(x || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
 function optUser(req) { try { return getUser(req); } catch (e) { return null; } }
-const pubReel = (r, u) => ({ id: r.id, src: r.src, by: r.by, role: r.role, shop: r.shop, place: r.place, cat: r.cat, caption: r.caption, rating: r.rating, offer: r.offer, createdAt: r.createdAt, mine: !!(u && u.id === r.userId) });
+const pubReel = (r, u) => ({ id: r.id, uid: r.userId, av: ((db.users.find((x) => x.id === r.userId) || {}).avatar) || '', src: r.src, by: r.by, role: r.role, shop: r.shop, place: r.place, cat: r.cat, caption: r.caption, rating: r.rating, offer: r.offer, createdAt: r.createdAt, mine: !!(u && u.id === r.userId) });
 const pubReview = (v, u) => ({ id: v.id, place: v.place, shop: v.shop, by: v.by, rating: v.rating, text: v.text, createdAt: v.createdAt, mine: !!(u && u.id === v.userId), viaReel: !!v.viaReel });
 function addReview(u, place, shop, rating, text, viaReel) {
   let v = db.reviews.find((x) => x.userId === u.id && x.place === place);
@@ -170,12 +180,101 @@ async function api(req, res, url) {
     const t = await r.json();
     if (!r.ok || t.aud !== CFG.GOOGLE_CLIENT_ID || t.email_verified !== 'true') return send(res, 401, { error: 'Google sign-in could not be verified.' });
     const u = upsertSocial({ provider: 'google', providerId: t.sub, email: t.email.toLowerCase(), name: t.name, role: b.role });
+    if (!u.avatar && /^https:\/\/[\w.-]+\.googleusercontent\.com\//.test(t.picture || '')) { u.avatar = t.picture; save(); }
     return send(res, 200, { token: newSession(u), user: publicUser(u) });
   }
 
-  if (p === '/api/me') {
+  if (p === '/api/me' && method === 'GET') {
     const u = getUser(req);
     return u ? send(res, 200, { user: publicUser(u) }) : send(res, 401, { error: 'Not logged in.' });
+  }
+
+  /* ---------- profiles ---------- */
+  if (p === '/api/me' && method === 'PATCH') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Please log in.' });
+    const b = await readBody(req);
+    if (b.name !== undefined) { const n = clean(b.name, 40); if (n.length < 2) return send(res, 400, { error: 'Name should be at least 2 letters.' }); u.name = n; }
+    if (b.handle !== undefined) {
+      const h = String(b.handle).trim().toLowerCase().replace(/^@/, '');
+      if (!/^[a-z0-9_.]{3,24}$/.test(h)) return send(res, 400, { error: 'Username can use 3–24 letters, numbers, _ or . only.' });
+      if (db.users.some((x) => x !== u && x.handle === h)) return send(res, 409, { error: '@' + h + ' is already taken. Try another.' });
+      u.handle = h;
+    }
+    if (b.bio !== undefined) u.bio = clean(b.bio, 150);
+    if (b.city !== undefined) u.city = clean(b.city, 40);
+    if (b.phone !== undefined) u.phone = clean(b.phone, 15).replace(/[^0-9+ ]/g, '');
+    for (const r of db.reels) if (r.userId === u.id) r.by = u.name;
+    save();
+    return send(res, 200, { user: publicUser(u) });
+  }
+  if (p === '/api/me/avatar' && method === 'POST') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Please log in.' });
+    const type = String(req.headers['content-type'] || '').split(';')[0].trim();
+    const ext = { 'image/jpeg': '.jpg', 'image/png': '.png', 'image/webp': '.webp' }[type];
+    if (!ext) return send(res, 400, { error: 'Please choose a JPG, PNG or WebP photo.' });
+    if (+req.headers['content-length'] > MAX_AVATAR) return send(res, 413, { error: 'Photo is too large (max 4 MB).' });
+    const name = 'av_' + u.id + '_' + Date.now().toString(36) + ext, file = path.join(UPLOADS, name);
+    await new Promise((resolve, reject) => {
+      let size = 0; const ws = fs.createWriteStream(file);
+      req.on('data', (c) => { size += c.length; if (size > MAX_AVATAR) { req.unpipe(ws); ws.destroy(); fs.unlink(file, () => {}); reject(new Error('Photo is too large (max 4 MB).')); } });
+      req.pipe(ws); ws.on('finish', resolve); ws.on('error', reject); req.on('error', reject);
+    });
+    if (u.avatar && u.avatar.startsWith('/uploads/av_')) fs.unlink(path.join(UPLOADS, path.basename(u.avatar)), () => {});
+    u.avatar = '/uploads/' + name; save();
+    return send(res, 200, { user: publicUser(u) });
+  }
+  if (p === '/api/me/avatar' && method === 'DELETE') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Please log in.' });
+    if (u.avatar && u.avatar.startsWith('/uploads/av_')) fs.unlink(path.join(UPLOADS, path.basename(u.avatar)), () => {});
+    u.avatar = ''; save();
+    return send(res, 200, { user: publicUser(u) });
+  }
+  {
+    const pm = p.match(/^\/api\/users\/([\w.@-]+)(\/follow|\/followers|\/following)?$/);
+    if (pm) {
+      const key = decodeURIComponent(pm[1]).replace(/^@/, '').toLowerCase();
+      const t = db.users.find((x) => x.id === pm[1] || (ensureHandle(x), x.handle === key));
+      if (!t) return send(res, 404, { error: 'This profile does not exist.' });
+      const me = optUser(req), fl = db.follows;
+      const followersOf = (uid) => fl[uid] || [];
+      const followingOf = (uid) => Object.keys(fl).filter((k) => fl[k].includes(uid));
+      if (pm[2] === '/follow' && method === 'POST') {
+        if (!me) return send(res, 401, { error: 'Log in to follow people.' });
+        if (me.id === t.id) return send(res, 400, { error: "You can't follow yourself." });
+        const arr = fl[t.id] || (fl[t.id] = []), i = arr.indexOf(me.id);
+        if (i >= 0) arr.splice(i, 1); else arr.push(me.id);
+        save();
+        return send(res, 200, { following: i < 0, followers: arr.length });
+      }
+      if (pm[2] === '/followers' || pm[2] === '/following') {
+        const ids = pm[2] === '/followers' ? followersOf(t.id) : followingOf(t.id);
+        return send(res, 200, { users: ids.map((i) => db.users.find((x) => x.id === i)).filter(Boolean).map(profileCard) });
+      }
+      if (!pm[2] && method === 'GET') {
+        const reels = db.reels.filter((r) => r.userId === t.id);
+        const likesOn = (rid) => (db.likes[rid] || []).length;
+        const places = new Set([slug(t.name), ...reels.map((r) => r.place), ...db.deals.filter((d) => d.ownerId === t.id).map((d) => slug(d.shop))]);
+        const shopReviews = t.role === 'business' ? db.reviews.filter((v) => places.has(v.place) && v.userId !== t.id) : [];
+        const isMe = !!(me && me.id === t.id);
+        const pub = publicUser(t);
+        if (!isMe) delete pub.email;
+        if (t.role !== 'business' && !isMe) delete pub.phone;
+        return send(res, 200, {
+          user: pub, isMe,
+          iFollow: !!(me && followersOf(t.id).includes(me.id)),
+          stats: { reels: reels.length, likes: reels.reduce((a, r) => a + likesOn(r.id), 0), followers: followersOf(t.id).length, following: followingOf(t.id).length },
+          rating: shopReviews.length ? { avg: shopReviews.reduce((a, v) => a + v.rating, 0) / shopReviews.length, n: shopReviews.length } : null,
+          reels: reels.map((r) => ({ ...pubReel(r, me), likes: likesOn(r.id), comments: ((db.comments || {})[r.id] || []).length })),
+          reviews: db.reviews.filter((v) => v.userId === t.id).map((v) => pubReview(v, me)),
+          shopReviews: shopReviews.slice(0, 30).map((v) => pubReview(v, me)),
+          deals: db.deals.filter((d) => d.ownerId === t.id).map(({ ownerId, ...d }) => d),
+          liked: isMe ? Object.keys(db.likes).filter((k) => db.likes[k].includes(me.id)) : [],
+        });
+      }
+    }
   }
 
   if (p === '/api/logout' && method === 'POST') {
@@ -371,7 +470,7 @@ function admin(req, res, url) {
 
 /* ---------------- STATIC FILES ---------------- */
 const PUBLIC = path.join(__dirname, 'public');
-const TYPES = { '.webmanifest': 'application/manifest+json', '.mp4': 'video/mp4', '.webm': 'video/webm', '.mov': 'video/quicktime', '.jpeg': 'image/jpeg', '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.json': 'application/json' };
+const TYPES = { '.webmanifest': 'application/manifest+json', '.webp': 'image/webp', '.mp4': 'video/mp4', '.webm': 'video/webm', '.mov': 'video/quicktime', '.jpeg': 'image/jpeg', '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.json': 'application/json' };
 function sendFile(req, res, file, type, cache) {
   const size = fs.statSync(file).size, range = req.headers.range;
   const base = { 'Content-Type': type, 'Accept-Ranges': 'bytes', 'Cache-Control': cache || 'public, max-age=3600' };
@@ -413,6 +512,7 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname.startsWith('/auth/x/')) return await xAuth(req, res, url);
     if (url.pathname === '/admin') return admin(req, res, url);
     if (url.pathname.startsWith('/uploads/')) return serveUpload(req, res, url);
+    if (url.pathname === '/me' || /^\/u\/[^/]+\/?$/.test(url.pathname)) { res.writeHead(200, { 'Content-Type': TYPES['.html'], 'Cache-Control': 'no-cache' }); return res.end(fs.readFileSync(path.join(PUBLIC, 'profile.html'))); }
     if (url.pathname === '/robots.txt') { res.writeHead(200, { 'Content-Type': 'text/plain' }); return res.end(`User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nSitemap: ${CFG.BASE_URL}/sitemap.xml\n`); }
     if (url.pathname === '/sitemap.xml') { res.writeHead(200, { 'Content-Type': 'application/xml' }); return res.end(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${CFG.BASE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url><url><loc>${CFG.BASE_URL}/reels</loc><changefreq>daily</changefreq><priority>0.8</priority></url></urlset>`); }
     if (url.pathname.startsWith('/google') && url.pathname.endsWith('.html') && CFG.GOOGLE_VERIFY_FILE && url.pathname === '/' + CFG.GOOGLE_VERIFY_FILE) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end('google-site-verification: ' + CFG.GOOGLE_VERIFY_FILE); }
