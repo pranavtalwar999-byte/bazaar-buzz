@@ -604,7 +604,7 @@ function serveStatic(req, res, url) {
     return res.end(fs.readFileSync(file, 'utf8').replace('const SERVER_MODE=false;', 'const SERVER_MODE=true;')
       .replace('<!--SEO-->', `<link rel="canonical" href="${CFG.BASE_URL}/"><meta property="og:url" content="${CFG.BASE_URL}/">` + (CFG.GOOGLE_VERIFY_META ? `<meta name="google-site-verification" content="${esc(CFG.GOOGLE_VERIFY_META)}">` : '')));
   }
-  sendFile(req, res, file, TYPES[path.extname(file)] || 'application/octet-stream');
+  sendFile(req, res, file, TYPES[path.extname(file)] || 'application/octet-stream', /\.(html|js|css|webmanifest)$/.test(file) ? 'no-cache' : undefined);
 }
 
 /* ---------------- SERVER ---------------- */
