@@ -25,6 +25,11 @@ const CFG = {
   BASE_URL: (process.env.BASE_URL || fileCfg.BASE_URL || process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`).replace(/\/$/, ''),
   SUPABASE_URL: (process.env.SUPABASE_URL || fileCfg.SUPABASE_URL || '').replace(/\/$/, ''),
   SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY || fileCfg.SUPABASE_SERVICE_KEY || '',
+  // SMS one-time codes: SMS_PROVIDER = messagecentral | fast2sms | test
+  SMS_PROVIDER: (process.env.SMS_PROVIDER || fileCfg.SMS_PROVIDER || '').toLowerCase(),
+  MC_CUSTOMER_ID: process.env.MC_CUSTOMER_ID || fileCfg.MC_CUSTOMER_ID || '',
+  MC_PASSWORD: process.env.MC_PASSWORD || fileCfg.MC_PASSWORD || '',
+  FAST2SMS_API_KEY: process.env.FAST2SMS_API_KEY || fileCfg.FAST2SMS_API_KEY || '',
 };
 const CLOUD = !!(CFG.SUPABASE_URL && CFG.SUPABASE_SERVICE_KEY);
 
@@ -84,7 +89,7 @@ function checkPass(pw, user) {
   return crypto.timingSafeEqual(h, Buffer.from(user.hash, 'hex'));
 }
 const publicUser = (u) => (ensureHandle(u), { id: u.id, name: u.name, email: u.email, role: u.role, plan: u.plan, provider: u.provider, createdAt: u.createdAt,
-  handle: u.handle, bio: u.bio || '', city: u.city || '', phone: u.phone || '', avatar: u.avatar || '' });
+  handle: u.handle, bio: u.bio || '', city: u.city || '', phone: u.phone || '', avatar: u.avatar || '', mobile: u.mobile || '' });
 function ensureHandle(u) {
   if (u.handle) return u.handle;
   const base = (String(u.name || 'user').toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '') || 'user').slice(0, 18);
@@ -93,6 +98,62 @@ function ensureHandle(u) {
   u.handle = h; save(); return h;
 }
 const MAX_AVATAR = 4 * 1024 * 1024;
+
+/* ---------------- SMS one-time codes ---------------- */
+const OTP = {}, OTP_LOG = {};
+setInterval(() => { const t = Date.now(); for (const k in OTP) if (OTP[k].exp < t) delete OTP[k]; for (const k in OTP_LOG) if (!OTP_LOG[k].some((x) => t - x < 36e5)) delete OTP_LOG[k]; }, 10 * 60e3).unref();
+function smsReady() {
+  const p = CFG.SMS_PROVIDER;
+  return (p === 'messagecentral' && !!(CFG.MC_CUSTOMER_ID && CFG.MC_PASSWORD)) || (p === 'fast2sms' && !!CFG.FAST2SMS_API_KEY) || p === 'test';
+}
+function normPhone(x) {
+  let d = String(x || '').replace(/[^\d]/g, '');
+  if (d.length === 12 && d.startsWith('91')) d = d.slice(2);
+  if (d.length === 11 && d.startsWith('0')) d = d.slice(1);
+  return /^[6-9]\d{9}$/.test(d) ? '+91' + d : null;
+}
+const clientIp = (req) => String(req.headers['x-forwarded-for'] || req.socket.remoteAddress || '').split(',')[0].trim();
+const hashCode = (phone, code) => crypto.createHash('sha256').update(phone + ':' + code + ':' + CFG.ADMIN_KEY).digest('hex');
+async function mcToken() {
+  const q = new URLSearchParams({ customerId: CFG.MC_CUSTOMER_ID, key: Buffer.from(CFG.MC_PASSWORD).toString('base64'), scope: 'NEW', country: '91' });
+  const r = await fetch('https://cpaas.messagecentral.com/auth/v1/authentication/token?' + q);
+  const j = await r.json().catch(() => ({}));
+  if (!j.token) throw new Error('Message Central login failed (' + r.status + ')');
+  return j.token;
+}
+async function sendSms(phone) {
+  const local = phone.slice(3);
+  if (CFG.SMS_PROVIDER === 'messagecentral') {
+    const q = new URLSearchParams({ countryCode: '91', customerId: CFG.MC_CUSTOMER_ID, flowType: 'SMS', mobileNumber: local, otpLength: '6' });
+    const r = await fetch('https://cpaas.messagecentral.com/verification/v3/send?' + q, { method: 'POST', headers: { authToken: await mcToken() } });
+    const j = await r.json().catch(() => ({}));
+    const vid = j.data && (j.data.verificationId || j.data.verficationId);
+    if (!vid) throw new Error('Message Central send failed: ' + (j.message || r.status));
+    return { vid: String(vid) };
+  }
+  const code = String(crypto.randomInt(100000, 1000000));
+  if (CFG.SMS_PROVIDER === 'fast2sms') {
+    const q = new URLSearchParams({ authorization: CFG.FAST2SMS_API_KEY, route: 'otp', variables_values: code, numbers: local, flash: '0' });
+    const r = await fetch('https://www.fast2sms.com/dev/bulkV2?' + q);
+    const j = await r.json().catch(() => ({}));
+    if (!j.return) throw new Error('Fast2SMS send failed: ' + JSON.stringify(j.message || r.status));
+  } else {
+    console.log(`  📱 [SMS test mode] code for ${phone}: ${code}`);
+  }
+  return { hash: hashCode(phone, code) };
+}
+async function checkSms(cur, phone, code) {
+  if (cur.verified && cur.okCode) return code === cur.okCode;
+  let ok;
+  if (cur.vid) {
+    const q = new URLSearchParams({ verificationId: cur.vid, code });
+    const r = await fetch('https://cpaas.messagecentral.com/verification/v3/validateOtp?' + q, { headers: { authToken: await mcToken() } });
+    const j = await r.json().catch(() => ({}));
+    ok = !!(j.data && j.data.verificationStatus === 'VERIFICATION_COMPLETED');
+  } else ok = hashCode(phone, code) === cur.hash;
+  if (ok) cur.okCode = code; // lets the same code finish sign-up after we ask for a name
+  return ok;
+}
 const profileCard = (u) => (ensureHandle(u), { id: u.id, name: u.name, handle: u.handle, role: u.role, avatar: u.avatar || '' });
 function newSession(user) {
   const token = crypto.randomBytes(24).toString('hex');
@@ -151,7 +212,49 @@ async function api(req, res, url) {
   const p = url.pathname, method = req.method;
 
   if (p === '/api/health') return send(res, 200, { ok: true });
-  if (p === '/api/config') return send(res, 200, { googleClientId: CFG.GOOGLE_CLIENT_ID, xEnabled: !!(CFG.X_CLIENT_ID && CFG.X_CLIENT_SECRET), appleEnabled: false });
+  if (p === '/api/config') return send(res, 200, { googleClientId: CFG.GOOGLE_CLIENT_ID, xEnabled: !!(CFG.X_CLIENT_ID && CFG.X_CLIENT_SECRET), appleEnabled: false, phoneEnabled: smsReady() });
+
+  /* ---------- phone number + SMS code ---------- */
+  if (p === '/api/otp/send' && method === 'POST') {
+    if (!smsReady()) return send(res, 503, { error: 'Phone sign-in is not set up yet. Please use Google or email.' });
+    const b = await readBody(req), phone = normPhone(b.phone);
+    if (!phone) return send(res, 400, { error: 'Enter a valid 10-digit Indian mobile number.' });
+    const ip = clientIp(req), t = Date.now();
+    const recent = (k, ms) => (OTP_LOG[k] = (OTP_LOG[k] || []).filter((x) => t - x < ms));
+    const cur = OTP[phone];
+    if (cur && t - cur.sentAt < 30e3) return send(res, 429, { error: 'Please wait ' + Math.ceil((30e3 - (t - cur.sentAt)) / 1e3) + ' seconds before asking for a new code.', wait: Math.ceil((30e3 - (t - cur.sentAt)) / 1e3) });
+    if (recent('p' + phone, 36e5).length >= 5) return send(res, 429, { error: 'Too many codes for this number. Try again in an hour.' });
+    if (recent('i' + ip, 36e5).length >= 15) return send(res, 429, { error: 'Too many attempts from this network. Try again later.' });
+    try {
+      const sent = await sendSms(phone);
+      OTP[phone] = { ...sent, sentAt: t, exp: t + 10 * 60e3, tries: 0 };
+      OTP_LOG['p' + phone].push(t); OTP_LOG['i' + ip].push(t);
+    } catch (e) {
+      console.error('  SMS error:', e.message);
+      return send(res, 502, { error: "We couldn't send the SMS right now. Please try again in a minute." });
+    }
+    return send(res, 200, { ok: true, phone: phone.replace(/^(\+91)(\d{2})\d{5}(\d{3})$/, '$1 $2•••••$3'), exists: db.users.some((u) => u.mobile === phone), wait: 30 });
+  }
+  if (p === '/api/otp/verify' && method === 'POST') {
+    const b = await readBody(req), phone = normPhone(b.phone), code = String(b.code || '').replace(/\D/g, '');
+    const cur = phone && OTP[phone];
+    if (!cur || Date.now() > cur.exp) { if (phone) delete OTP[phone]; return send(res, 400, { error: 'This code has expired. Tap “Resend code” to get a new one.' }); }
+    if (cur.tries >= 5) { delete OTP[phone]; return send(res, 429, { error: 'Too many wrong tries. Please ask for a new code.' }); }
+    if (!/^\d{4,8}$/.test(code)) return send(res, 400, { error: 'Enter the code from the SMS.' });
+    let ok = false;
+    try { ok = await checkSms(cur, phone, code); } catch (e) { console.error('  SMS verify error:', e.message); return send(res, 502, { error: "We couldn't check the code right now. Please try again." }); }
+    if (!ok) { cur.tries++; return send(res, 400, { error: 'That code is not right. ' + (5 - cur.tries) + ' tries left.' }); }
+    let u = db.users.find((x) => x.mobile === phone);
+    if (!u) {
+      const name = clean(b.name, 40);
+      if (name.length < 2) { cur.verified = true; return send(res, 200, { needName: true }); }
+      u = { id: id('u'), name, email: '', mobile: phone, role: ROLES.includes(b.role) ? b.role : 'customer', plan: 'free', provider: 'phone', createdAt: now() };
+      db.users.push(u);
+    }
+    delete OTP[phone];
+    u.lastLogin = now(); u.mobileVerifiedAt = now(); save();
+    return send(res, 200, { token: newSession(u), user: publicUser(u) });
+  }
 
   if (p === '/api/signup' && method === 'POST') {
     const b = await readBody(req);
@@ -260,7 +363,7 @@ async function api(req, res, url) {
         const shopReviews = t.role === 'business' ? db.reviews.filter((v) => places.has(v.place) && v.userId !== t.id) : [];
         const isMe = !!(me && me.id === t.id);
         const pub = publicUser(t);
-        if (!isMe) delete pub.email;
+        if (!isMe) { delete pub.email; delete pub.mobile; }
         if (t.role !== 'business' && !isMe) delete pub.phone;
         return send(res, 200, {
           user: pub, isMe,
@@ -527,5 +630,6 @@ const server = http.createServer(async (req, res) => {
   console.log(`  🔐 Admin page:          http://localhost:${PORT}/admin?key=${CFG.ADMIN_KEY}`);
   console.log(`  💾 Data saved in:       ${DB_FILE}`);
   console.log(`  ☁️  Cloud storage:       ${CLOUD ? 'Supabase ON' : 'off (local file only)'}`);
-  console.log(`  Google login: ${CFG.GOOGLE_CLIENT_ID ? 'ON' : 'OFF (set GOOGLE_CLIENT_ID)'}\n`);
+  console.log(`  Google login: ${CFG.GOOGLE_CLIENT_ID ? 'ON' : 'OFF (set GOOGLE_CLIENT_ID)'}`);
+  console.log(`  Phone login:  ${smsReady() ? 'ON (' + CFG.SMS_PROVIDER + ')' : 'OFF (set SMS_PROVIDER + keys)'}\n`);
 }));
