@@ -1215,6 +1215,13 @@ section .tag,.hero .tag{display:none!important}
 .rcard .rc-tag{background:rgba(10,12,22,.62)}
 .gt,.loc-btn svg,.big-e,.rcard.add .plus,.logo-mark::after{animation:none!important}
 .rcard{contain:layout paint}
+/* perf: story progress on the compositor, and nothing animates while off screen */
+.prog i b{width:100%;transform:scaleX(0);transform-origin:0 50%}
+.prog i.on b{animation:fillx 3s linear forwards}
+.prog i.done b{transform:none}
+@keyframes fillx{to{transform:none}}
+.offscreen,.offscreen *{animation-play-state:paused!important}
+.phone-wrap .phone{position:relative;left:auto;right:auto;top:auto;width:min(270px,70vw);aspect-ratio:1/2;margin:0 auto;padding:0;border:10px solid var(--phone);overflow:hidden;transform:none}
 </style>
 </head>
 <body>
@@ -1528,7 +1535,7 @@ section .tag,.hero .tag{display:none!important}
         <li><span>📱</span><div><b>Posted on our local Insta page</b>Reach local followers who actually live near you.</div></li>
         <li><span>🎟️</span><div><b>Linked to your coupon</b>See exactly how many customers came from the reel.</div></li>
       </ul>
-      <a href="#pricing" class="btn btn-primary magnetic reveal d3">Get Premium →</a>
+      <a href="#pricing" class="btn btn-primary magnetic reveal d3">Get Premium</a>
     </div>
   </div>
 </section>
@@ -2265,7 +2272,8 @@ const mq=['Cafés','Kirana stores','Wedding venues','Salons','Gyms','Bakeries','
 $('#marquee').innerHTML=[...mq,...mq].map(x=>'<span>'+x+'</span>').join('');
 let ri=0;const slides=$$('.slide'),pbars=$$('#prog i');
 function showSlide(i){slides.forEach((s,k)=>s.classList.toggle('on',k===i));pbars.forEach((b,k)=>b.className=k<i?'done':k===i?'on':'')}
-showSlide(0);setInterval(()=>{ri=(ri+1)%slides.length;showSlide(ri)},3000);
+showSlide(0);setInterval(()=>{if($('#reels')?.classList.contains('offscreen'))return;ri=(ri+1)%slides.length;showSlide(ri)},3000);
+{const off=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('offscreen',!e.isIntersecting)));['#reels','.hero-shot'].forEach(q=>{const el=document.querySelector(q);if(el)off.observe(el)})}
 $$('[data-toast]').forEach(a=>a.onclick=e=>{e.preventDefault();toast(a.dataset.toast)});
 
 /* ============ LOCATION: STATE + CITY ============ */
@@ -2592,7 +2600,7 @@ async function paid(p,total,pid){
   $('#payBox').innerHTML=`<div class="co-right success" style="grid-column:1/-1"><button class="x" data-close>×</button><div class="tick">✓</div><h3>You're on ${p.name}! 🎉</h3>
     <p class="sub">${inr(total)} · Payment ID ${esc(pid)}${pid.startsWith('TEST_')?' (test mode, nothing charged)':''}</p>
     <p style="color:var(--muted);margin:14px 0 22px">Your posts are now boosted.${PACK_RANK[p.id]>=2?' Our team will contact you within 48 hours to schedule your shop reel.':''}</p>
-    <a href="#post" class="btn btn-primary" data-close>Post an offer →</a></div>`}
+    <a href="#post" class="btn btn-primary" data-close>Post an offer</a></div>`}
 
 /* ============ POST A DEAL ============ */
 $('#pCat').innerHTML=CATS.slice(1).map(c=>`<option value="${c[0]}">${c[1]}</option>`).join('');
