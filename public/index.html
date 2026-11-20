@@ -6,7 +6,7 @@
 <title>Bazaar Buzz — Local deals near you</title>
 <meta name="description" content="Bazaar Buzz helps cafés, kirana stores, salons, gyms and wedding venues reach nearby customers on any budget, and helps everyone discover local deals around the corner, across every state and city in India.">
 <meta name="keywords" content="Bazaar Buzz, BazaarBuzz, local deals, deals near me, hyperlocal advertising, small business promotion India, kirana, cafe offers, Tumakuru">
-<meta name="theme-color" content="#F7F6F2">
+<meta name="theme-color" content="#F4F5F7">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -15,7 +15,7 @@
 <meta property="og:title" content="Bazaar Buzz — Local deals near you">
 <meta property="og:description" content="Discover offers from shops around the corner, or promote your business to people nearby for far less than an influencer.">
 <meta name="twitter:card" content="summary">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%236366F1'/%3E%3Cstop offset='1' stop-color='%2322D3EE'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Cpath fill='white' d='M32 12c-8.8 0-16 7.2-16 16 0 10.8 14 23 14.6 23.6.8.6 2 .6 2.8 0C34 51 48 38.8 48 28c0-8.8-7.2-16-16-16zm0 22a6 6 0 110-12 6 6 0 010 12z'/%3E%3C/svg%3E">
+<link rel="icon" href="icons/icon-192.png">
 <!--SEO-->
 <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Bazaar Buzz","alternateName":"BazaarBuzz","description":"Hyperlocal deals and promotion platform for small businesses in India."}</script>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js","postprocessing":"https://cdn.jsdelivr.net/npm/postprocessing@6.36.4/build/index.js"}}</script>
@@ -23,7 +23,7 @@
 <script src="/transition.js" defer></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anek+Latin:wdth,wght@75..125,300..800&family=Kalam:wght@400&display=swap" rel="stylesheet">
 <script>
   // apply saved theme / view / font size before paint
   (function(){try{
@@ -63,7 +63,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;font-size:calc(clamp(14px, 13px + .32vw, 18px) * var(--scale))}
 body{font-family:'Manrope',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;overflow-x:hidden;transition:background .5s,color .5s}
-h1,h2,h3,h4,h5{font-family:'Space Grotesk',system-ui,sans-serif;line-height:1.08;letter-spacing:-.03em}
+h1,h2,h3,h4,h5{font-family:var(--sans);line-height:1.08;letter-spacing:-.03em}
 h1{font-size:clamp(2.4rem,1.6rem + 4vw,5rem)}
 h2{font-size:clamp(1.9rem,1.4rem + 2.4vw,3.2rem)}
 h3{font-size:clamp(1.15rem,1rem + .6vw,1.5rem)}
@@ -112,7 +112,7 @@ main{display:flex;flex-direction:column}
 nav{position:fixed;top:12px;left:0;right:0;z-index:60;transition:top .3s}
 .nav-in{display:flex;align-items:center;gap:14px;height:64px;padding:0 10px 0 18px;border-radius:999px;border:1px solid transparent;transition:background .4s,border-color .4s,box-shadow .4s}
 nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate(1.4);border-color:var(--line);box-shadow:var(--shadow)}
-.logo{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',system-ui,sans-serif;font-weight:700;font-size:1.3rem;flex:none}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--sans);font-weight:700;font-size:1.3rem;flex:none}
 .logo-mark{width:36px;height:36px;border-radius:12px;background:var(--grad);display:grid;place-items:center;position:relative;color:#fff}
 .logo-mark::after{content:'';position:absolute;inset:-4px;border-radius:15px;border:2px solid var(--c2);opacity:0;animation:ping 2.6s infinite}
 @keyframes ping{0%{transform:scale(.9);opacity:.9}100%{transform:scale(1.4);opacity:0}}
@@ -175,7 +175,7 @@ nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate
 .quick button:hover{border-color:var(--c1);color:var(--text);transform:translateY(-2px)}
 .hero-ctas{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
 .trust{display:flex;gap:clamp(18px,3vw,36px);margin-top:38px;flex-wrap:wrap}
-.trust b{display:block;font-family:'Space Grotesk',system-ui,sans-serif;font-size:clamp(1.5rem,1.2rem + 1vw,2.1rem)}
+.trust b{display:block;font-family:var(--sans);font-size:clamp(1.5rem,1.2rem + 1vw,2.1rem)}
 .trust span{color:var(--dim);font-size:.85rem}
 
 /* radar */
@@ -225,7 +225,7 @@ nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate
 .marquee{border-block:1px solid var(--line);padding:20px 0;overflow:hidden;background:var(--bg2);transition:background .5s}
 .marquee-track{display:flex;gap:44px;width:max-content;animation:scroll 34s linear infinite}
 .marquee:hover .marquee-track{animation-play-state:paused}
-.marquee-track span{font-family:'Space Grotesk',system-ui,sans-serif;font-weight:600;color:var(--dim);font-size:1.1rem;display:flex;align-items:center;gap:14px}
+.marquee-track span{font-family:var(--sans);font-weight:600;color:var(--dim);font-size:1.1rem;display:flex;align-items:center;gap:14px}
 .marquee-track span::after{content:'✦';background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 @keyframes scroll{to{transform:translateX(-50%)}}
 
@@ -246,7 +246,7 @@ nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate
 .cat-tile .e{font-size:2rem;display:inline-block;transition:transform .5s var(--spring)}
 .cat-tile:hover{transform:translateY(-5px);border-color:var(--c1)}
 .cat-tile:hover .e{transform:scale(1.25) rotate(-10deg)}
-.cat-tile b{display:block;margin-top:10px;font-family:'Space Grotesk',system-ui,sans-serif;font-size:1.05rem}
+.cat-tile b{display:block;margin-top:10px;font-family:var(--sans);font-size:1.05rem}
 .cat-tile span{color:var(--dim);font-size:.82rem}
 .cat-tile::after{content:'';position:absolute;width:120px;height:120px;border-radius:50%;right:-40px;bottom:-40px;background:var(--hue);opacity:.18;filter:blur(10px);transition:transform .5s var(--ease)}
 .cat-tile:hover::after{transform:scale(1.8)}
@@ -268,7 +268,7 @@ nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate
 .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;counter-reset:s}
 .step{padding:28px 24px;border-radius:var(--r);position:relative;overflow:hidden}
 .step:hover{transform:translateY(-6px);border-color:var(--c1)}
-.step .num{position:absolute;right:16px;top:6px;font-family:'Space Grotesk',system-ui,sans-serif;font-weight:700;font-size:3.8rem;opacity:.07}
+.step .num{position:absolute;right:16px;top:6px;font-family:var(--sans);font-weight:700;font-size:3.8rem;opacity:.07}
 .step .ic{width:54px;height:54px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;background:var(--surface2);margin-bottom:18px}
 .step h4{font-size:1.1rem;margin-bottom:8px}
 .step p{color:var(--muted);font-size:.93rem}
@@ -281,7 +281,7 @@ nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate
 .dash .card{padding:24px}
 .dash .chart-card{grid-row:span 2}
 .dash small{color:var(--dim);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em}
-.dash .big-n{font-family:'Space Grotesk',system-ui,sans-serif;font-size:clamp(1.8rem,1.4rem + 1.5vw,2.6rem);font-weight:700;margin:6px 0 2px}
+.dash .big-n{font-family:var(--sans);font-size:clamp(1.8rem,1.4rem + 1.5vw,2.6rem);font-weight:700;margin:6px 0 2px}
 .dash .up{color:var(--c2);font-weight:700;font-size:.88rem}
 .bars{display:flex;align-items:flex-end;gap:10px;height:200px;margin-top:20px}
 .bars div{flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;height:100%;justify-content:flex-end}
@@ -292,7 +292,7 @@ nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate
 .ring-prog circle{fill:none;stroke-width:10}
 .ring-prog .bg{stroke:var(--surface2)}
 .ring-prog .fg{stroke:url(#rg);stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;transition:stroke-dashoffset 1.6s var(--ease)}
-.ring-prog b{position:absolute;inset:0;display:grid;place-items:center;font-family:'Space Grotesk',system-ui,sans-serif;font-size:1.4rem}
+.ring-prog b{position:absolute;inset:0;display:grid;place-items:center;font-family:var(--sans);font-size:1.4rem}
 
 /* ================= DEALS ================= */
 #deals{background:var(--bg2);transition:background .5s}
@@ -485,7 +485,7 @@ nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate
 .rv-actions a,.rv-actions button{padding:.5em 1em;border-radius:999px;font-size:.82rem;font-weight:700;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);color:#fff}
 .rv-actions .go{background:var(--grad)}
 .rv-close{position:fixed;top:16px;left:16px;z-index:5;width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);color:#fff;font-size:1.3rem}
-.rv-top{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:5;color:#fff;font-family:'Space Grotesk',system-ui,sans-serif;font-weight:700;font-size:1.05rem;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.rv-top{position:fixed;top:20px;left:50%;transform:translateX(-50%);z-index:5;color:#fff;font-family:var(--sans);font-weight:700;font-size:1.05rem;text-shadow:0 1px 6px rgba(0,0,0,.6)}
 .rv-progress{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(255,255,255,.2);z-index:4}
 .rv-progress i{display:block;height:100%;width:0;background:#fff}
 .rv-hint{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:3.4rem;color:#fff;opacity:0;pointer-events:none;transition:opacity .3s}
@@ -510,7 +510,7 @@ nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate
 .rv-item .top span{color:#F59E0B;letter-spacing:1px}
 .rv-item p{color:var(--muted)}
 .avg-big{display:flex;align-items:center;gap:14px;margin:10px 0}
-.avg-big b{font-family:'Space Grotesk',system-ui,sans-serif;font-size:2.6rem;line-height:1}
+.avg-big b{font-family:var(--sans);font-size:2.6rem;line-height:1}
 .avg-big .st{color:#F59E0B;font-size:1.2rem;letter-spacing:2px}
 .upl-drop{border:2px dashed var(--line2);border-radius:18px;padding:22px;text-align:center;cursor:pointer;transition:border-color .2s,background .2s;position:relative}
 .upl-drop:hover{border-color:var(--c1);background:var(--grad-soft)}
@@ -559,7 +559,7 @@ nav.scrolled .nav-in{background:var(--glass);backdrop-filter:blur(18px) saturate
 .plan.hot{border:2px solid transparent;background:linear-gradient(var(--surface),var(--surface)) padding-box,var(--grad) border-box}
 .plan .ribbon{position:absolute;top:-14px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:999px;background:var(--grad);font-size:.75rem;font-weight:800;white-space:nowrap;color:#fff}
 .plan .for{color:var(--dim);font-size:.88rem;margin:4px 0 18px}
-.price{font-family:'Space Grotesk',system-ui,sans-serif;font-size:clamp(2rem,1.6rem + 1.2vw,2.6rem);font-weight:700}
+.price{font-family:var(--sans);font-size:clamp(2rem,1.6rem + 1.2vw,2.6rem);font-weight:700}
 .price small{font-size:.9rem;color:var(--dim);font-weight:500}
 .plan ul{list-style:none;display:grid;gap:10px;margin:22px 0 26px;font-size:.92rem;color:var(--muted);flex:1}
 .plan li{display:flex;gap:10px}
@@ -629,7 +629,7 @@ footer{padding:70px 0 40px;margin-top:100px;border-top:1px solid var(--line)}
 .checkout{max-width:900px;padding:0;overflow:hidden;display:grid;grid-template-columns:1fr 1fr}
 .co-left{padding:clamp(24px,4vw,38px);background:var(--grad-soft);border-right:1px solid var(--line)}
 .co-right{padding:clamp(24px,4vw,38px);position:relative}
-.pname{font-family:'Space Grotesk',system-ui,sans-serif;font-size:1.9rem;font-weight:700;margin:10px 0 4px}
+.pname{font-family:var(--sans);font-size:1.9rem;font-weight:700;margin:10px 0 4px}
 .co-left ul{list-style:none;display:grid;gap:8px;margin:18px 0;color:var(--muted);font-size:.9rem}
 .co-left li::before{content:'✓  ';color:var(--c2);font-weight:800}
 .bill{border-top:1px solid var(--line);padding-top:16px;margin-top:16px;display:grid;gap:8px;font-size:.93rem}
@@ -876,6 +876,321 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
   #toTop{bottom:calc(84px + env(safe-area-inset-bottom,0px))!important}
   .toast{bottom:calc(86px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(220px)}
 }
+
+/* =====================================================================
+   Bazaar Buzz v2 design layer
+   Ink + paper + marigold. Anek (Ek Type) for everything, Kalam for pen notes.
+   ===================================================================== */
+[data-theme=light]{
+  --bg:#F4F5F7; --bg2:#E9EBF0; --surface:#FFFFFF; --surface2:#EEF0F4; --glass:rgba(244,245,247,.84);
+  --text:#151A2D; --muted:#4C5266; --dim:#7A8094; --line:#DFE2E9; --line2:#C9CED9;
+  --c1:#0B6B4D; --c2:#0B6B4D; --lime:#0B6B4D; --amber:#E9A20C; --pink:#D23A28; --danger:#C8321F;
+  --acc:#151A2D; --acc-soft:rgba(21,26,45,.06); --ring:rgba(11,107,77,.22);
+  --grad:linear-gradient(#151A2D,#151A2D); --grad-soft:linear-gradient(#EEF0F4,#EEF0F4); --on-grad:#FFFFFF;
+  --glow:none; --shadow:0 1px 0 rgba(21,26,45,.04); --blob-op:0;
+  --marigold:#E9A20C; --marigold-ink:#3A2600; --pen:#2647B5; --leaf:#0B6B4D; --sindoor:#C8321F;
+  --phone:#151A2D;
+}
+[data-theme=dark]{
+  --bg:#0D1120; --bg2:#121729; --surface:#161C30; --surface2:#1D2439; --glass:rgba(13,17,32,.84);
+  --text:#ECEEF5; --muted:#A9AEC0; --dim:#7D8399; --line:#252C43; --line2:#333B56;
+  --c1:#4CC79A; --c2:#4CC79A; --lime:#4CC79A; --amber:#F2B53A; --pink:#F06A57; --danger:#F06A57;
+  --acc:#ECEEF5; --acc-soft:rgba(236,238,245,.07); --ring:rgba(76,199,154,.25);
+  --grad:linear-gradient(#ECEEF5,#ECEEF5); --grad-soft:linear-gradient(#1D2439,#1D2439); --on-grad:#151A2D;
+  --glow:none; --shadow:none; --blob-op:0;
+  --marigold:#F2B53A; --marigold-ink:#2B1C00; --pen:#9DB3FF; --leaf:#4CC79A; --sindoor:#F06A57;
+  --phone:#05070D;
+}
+:root{
+  --sans:'Anek Latin',var(--indic),system-ui,-apple-system,'Segoe UI',sans-serif;
+  --indic:'Anek Devanagari','Anek Kannada','Anek Malayalam','Anek Telugu','Anek Tamil','Anek Gurmukhi';
+  --hand:'Kalam','Comic Neue',cursive;
+  --r:18px; --r-lg:26px;
+  --ease:cubic-bezier(.22,.7,.2,1);
+}
+html{background:var(--bg)}
+body{font-family:var(--sans)!important;font-feature-settings:normal;font-size:1.0625rem;line-height:1.55;letter-spacing:0;background:var(--bg);color:var(--text)}
+h1,h2,h3,h4,h5,.logo,.price,.big-n,.trust b,.pname,.avg-big b,.rv-who b,.cat-tile b,.step .num,.dash .big-n,.ring-prog b,.avg-big b{
+  font-family:var(--sans)!important;font-stretch:84%;letter-spacing:-.018em;font-weight:700}
+h3,h4{font-stretch:92%;letter-spacing:-.01em}
+button,input,select,textarea{font-family:inherit}
+
+/* decoration from the old design: switched off */
+.mesh,.shape,.dots-bg,.blob,#glow,.marquee,.foot-word,#progress,.trust,.hero .tag,.sec-head>.tag,.row-head>.tag,.reel-in .tag,.hero .guest-only.tag{display:none!important}
+.gt,.gt *{background:none!important;-webkit-background-clip:initial!important;background-clip:initial!important;-webkit-text-fill-color:currentColor!important;color:inherit!important;font-style:normal!important;font-weight:inherit!important}
+.reveal,.reveal.in{opacity:1!important;transform:none!important;transition:none!important}
+.split .w>span,.split .w{animation:none!important;transform:none!important;opacity:1!important}
+.magnetic{transform:none!important}
+.card{background:var(--surface);border:1px solid var(--line);box-shadow:none;border-radius:var(--r)}
+.card:hover{transform:none;box-shadow:none}
+
+/* ---------- nav ---------- */
+#nav{position:fixed;inset:0 0 auto 0;padding:0;background:var(--glass);-webkit-backdrop-filter:saturate(1.6) blur(18px);backdrop-filter:saturate(1.6) blur(18px);border-bottom:1px solid var(--line);transform:none!important}
+#nav .wrap{max-width:1180px}
+#nav .nav-in{height:58px;padding:0;margin:0;background:none;border:0;box-shadow:none;border-radius:0;gap:14px}
+.logo{font-size:1.32rem;font-weight:800;font-stretch:80%;letter-spacing:-.01em;gap:9px;color:var(--text)}
+.logo-mark{width:30px;height:20px;border-radius:3px 9px 9px 3px;background:var(--marigold);color:transparent;position:relative;box-shadow:none;transform:rotate(-8deg);flex:none}
+.logo-mark svg{display:none}
+.logo-mark::before{content:'';position:absolute;left:5px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--bg)}
+.nav-links a{font-size:.95rem;font-weight:500;color:var(--muted);padding:6px 2px}
+.nav-links a:hover{color:var(--text)}
+.seg{background:none;border:0;padding:0;gap:4px}
+.seg .pill{display:none}
+.seg button{border-radius:999px;padding:6px 12px;font-size:.9rem;font-weight:600;color:var(--muted);background:none}
+.seg button.on{background:var(--text);color:var(--bg)}
+.seg button svg.i{display:none}
+.nav-search{background:var(--surface2);border:1px solid transparent;border-radius:10px;height:38px}
+.icon-btn{background:none;border:1px solid var(--line);box-shadow:none}
+.lang-sel{background:var(--surface2);border:1px solid transparent;border-radius:10px;font-weight:500}
+.nav-auth .btn-sm{padding:8px 14px;font-size:.92rem}
+.user-chip{background:none;border:1px solid var(--line)}
+.user-chip .avatar{background:var(--marigold);color:var(--marigold-ink)}
+
+/* ---------- buttons ---------- */
+.btn{border-radius:999px;font-weight:600;letter-spacing:0;box-shadow:none!important;transition:background .2s,opacity .2s,color .2s}
+.btn-primary{background:var(--text);color:var(--bg);border:0}
+.btn-primary:hover{opacity:.86;transform:none}
+.btn-ghost{background:none;color:var(--text);border:1px solid var(--line2)}
+.btn-ghost:hover{background:var(--surface2)}
+:focus-visible{outline:2px solid var(--leaf);outline-offset:2px}
+
+/* ---------- section rhythm ---------- */
+section{padding:clamp(76px,9vw,132px) 0}
+.wrap{max-width:1180px}
+.sec-head,.row-head{text-align:left!important;margin:0 0 clamp(30px,4vw,52px)!important;max-width:820px}
+.sec-head h2,.row-head h2,.street-head h2,.city-copy h2{font-size:clamp(2.2rem,1.3rem + 3.4vw,4.1rem);line-height:1.0;letter-spacing:-.028em;font-stretch:78%;font-weight:700;margin:0}
+.sec-head p,.row-head p{margin:16px 0 0!important;max-width:560px;color:var(--muted);font-size:1.15rem;line-height:1.5;text-align:left!important}
+.row-head{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;max-width:none}
+#trending,#city3d,#faq,#why,#pricing{background:var(--surface)!important}
+#paths{padding-top:clamp(76px,9vw,132px)!important}
+
+/* ---------- hero ---------- */
+.hero{min-height:auto;padding:calc(58px + clamp(40px,6vw,84px)) 0 clamp(40px,6vw,80px);display:block;overflow:visible;background:var(--bg)}
+.hero-in{grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);gap:clamp(24px,4vw,64px);align-items:center}
+.hero h1{font-size:clamp(2.9rem,1.5rem + 5.4vw,6.2rem);line-height:.94;letter-spacing:-.035em;font-stretch:76%;font-weight:700;margin:0 0 24px;max-width:11ch}
+.hero .only-biz h1{max-width:13ch}
+.hero .rot{display:inline-block;color:inherit}
+.hero .lead{font-size:clamp(1.08rem,1rem + .35vw,1.28rem);color:var(--muted);max-width:30em;margin:0 0 30px;line-height:1.5}
+.hero-search{background:var(--surface);border:1px solid var(--line2);border-radius:16px;padding:6px;box-shadow:none;max-width:560px}
+.hero-search .field input{font-size:1.05rem}
+.hero-search .loc-btn{background:var(--surface2);color:var(--text);border-radius:11px;border:0}
+.hero-search .btn{border-radius:11px}
+.quick{margin-top:16px;gap:8px}
+.quick>span{color:var(--dim);font-size:.92rem}
+.quick button{background:none;border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:.92rem;color:var(--muted)}
+.quick button:hover{border-color:var(--text);color:var(--text)}
+.quick button svg.i{width:15px;height:15px;opacity:.75}
+.hero-ctas{gap:12px}
+
+/* phones */
+.hero-shot{position:relative;margin:0;height:clamp(520px,48vw,640px)}
+.phone{position:absolute;width:clamp(212px,20vw,272px);aspect-ratio:9/19.2;border-radius:42px;background:var(--phone);padding:9px;box-shadow:0 30px 60px -30px rgba(21,26,45,.45),0 0 0 1px rgba(0,0,0,.06)}
+.phone::before{content:'';position:absolute;top:17px;left:50%;width:70px;height:20px;margin-left:-35px;border-radius:12px;background:var(--phone);z-index:3}
+.ph-screen{position:relative;width:100%;height:100%;border-radius:34px;overflow:hidden;background:#fff}
+.ph-front{left:4%;top:4%;z-index:2;transform:rotate(-3deg)}
+.ph-back{right:3%;top:13%;transform:rotate(4deg)}
+.ph-front video{width:100%;height:100%;object-fit:cover;display:block;background:#2a1a12}
+.ph-reel-ui{position:absolute;left:12px;right:12px;bottom:16px;color:#fff;display:grid;gap:6px;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.ph-reel-ui b{font-size:.95rem}
+.ph-reel-ui span{justify-self:start;font-size:.78rem;font-weight:600;background:var(--marigold);color:var(--marigold-ink);padding:4px 9px;border-radius:3px 8px 8px 3px;text-shadow:none}
+.app-bar{padding:44px 16px 10px;display:flex;align-items:baseline;justify-content:space-between;color:#151A2D}
+.app-bar b{font-size:1.15rem;font-stretch:84%}
+.app-bar span{font-size:.75rem;color:#7A8094}
+.app-list{padding:0 10px}
+.app-row{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:10px 6px;border-top:1px solid #EEF0F4;color:#151A2D}
+.app-row b{display:block;font-size:.82rem;line-height:1.2}
+.app-row .pt{display:inline-block;margin-top:4px;font-size:.7rem;font-weight:600;background:#FDF0CF;color:#5A3C00;padding:2px 7px;border-radius:2px 7px 7px 2px}
+.app-row em{font-style:normal;font-size:.72rem;color:#7A8094;align-self:start;padding-top:2px}
+.ai{width:34px;height:34px;border-radius:9px;display:block}
+.ai.c1{background:#E8D7C3}.ai.c2{background:#D6E6DE}.ai.c3{background:#E9DCE8}.ai.c4{background:#F3E2C2}.ai.c5{background:#DCE1EC}
+.app-dash{padding:4px 16px;color:#151A2D}
+.ad-k{font-size:.75rem;color:#7A8094;margin:0}
+.ad-big{font-size:2.6rem;font-weight:700;font-stretch:80%;line-height:1;margin:4px 0 2px}
+.ad-big small{display:block;font-size:.72rem;font-weight:500;color:#4C5266;font-stretch:100%;margin-top:4px}
+.ad-bars{display:flex;align-items:flex-end;gap:5px;height:84px;margin:16px 0 14px}
+.ad-bars i{flex:1;background:#151A2D;border-radius:3px 3px 0 0}
+.ad-bars i:last-child{background:#E9A20C}
+.ad-row{display:flex;justify-content:space-between;padding:9px 0;border-top:1px solid #EEF0F4;font-size:.82rem}
+.ad-row span{color:#4C5266}
+/* pen notes */
+.note{position:absolute;z-index:4;font-family:var(--hand);font-size:clamp(1rem,.8rem + .5vw,1.22rem);line-height:1.15;color:var(--pen);max-width:15ch;pointer-events:none}
+.note.n1{left:-6%;bottom:2%;transform:rotate(-4deg)}
+.note.n2{right:-4%;top:-2%;transform:rotate(3deg);max-width:13ch;text-align:right}
+.scribble{position:absolute;z-index:4;fill:none;stroke:var(--pen);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.scribble.sc1{width:120px;left:8%;bottom:14%;transform:rotate(-12deg)}
+.scribble.sc2{width:100px;right:9%;top:6%}
+
+/* ---------- street photos ---------- */
+#street{background:var(--surface);padding-top:clamp(70px,8vw,120px)}
+.street-head{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(24px,4vw,60px);align-items:end;margin-bottom:clamp(30px,4vw,56px)}
+.street-head p{margin:0;color:var(--muted);font-size:1.1rem;line-height:1.55;max-width:34em}
+.collage{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:clamp(64px,7vw,96px);gap:12px}
+.collage img{width:100%;height:100%;object-fit:cover;border-radius:6px;background:var(--surface2);display:block}
+.collage .p1{grid-column:1/6;grid-row:1/7}
+.collage .p2{grid-column:6/9;grid-row:1/4}
+.collage .p3{grid-column:9/13;grid-row:1/4}
+.collage .p4{grid-column:6/9;grid-row:4/7}
+.collage .p5{grid-column:9/13;grid-row:4/7}
+
+/* ---------- paths ---------- */
+.paths{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.path.card{background:none;border:0;border-radius:0;padding:clamp(28px,4vw,48px) clamp(4px,2vw,32px) clamp(28px,4vw,44px) 0;text-align:left;box-shadow:none}
+.path.card+.path.card{border-left:1px solid var(--line);padding-left:clamp(20px,4vw,48px)}
+.path .ic{display:none}
+.path h3{font-size:clamp(1.6rem,1.2rem + 1.4vw,2.4rem);font-stretch:80%;margin:0 0 10px}
+.path p{color:var(--muted)}
+.path ul{margin:18px 0 22px;padding:0;list-style:none}
+.path li{padding:8px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.98rem}
+.path li::before{display:none}
+.path .go{color:var(--text);font-weight:600;text-decoration:underline;text-underline-offset:5px;text-decoration-thickness:1.5px}
+.path .check{background:var(--text);color:var(--bg);border-radius:999px;font-size:.78rem;font-weight:600}
+.path.on,.path.card.on{background:none;box-shadow:none;outline:0;border-color:var(--line)}
+
+/* ---------- deals ---------- */
+.deal{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:none;padding:20px 20px 16px;display:flex;flex-direction:column;gap:0;overflow:visible;animation:none!important}
+.deal:hover{transform:none;box-shadow:none;border-color:var(--line2)}
+.deal-meta{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--dim);margin-bottom:12px}
+.deal-meta .dm-cat{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-weight:500}
+.deal-meta .dm-cat svg.i{width:15px;height:15px}
+.deal-meta .dm-dist{margin-left:auto;font-weight:600;color:var(--text)}
+.deal-meta .dm-boost{font-size:.74rem;font-weight:600;color:var(--leaf);border:1px solid currentColor;border-radius:999px;padding:1px 8px}
+.deal-meta .heart{position:static;width:30px;height:30px;border-radius:50%;background:none;border:1px solid var(--line);display:grid;place-items:center;font-size:.9rem;flex:none}
+.deal-meta .heart svg.i{width:15px;height:15px}
+.deal-meta .heart.on{border-color:var(--sindoor);color:var(--sindoor)}
+.deal h4{font-size:1.28rem;font-stretch:88%;margin:0 0 12px;line-height:1.15}
+.ptag{position:relative;align-self:flex-start;display:inline-block;background:var(--marigold);color:var(--marigold-ink);font-weight:700;font-size:1.02rem;line-height:1.2;padding:8px 14px 8px 26px;border-radius:3px 10px 10px 3px;margin:0 0 12px;transform:rotate(-1.2deg)}
+.ptag::before{content:'';position:absolute;left:9px;top:50%;width:7px;height:7px;margin-top:-3.5px;border-radius:50%;background:var(--surface)}
+.deal .item{color:var(--muted);font-size:.95rem;margin:0 0 4px}
+.deal .valid{color:var(--dim);font-size:.84rem;margin:0 0 14px}
+.deal .rate-chip,.deal .rchip{align-self:flex-start;margin-bottom:12px}
+.deal-actions{margin-top:auto;display:flex;gap:6px;padding-top:14px;border-top:1px solid var(--line)}
+.deal-actions a,.deal-actions button{flex:1;text-align:center;background:none;border:0;border-radius:10px;padding:9px 6px;font-weight:600;font-size:.88rem;color:var(--text)}
+.deal-actions a:hover,.deal-actions button:hover{background:var(--surface2)}
+.deal-actions .claim{background:var(--text);color:var(--bg)}
+.deal-actions .claim:hover{background:var(--text);opacity:.86}
+.deal-grid.list .deal{flex-direction:column}
+.fcat{background:none;border:1px solid transparent;border-radius:10px;box-shadow:none}
+.fcat.on{background:var(--surface);border-color:var(--line2);color:var(--text)}
+.fcat .n{background:var(--surface2);color:var(--muted)}
+.filters,.side,.deal-side,.filter-card{box-shadow:none}
+
+/* ---------- categories rail ---------- */
+.cat-circle{background:var(--surface);border:1px solid var(--line);box-shadow:none}
+.cat-item.on .cat-circle{border-color:var(--text);box-shadow:inset 0 0 0 1px var(--text);background:var(--surface)}
+.cat-count{background:var(--marigold);color:var(--marigold-ink)}
+.spot,.spot-l,.spot-list .mini{box-shadow:none}
+
+/* ---------- reels band ---------- */
+#shorts{background:#151A2D!important;color:#ECEEF5;--text:#ECEEF5;--muted:#A9AEC0;--dim:#7D8399;--line:#2A3150;--line2:#3A4263;--surface:#1D2439;--surface2:#252D46}
+#shorts .chip{background:none;border:1px solid var(--line2);color:var(--muted)}
+#shorts .chip.on{background:#ECEEF5;color:#151A2D;border-color:#ECEEF5}
+#shorts .btn-primary{background:#ECEEF5;color:#151A2D}
+#shorts .btn-ghost{color:#ECEEF5;border-color:var(--line2)}
+.rcard{border-radius:14px;box-shadow:none}
+.rcard.add{background:none;border:1px dashed var(--line2)}
+
+/* ---------- how it works: it is a sequence, so the numbers stay ---------- */
+.steps{gap:clamp(18px,3vw,36px)}
+.steps-line::before{display:none!important}
+.step.card{background:none;border:0;border-top:2px solid var(--text);border-radius:0;padding:20px 0 0}
+.step .ic{display:none}
+.step .num{position:static;display:block;font-size:.95rem;font-weight:600;color:var(--dim);opacity:1;font-stretch:100%;letter-spacing:0;margin-bottom:22px}
+.step h4{font-size:1.4rem;margin:0 0 8px}
+.step p{color:var(--muted)}
+
+/* ---------- 3D neighbourhood ---------- */
+.city-stage{background:var(--surface2);border:0;border-radius:var(--r-lg)}
+.city-stats b{font-family:var(--sans)!important;font-stretch:80%}
+.city-hint{background:var(--surface);border-color:var(--line);backdrop-filter:none}
+.city-copy .tag{display:none}
+
+/* ---------- business sections ---------- */
+.plan{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);box-shadow:none}
+.plan.hot,.plan.featured{border:2px solid var(--text);transform:none}
+.plan .badge,.plan .hot-badge{background:var(--marigold);color:var(--marigold-ink)}
+.dash .card,.dash>*{box-shadow:none}
+.reel-phone,.phone-mock{box-shadow:0 30px 60px -30px rgba(21,26,45,.45)}
+
+/* ---------- faq ---------- */
+.faq-item,.qa{background:none;border:0;border-bottom:1px solid var(--line);border-radius:0;box-shadow:none}
+
+/* ---------- footer ---------- */
+footer{background:var(--bg2);border-top:0;margin-top:0;padding:56px 0 28px;font-size:.88rem;color:var(--muted)}
+footer .foot{gap:28px}
+footer h5{font-size:.88rem;font-stretch:100%;letter-spacing:0;font-weight:600;color:var(--text);margin-bottom:10px}
+footer li{margin:6px 0}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--text);text-decoration:underline}
+footer .copy{border-top:1px solid var(--line2);margin-top:36px;padding-top:18px;font-size:.82rem;display:flex;flex-wrap:wrap;gap:8px 24px;justify-content:space-between}
+.credits{font-size:.8rem;color:var(--dim);margin-top:10px}
+.credits a{color:var(--dim);text-decoration:underline;text-underline-offset:2px}
+
+/* ---------- misc ---------- */
+.toast{border-radius:12px;box-shadow:0 10px 30px -12px rgba(21,26,45,.35)}
+.modal{border-radius:22px;box-shadow:0 30px 80px -30px rgba(0,0,0,.5)}
+.dock,#toTop{box-shadow:none;background:var(--surface);border:1px solid var(--line)}
+.chip{box-shadow:none}
+.tabbar{box-shadow:0 10px 30px -18px rgba(21,26,45,.5)}
+.tabbar .plus>span{background:var(--text);color:var(--bg)}
+
+/* ---------- responsive ---------- */
+@media (max-width:980px){
+  .hero-in{grid-template-columns:1fr}
+  .hero h1{max-width:12ch}
+  .hero-shot{height:clamp(440px,92vw,600px);max-width:560px;width:100%;margin:12px auto 0}
+  .phone{width:clamp(180px,42vw,250px)}
+  .street-head{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .paths{grid-template-columns:1fr}
+  .path.card+.path.card{border-left:0;border-top:1px solid var(--line);padding-left:0}
+  .collage{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -20px;padding:0 20px 6px;scrollbar-width:none}
+  .collage::-webkit-scrollbar{display:none}
+  .collage img{flex:none;width:72vw;height:92vw;scroll-snap-align:start}
+  .note.n1{left:0;bottom:-2%}
+  .note.n2{right:0;top:-4%}
+  .scribble.sc1{left:12%;bottom:12%;width:90px}
+  .scribble.sc2{right:10%;top:4%;width:76px}
+  .hero{padding-top:calc(58px + 34px)}
+  .hero-search{flex-wrap:wrap}
+}
+@media (max-width:420px){
+  .note{font-size:.95rem}
+  .ph-front{left:0}.ph-back{right:0}
+}
+@media (prefers-reduced-motion:reduce){.hero-shot *{animation:none!important;transition:none!important}}
+
+/* ---- v2 fixes ---- */
+section .tag,.hero .tag{display:none!important}
+.radar-box{display:none!important}
+.nav-search{display:none!important}
+.nav-links{flex:none;overflow:visible}
+.cat-circle svg.i,.spot svg.i{color:var(--text)}
+.hero-shot{height:clamp(600px,52vw,700px)}
+.note.n1{left:47%;bottom:0;max-width:17ch;transform:rotate(-3deg)}
+.scribble.sc1{left:31%;bottom:3%;width:104px;transform:scale(-1,-1) rotate(8deg)}
+@media (max-width:980px){.hero-shot{height:clamp(520px,118vw,680px)}}
+@media (max-width:760px){
+  .collage{margin:0;padding:0 0 6px}
+  .note.n1{left:40%;bottom:0}
+  .scribble.sc1{left:22%;bottom:4%;width:80px}
+}
+
+#nav .wrap{max-width:1320px}
+#nav .nav-in{gap:10px}
+.nav-links{gap:2px}
+.nav-links a{padding:6px 9px;font-size:.93rem}
+.lang-sel{max-width:112px}
+.note.n1{left:30%;bottom:-1%;max-width:19ch}
+.scribble.sc1{left:20%;bottom:3%;width:62px;transform:none}
+@media (max-width:760px){.note.n1{left:30%;bottom:0}.scribble.sc1{left:16%;bottom:2%;width:50px}}
+
+.note.n1{left:2%;bottom:-5%;max-width:16ch}
+.scribble.sc1{left:27%;bottom:1%;width:54px}
+@media (max-width:760px){.note.n1{left:2%;bottom:-3%}.scribble.sc1{left:30%;bottom:1%;width:46px}}
+
+[data-theme=dark] .phone{box-shadow:0 30px 60px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.09)}
+@media (max-width:420px){.app-bar{padding-top:40px}.app-bar b{font-size:.98rem}.app-row{grid-template-columns:28px 1fr auto;gap:8px}.ai{width:28px;height:28px}}
 </style>
 </head>
 <body>
@@ -916,67 +1231,89 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
 <main>
 <!-- HERO -->
 <header class="hero" id="top" style="order:0">
-  <div class="mesh"><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div><div class="dots-bg"></div></div>
-  <span class="shape s1"></span><span class="shape s2"></span><span class="shape s3"></span>
+  <div class="mesh" aria-hidden="true"></div>
   <div class="wrap hero-in">
-    <div>
-      <!-- explorer hero -->
+    <div class="hero-copy">
       <div class="only-exp">
-        <span class="tag guest-only" data-t><span class="live"></span> Deals live around you right now</span><span class="tag member-only" data-t>👋 Welcome back, <b class="uname">friend</b></span>
-        <h1 class="split" data-split data-t>Discover the best deals <span class="gt">around the corner.</span></h1>
-        <p class="lead" data-t>Cafés, street food, salons, gyms, new openings and events, all sorted by how close they are to you. Free to use, no ads from other cities.</p>
+        <h1 data-t>Offers from the shops on your street.</h1>
+        <p class="lead" data-t>Chai stalls, kirana stores, salons and new openings near you. See what's on today, how far it is, and claim it before you walk over.</p>
       </div>
-      <!-- business hero -->
       <div class="only-biz">
-        <span class="tag guest-only" data-t><span class="live"></span> Hyperlocal promotion for every budget</span><span class="tag member-only" data-t>👋 Welcome back, <b class="uname">friend</b></span>
-        <h1 class="split" data-split data-t="%H1BIZ%">Put your <span class="rot gt" id="rot"><span>café</span></span> in front of everyone nearby.</h1>
+        <h1 data-t="%H1BIZ%">Put your <span class="rot gt" id="rot"><span>café</span></span> in front of everyone nearby.</h1>
         <p class="lead" data-t>Skip the ₹10,000 influencer. Post your offer on Bazaar Buzz, pick a pack, and reach people within 1–25 km who can actually walk in.</p>
       </div>
 
       <div class="hero-search only-exp" id="heroForm">
         <div class="field">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" opacity=".55"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" opacity=".55"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
           <input id="heroSearch" data-tp placeholder="Try “coffee”, “thali”, “haircut”…">
         </div>
-        <button type="button" class="loc-btn" id="heroLoc"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span data-t>Near me</span></button>
-        <button type="button" class="btn btn-primary magnetic" id="heroGo" data-t>Find deals</button>
+        <button type="button" class="loc-btn" id="heroLoc"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg><span data-t>Near me</span></button>
+        <button type="button" class="btn btn-primary" id="heroGo" data-t>Find deals</button>
       </div>
       <div class="quick only-exp"><span data-t>Popular:</span>
         <button data-q="coffee" data-t>☕ Coffee</button><button data-q="thali" data-t>🍛 Thali</button><button data-q="salon" data-t>💇 Salon</button><button data-q="students" data-t>🎓 Student offers</button><button data-goto-reels data-t>🎬 Reels</button>
       </div>
 
       <div class="hero-ctas only-biz">
-        <a href="#post" class="btn btn-primary magnetic guest-only" data-t>Post your first offer, free →</a><a href="#post" class="btn btn-primary magnetic member-only biz-member" data-t>Post a new offer →</a><button class="btn btn-primary magnetic member-only cust-member" data-view-btn="exp">Browse deals near me →</button>
+        <a href="#post" class="btn btn-primary guest-only" data-t>Post your first offer, free</a><a href="#post" class="btn btn-primary member-only biz-member" data-t>Post a new offer</a>
         <a href="#pricing" class="btn btn-ghost" data-t>See packs</a>
       </div>
-
-      <div class="trust only-exp">
-        <div><b data-count="16">0</b><span data-t>deals in demo area</span></div>
-        <div><b data-count="10">0</b><span data-t>categories</span></div>
-        <div><b>₹0</b><span data-t>always free to explore</span></div>
-      </div>
-      <div class="trust only-biz">
-        <div><b data-count="10" data-suffix="×">0</b><span data-t>cheaper than influencers</span></div>
-        <div><b data-count="2" data-suffix=" min">0</b><span data-t>to post an offer</span></div>
-        <div><b data-count="25" data-suffix=" km">0</b><span data-t>max reach radius</span></div>
-      </div>
     </div>
 
-    <div class="radar-box" id="radarBox">
-      <div class="radar"></div>
-      <div class="ring" style="width:33%;height:33%"></div>
-      <div class="ring" style="width:66%;height:66%"></div>
-      <div class="ring pulse"></div><div class="ring pulse p2"></div>
-      <div class="sweep"></div>
-      <div class="you" title="You"></div>
-      <div id="radarDots"></div>
-      <div class="float-card fc1 only-exp"><b>☕ Brew Corner</b>320 m away<br><span class="pill">15% OFF</span></div>
-      <div class="float-card fc2 only-exp"><b>🎟️ 3 coupons</b>claimed near you today</div>
-      <div class="float-card fc1 only-biz"><b>📞 +12 calls</b>this week from your post</div>
-      <div class="float-card fc2 only-biz"><b>Post reach</b><span class="gt" style="font-family:'Space Grotesk',system-ui,sans-serif;font-weight:700;font-size:1.4rem">2,480</span><div class="mini-chart"><i style="height:40%"></i><i style="height:65%;animation-delay:-.4s"></i><i style="height:50%;animation-delay:-.8s"></i><i style="height:85%;animation-delay:-1.2s"></i><i style="height:100%;animation-delay:-1.6s"></i></div></div>
+    <figure class="hero-shot" aria-label="The Bazaar Buzz app on two phones: a reel from a chai stall, and a list of offers nearby">
+      <div class="phone ph-back">
+        <div class="ph-screen">
+          <div class="app-bar"><b class="only-exp">Near you</b><b class="only-biz">Your shop</b><span>Tumakuru</span></div>
+          <div class="only-exp app-list">
+            <div class="app-row"><i class="ai c1"></i><div><b>Brew Corner Café</b><span class="pt">15% off for students</span></div><em>320 m</em></div>
+            <div class="app-row"><i class="ai c2"></i><div><b>Sharma General Store</b><span class="pt">Free home delivery</span></div><em>530 m</em></div>
+            <div class="app-row"><i class="ai c3"></i><div><b>Glow Unisex Salon</b><span class="pt">Haircut + spa ₹399</span></div><em>1.1 km</em></div>
+            <div class="app-row"><i class="ai c4"></i><div><b>Annapoorna Meals</b><span class="pt">Unlimited thali ₹120</span></div><em>1.2 km</em></div>
+            <div class="app-row"><i class="ai c5"></i><div><b>Iron Paradise Gym</b><span class="pt">First month ₹499</span></div><em>2 km</em></div>
+          </div>
+          <div class="only-biz app-dash">
+            <p class="ad-k">This week</p>
+            <div class="ad-big">316 <small>people saw your offer</small></div>
+            <div class="ad-bars"><i style="height:38%"></i><i style="height:52%"></i><i style="height:45%"></i><i style="height:70%"></i><i style="height:64%"></i><i style="height:92%"></i><i style="height:100%"></i></div>
+            <div class="ad-row"><span>Calls</span><b>12</b></div>
+            <div class="ad-row"><span>WhatsApp chats</span><b>9</b></div>
+            <div class="ad-row"><span>Coupons claimed</span><b>8</b></div>
+          </div>
+        </div>
+      </div>
+      <div class="phone ph-front">
+        <div class="ph-screen">
+          <video src="reels/chai.mp4?v=2" poster="reels/chai.jpg?v=2" muted autoplay loop playsinline preload="metadata"></video>
+          <div class="ph-reel-ui"><b>Sharma Chai Point</b><span>2+1 free chai</span></div>
+        </div>
+      </div>
+      <svg class="scribble sc1" viewBox="0 0 80 90" aria-hidden="true"><path d="M70 84C58 66 40 46 18 12"/><path d="M8 26l9-15 15 5"/></svg>
+      <span class="note n1 only-exp">Sharma ji's chai stall. Buy 2, get the 3rd free every evening</span>
+      <span class="note n1 only-biz">A 10-second reel we shoot for your shop</span>
+      <svg class="scribble sc2" viewBox="0 0 140 80" aria-hidden="true"><path d="M134 70c-30 6-70 2-96-18S12 18 8 6"/><path d="M2 20l6-14 14 6"/></svg>
+      <span class="note n2 only-exp">all of these are a short walk away</span>
+      <span class="note n2 only-biz">what you see every Monday</span>
+    </figure>
+  </div>
+  <div class="radar-box" id="radarBox" hidden><div id="radarDots"></div></div>
+</header>
+
+<section id="street" style="order:1">
+  <div class="wrap">
+    <div class="street-head">
+      <h2 data-t>Built for the shops you already walk past.</h2>
+      <p data-t>The chaiwala who knows your order. The kirana that still keeps a notebook of who owes what. They don't run Instagram ads, and they shouldn't need to. Bazaar Buzz shows their offers to the people who live a short walk away.</p>
+    </div>
+    <div class="collage">
+      <img class="p1" src="https://images.unsplash.com/photo-1768757076530-514fa55aed28?w=900&q=72&auto=format&fit=crop" alt="A chaiwala pouring tea from a height at his stall" loading="lazy" width="900" height="1200">
+      <img class="p2" src="https://images.unsplash.com/photo-1739066598279-1297113f5c6a?w=900&q=72&auto=format&fit=crop" alt="A kirana store front stacked with packets and water bottles" loading="lazy" width="900" height="1100">
+      <img class="p3" src="https://images.unsplash.com/photo-1788284017758-6e5073046795?w=900&q=72&auto=format&fit=crop" alt="A jamun seller with fruit on banana leaves and a UPI QR card" loading="lazy" width="900" height="700">
+      <img class="p4" src="https://images.unsplash.com/photo-1728840719891-1cc347f21a75?w=900&q=72&auto=format&fit=crop" alt="A man sorting heaps of marigold flowers at a market" loading="lazy" width="900" height="1100">
+      <img class="p5" src="https://images.unsplash.com/photo-1769598250014-900c563f028e?w=900&q=72&auto=format&fit=crop" alt="An elderly fruit seller weighing apples on a hand scale" loading="lazy" width="900" height="1200">
     </div>
   </div>
-</header>
+</section>
 
 <!-- PATH CHOOSER -->
 <section id="paths" style="order:1;padding-top:20px">
@@ -989,7 +1326,7 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
         <h3 data-t>I'm here to explore</h3>
         <p data-t>Just browsing? Find shops, offers and new places near you.</p>
         <ul><li data-t>Deals sorted by distance with GPS</li><li data-t>Save favourites & claim coupons</li><li data-t>Always free, no sign-up needed to browse</li></ul>
-        <span class="go" data-t>Start exploring →</span>
+        <span class="go" data-t>Start exploring</span>
       </button>
       <button class="path card reveal d1" data-view-btn="biz">
         <span class="check" data-t>✓ Selected</span>
@@ -997,7 +1334,7 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
         <h3 data-t>I run a business</h3>
         <p data-t>Café, kirana, salon, gym, venue? Reach customers nearby.</p>
         <ul><li data-t>Post offers in 2 minutes</li><li data-t>Boost packs + Instagram reels</li><li data-t>Track views, calls & coupon claims</li></ul>
-        <span class="go" data-t>Grow my business →</span>
+        <span class="go" data-t>Grow my business</span>
       </button>
     </div>
   </div>
@@ -1228,8 +1565,8 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
 </section>
 
 <div id="ctaBand" class="cta-band reveal">
-  <div class="only-exp guest-only"><h2 data-t>Deals are waiting around the corner.</h2><p data-t>Create a free account to save favourites and claim coupons.</p><button class="btn" data-auth="signup" data-role="customer" data-t>Join free →</button></div><div class="only-exp member-only"><h2>Good to see you, <span class="uname">friend</span> 👋</h2><p>Your saved deals and coupons are right here. New offers are added every day.</p><div class="cta-btns"><button class="btn" data-goto-saved>❤️ My saved deals</button><button class="btn alt" data-goto-near>📍 Deals near me</button></div></div>
-  <div class="only-biz guest-only"><h2 data-t>Your next 100 customers are within 5 km.</h2><p data-t>Join Bazaar Buzz free and start reaching them today.</p><button class="btn" data-auth="signup" data-role="business" data-t>Get started free →</button></div><div class="only-biz member-only biz-member"><h2>Ready for your next offer, <span class="uname">friend</span>?</h2><p>You're on the <b class="uplan">Free</b> pack. Keep posting to stay at the top of nearby feeds.</p><div class="cta-btns"><a href="#post" class="btn">🚀 Post an offer</a><a href="#pricing" class="btn alt" id="ctaUpgrade">⚡ Upgrade pack</a></div></div><div class="only-biz member-only cust-member"><h2>Looking for deals, <span class="uname">friend</span>?</h2><p>The business tools are for shop owners. Head back to discover offers near you.</p><div class="cta-btns"><button class="btn" data-view-btn="exp">🧭 Explore deals</button></div></div>
+  <div class="only-exp guest-only"><h2 data-t>Deals are waiting around the corner.</h2><p data-t>Create a free account to save favourites and claim coupons.</p><button class="btn" data-auth="signup" data-role="customer" data-t>Join free</button></div><div class="only-exp member-only"><h2>Good to see you, <span class="uname">friend</span> 👋</h2><p>Your saved deals and coupons are right here. New offers are added every day.</p><div class="cta-btns"><button class="btn" data-goto-saved>❤️ My saved deals</button><button class="btn alt" data-goto-near>📍 Deals near me</button></div></div>
+  <div class="only-biz guest-only"><h2 data-t>Your next 100 customers are within 5 km.</h2><p data-t>Join Bazaar Buzz free and start reaching them today.</p><button class="btn" data-auth="signup" data-role="business" data-t>Get started free</button></div><div class="only-biz member-only biz-member"><h2>Ready for your next offer, <span class="uname">friend</span>?</h2><p>You're on the <b class="uplan">Free</b> pack. Keep posting to stay at the top of nearby feeds.</p><div class="cta-btns"><a href="#post" class="btn">🚀 Post an offer</a><a href="#pricing" class="btn alt" id="ctaUpgrade">⚡ Upgrade pack</a></div></div><div class="only-biz member-only cust-member"><h2>Looking for deals, <span class="uname">friend</span>?</h2><p>The business tools are for shop owners. Head back to discover offers near you.</p><div class="cta-btns"><button class="btn" data-view-btn="exp">🧭 Explore deals</button></div></div>
 </div>
 </main>
 
@@ -1241,8 +1578,8 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
       <div><h5>Business</h5><ul><li><a href="#pricing" data-view-link="biz" data-t>Pricing</a></li><li><a href="#reels" data-view-link="biz">Shop reels</a></li><li><a href="#post" data-view-link="biz" data-t>Post an offer</a></li></ul></div>
       <div><h5>Contact</h5><ul><li>hello@bazaarbuzz.in</li><li>Tumakuru, Karnataka</li><li id="adminLink" style="display:none"><a href="/admin" target="_blank" rel="noopener">🔐 Admin panel</a></li><li><a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></li></ul></div>
     </div>
-    <div class="foot-word" aria-hidden="true">Bazaar Buzz</div>
-    <div class="copy"><span>© 2026 Bazaar Buzz. All rights reserved.</span><span>Made with ❤️ in India</span></div>
+    <div class="copy"><span>© 2026 Bazaar Buzz. Made in Tumakuru.</span><span><a href="/classic">See the previous design</a></span></div>
+    <p class="credits">Street photos on Unsplash by Prasoon Srivastav, Zoshua Colah, Govind M, Ravi Sharma and Abdullah Azeez. Type: Anek by Ek Type, Kalam by Indian Type Foundry.</p>
   </div>
 </footer>
 
@@ -1302,7 +1639,7 @@ a.user-chip{color:inherit;text-decoration:none;transition:border-color .2s}a.use
     <div class="tick">🎟️</div>
     <h3 id="cpShop">Coupon claimed!</h3>
     <p class="sub" id="cpOffer"></p>
-    <div style="margin:20px auto;padding:18px;border:2px dashed var(--c1);border-radius:16px;font-family:'Space Grotesk',system-ui,sans-serif;font-size:1.8rem;font-weight:700;letter-spacing:.15em" id="cpCode"></div>
+    <div style="margin:20px auto;padding:18px;border:2px dashed var(--c1);border-radius:16px;font-family:var(--sans);font-size:1.8rem;font-weight:700;letter-spacing:.15em" id="cpCode"></div>
     <p class="sub">Show this code at the shop to redeem.</p>
     <button class="btn btn-ghost" id="cpCopy" style="margin-top:10px">Copy code</button>
   </div>
@@ -1380,6 +1717,11 @@ const T={
 // nav + common
 'Trending':['ट्रेंडिंग','ಟ್ರೆಂಡಿಂಗ್','ട്രെൻഡിംഗ്','ట్రెండింగ్','டிரெண்டிங்','ट्रेंडिंग','ਟ੍ਰੈਂਡਿੰਗ'],
 'Reels':['रील्स','ರೀಲ್ಸ್','റീൽസ്','రీల్స్','ரீல்ஸ்','रील्स','ਰੀਲਜ਼'],
+"Offers from the shops on your street.":["आपकी गली की दुकानों के ऑफ़र।", "ನಿಮ್ಮ ಬೀದಿಯ ಅಂಗಡಿಗಳ ಆಫರ್‌ಗಳು.", "നിങ്ങളുടെ തെരുവിലെ കടകളുടെ ഓഫറുകൾ.", "మీ వీధిలోని షాపుల ఆఫర్లు.", "உங்கள் தெருவில் உள்ள கடைகளின் சலுகைகள்.", "तुमच्या गल्लीतील दुकानांच्या ऑफर्स.", "ਤੁਹਾਡੀ ਗਲੀ ਦੀਆਂ ਦੁਕਾਨਾਂ ਦੇ ਆਫ਼ਰ।"],
+"Chai stalls, kirana stores, salons and new openings near you. See what's on today, how far it is, and claim it before you walk over.":["आपके पास की चाय की दुकानें, किराना स्टोर, सैलून और नई दुकानें। देखिए आज क्या ऑफ़र है, कितनी दूर है, और जाने से पहले क्लेम कीजिए।", "ನಿಮ್ಮ ಹತ್ತಿರದ ಚಹಾ ಅಂಗಡಿಗಳು, ಕಿರಾಣಿ ಅಂಗಡಿಗಳು, ಸಲೂನ್‌ಗಳು ಮತ್ತು ಹೊಸ ಅಂಗಡಿಗಳು. ಇಂದು ಏನು ಆಫರ್ ಇದೆ, ಎಷ್ಟು ದೂರ ಎಂದು ನೋಡಿ, ಹೋಗುವ ಮೊದಲು ಕ್ಲೇಮ್ ಮಾಡಿ.", "നിങ്ങളുടെ അടുത്തുള്ള ചായക്കടകൾ, പലചരക്ക് കടകൾ, സലൂണുകൾ, പുതിയ കടകൾ. ഇന്നത്തെ ഓഫർ എന്താണ്, എത്ര ദൂരം എന്ന് കാണുക, പോകുന്നതിന് മുമ്പ് ക്ലെയിം ചെയ്യുക.", "మీ దగ్గరలోని టీ కొట్లు, కిరాణా షాపులు, సెలూన్లు, కొత్త షాపులు. ఈరోజు ఏ ఆఫర్ ఉందో, ఎంత దూరమో చూసి, వెళ్ళే ముందే క్లెయిమ్ చేయండి.", "உங்கள் அருகிலுள்ள டீக்கடைகள், மளிகைக் கடைகள், சலூன்கள், புதிய கடைகள். இன்று என்ன சலுகை, எவ்வளவு தூரம் என்று பார்த்து, போவதற்கு முன் கிளெய்ம் செய்யுங்கள்.", "तुमच्या जवळची चहाची टपरी, किराणा दुकाने, सलून आणि नवीन दुकाने. आज काय ऑफर आहे, किती दूर आहे ते पाहा आणि जाण्याआधी क्लेम करा.", "ਤੁਹਾਡੇ ਨੇੜੇ ਦੀਆਂ ਚਾਹ ਦੀਆਂ ਦੁਕਾਨਾਂ, ਕਰਿਆਨਾ ਸਟੋਰ, ਸੈਲੂਨ ਅਤੇ ਨਵੀਆਂ ਦੁਕਾਨਾਂ। ਵੇਖੋ ਅੱਜ ਕੀ ਆਫ਼ਰ ਹੈ, ਕਿੰਨੀ ਦੂਰ ਹੈ, ਅਤੇ ਜਾਣ ਤੋਂ ਪਹਿਲਾਂ ਕਲੇਮ ਕਰੋ।"],
+"Built for the shops you already walk past.":["उन दुकानों के लिए, जिनके सामने से आप रोज़ गुज़रते हैं।", "ನೀವು ಪ್ರತಿದಿನ ಹಾದುಹೋಗುವ ಅಂಗಡಿಗಳಿಗಾಗಿ.", "നിങ്ങൾ ദിവസവും കടന്നുപോകുന്ന കടകൾക്കായി.", "మీరు రోజూ దాటి వెళ్ళే షాపుల కోసం.", "நீங்கள் தினமும் கடந்து போகும் கடைகளுக்காக.", "तुम्ही रोज ज्यांच्या समोरून जाता, त्या दुकानांसाठी.", "ਉਨ੍ਹਾਂ ਦੁਕਾਨਾਂ ਲਈ, ਜਿਨ੍ਹਾਂ ਦੇ ਅੱਗੋਂ ਤੁਸੀਂ ਰੋਜ਼ ਲੰਘਦੇ ਹੋ।"],
+"The chaiwala who knows your order. The kirana that still keeps a notebook of who owes what. They don't run Instagram ads, and they shouldn't need to. Bazaar Buzz shows their offers to the people who live a short walk away.":["चायवाला जिसे आपका ऑर्डर याद है। किराने वाला जो आज भी उधार की कॉपी रखता है। ये इंस्टाग्राम पर विज्ञापन नहीं चलाते, और इन्हें ज़रूरत भी नहीं होनी चाहिए। Bazaar Buzz इनके ऑफ़र उन लोगों तक पहुँचाता है जो पैदल दूरी पर रहते हैं।", "ನಿಮ್ಮ ಆರ್ಡರ್ ನೆನಪಿಟ್ಟುಕೊಳ್ಳುವ ಚಹಾದವರು. ಇಂದಿಗೂ ಸಾಲದ ಪುಸ್ತಕ ಇಡುವ ಕಿರಾಣಿ ಅಂಗಡಿ. ಇವರು ಇನ್‌ಸ್ಟಾಗ್ರಾಮ್ ಜಾಹೀರಾತು ಮಾಡುವುದಿಲ್ಲ, ಮಾಡಬೇಕಾದ ಅಗತ್ಯವೂ ಇರಬಾರದು. Bazaar Buzz ಇವರ ಆಫರ್‌ಗಳನ್ನು ನಡೆದು ಹೋಗುವಷ್ಟು ದೂರದಲ್ಲಿರುವವರಿಗೆ ತೋರಿಸುತ್ತದೆ.", "നിങ്ങളുടെ ഓർഡർ ഓർമ്മയുള്ള ചായക്കാരൻ. ഇന്നും കടം എഴുതുന്ന ബുക്ക് സൂക്ഷിക്കുന്ന പലചരക്ക് കട. ഇവർ ഇൻസ്റ്റാഗ്രാമിൽ പരസ്യം ചെയ്യുന്നില്ല, ചെയ്യേണ്ട ആവശ്യവുമില്ല. Bazaar Buzz ഇവരുടെ ഓഫറുകൾ നടന്നെത്താവുന്ന ദൂരത്തുള്ളവരിലേക്ക് എത്തിക്കുന്നു.", "మీ ఆర్డర్ గుర్తుంచుకునే టీ కొట్టు అన్న. ఇప్పటికీ అప్పు పుస్తకం రాసే కిరాణా షాపు. వీళ్ళు ఇన్‌స్టాగ్రామ్ ప్రకటనలు ఇవ్వరు, ఇవ్వాల్సిన అవసరం కూడా ఉండకూడదు. Bazaar Buzz వీరి ఆఫర్లను నడిచి వెళ్ళేంత దూరంలో ఉన్నవారికి చూపిస్తుంది.", "உங்கள் ஆர்டரை நினைவில் வைத்திருக்கும் டீக்கடைக்காரர். இன்றும் கடன் நோட்டு வைத்திருக்கும் மளிகைக் கடை. இவர்கள் இன்ஸ்டாகிராம் விளம்பரம் செய்வதில்லை, செய்ய வேண்டிய அவசியமும் இருக்கக்கூடாது. Bazaar Buzz இவர்களின் சலுகைகளை நடந்து போகும் தூரத்தில் இருப்பவர்களுக்குக் காட்டுகிறது.", "तुमची ऑर्डर लक्षात ठेवणारा चहावाला. आजही उधारीची वही ठेवणारे किराणा दुकान. हे इन्स्टाग्रामवर जाहिराती देत नाहीत, आणि त्याची गरजही पडू नये. Bazaar Buzz यांच्या ऑफर्स चालत जाण्याच्या अंतरावर राहणाऱ्यांपर्यंत पोहोचवते.", "ਚਾਹ ਵਾਲਾ ਜਿਸਨੂੰ ਤੁਹਾਡਾ ਆਰਡਰ ਯਾਦ ਹੈ। ਕਰਿਆਨੇ ਵਾਲਾ ਜੋ ਅੱਜ ਵੀ ਉਧਾਰ ਦੀ ਕਾਪੀ ਰੱਖਦਾ ਹੈ। ਇਹ ਇੰਸਟਾਗ੍ਰਾਮ ਤੇ ਇਸ਼ਤਿਹਾਰ ਨਹੀਂ ਚਲਾਉਂਦੇ, ਅਤੇ ਇਨ੍ਹਾਂ ਨੂੰ ਲੋੜ ਵੀ ਨਹੀਂ ਹੋਣੀ ਚਾਹੀਦੀ। Bazaar Buzz ਇਨ੍ਹਾਂ ਦੇ ਆਫ਼ਰ ਉਨ੍ਹਾਂ ਲੋਕਾਂ ਤੱਕ ਪਹੁੰਚਾਉਂਦਾ ਹੈ ਜੋ ਪੈਦਲ ਦੂਰੀ ਤੇ ਰਹਿੰਦੇ ਹਨ।"],
+"Boosted":["बूस्टेड", "ಬೂಸ್ಟ್ ಆಗಿದೆ", "ബൂസ്റ്റ് ചെയ്തത്", "బూస్ట్ చేయబడింది", "பூஸ்ட் செய்யப்பட்டது", "बूस्टेड", "ਬੂਸਟ ਕੀਤਾ"],
 'Home':['होम','ಮುಖಪುಟ','ഹോം','హోమ్','முகப்பு','होम','ਹੋਮ'],
 'Deals':['डील्स','ಡೀಲ್‌ಗಳು','ഡീലുകൾ','డీల్స్','டீல்கள்','डील्स','ਡੀਲਾਂ'],
 'Open Reels':['रील्स खोलें','ರೀಲ್ಸ್ ತೆರೆಯಿರಿ','റീൽസ് തുറക്കൂ','రీల్స్ తెరవండి','ரீல்ஸ் திற','रील्स उघडा','ਰੀਲਜ਼ ਖੋਲ੍ਹੋ'],
@@ -1548,10 +1890,11 @@ const ROTW={en:['café','kirana store','wedding venue','salon','bakery','gym'],
  pa:['ਕੈਫ਼ੇ','ਕਰਿਆਨਾ ਸਟੋਰ','ਵਿਆਹ ਹਾਲ','ਸੈਲੂਨ','ਬੇਕਰੀ','ਜਿਮ']};
 let LANG='en';try{LANG=localStorage.getItem('pp_lang')||'en'}catch(e){}
 if(!LANGS.some(l=>l[0]===LANG))LANG='en';
+for(const k of Object.keys(T))if(/\s*→$/.test(k)){const n=k.replace(/\s*→$/,'');if(!T[n])T[n]=T[k].map(v=>String(v).replace(/\s*→\s*$/,''))}
 const t=(s,vars)=>{let out=LANG==='en'||!T[s]?s:T[s][LIDX[LANG]];if(vars)for(const k in vars)out=out.split('{'+k+'}').join(vars[k]);return out};
 const H1BIZ_EN='Put your %ROT% in front of everyone nearby.';
 function rotSpan(){return`<span class="rot gt" id="rot"><span>${(ROTW[LANG]||ROTW.en)[0]}</span></span>`}
-function loadScriptFont(l){const fam=LFONT[l];if(!fam||document.getElementById('font-'+fam))return;const k=document.createElement('link');k.id='font-'+fam;k.rel='stylesheet';k.href=`https://fonts.googleapis.com/css2?family=Noto+Sans+${fam}:wght@400;500;600;700&display=swap`;document.head.appendChild(k)}
+function loadScriptFont(l){const fam=LFONT[l];if(!fam||document.getElementById('font-'+fam))return;const k=document.createElement('link');k.id='font-'+fam;k.rel='stylesheet';k.href=`https://fonts.googleapis.com/css2?family=Anek+${fam}:wdth,wght@75..125,400..700&display=swap`;document.head.appendChild(k)}
 function applyStatic(){
   document.querySelectorAll('[data-t]').forEach(el=>{
     if(el._en==null)el._en=el.dataset.t||el.innerHTML.trim();
@@ -1711,28 +2054,13 @@ function springIn(els,opts={}){
 function initMotion(){
   if(!MOTION_OK())return;
   document.documentElement.classList.add('m-on');
-  const{animate,scroll,inView,hover,press,stagger}=window.Motion;
-  // hero entrance
-  const heroBits=$$('.hero .tag:not([style*="none"]),.hero .lead,.hero .hero-search,.hero .quick,.hero .hero-ctas,.hero .trust').filter(e=>e.offsetParent);
-  springIn(heroBits,{y:28,st:.08,d:.25});
-  try{animate('.radar-box',{opacity:[0,1],scale:[.86,1],rotate:[-6,0]},{type:'spring',bounce:.25,duration:1.1,delay:.2})}catch(e){}
-  try{animate('.float-card',{opacity:[0,1],y:[30,0]},{delay:stagger(.15,{startDelay:.7}),type:'spring',bounce:.35})}catch(e){}
-  const G=document.documentElement.classList.contains('g-on');
-  // scroll-linked: hero parallax + progress bar (GSAP handles these when loaded)
-  if(!G)try{scroll(animate('.radar-box',{y:[0,140],scale:[1,.88],opacity:[1,.35]},{ease:'linear'}),{target:$('.hero'),offset:['start start','end start']})}catch(e){}
-  if(!G)try{scroll(animate('.hero .hero-in>div:first-child',{y:[0,-60],opacity:[1,.2]},{ease:'linear'}),{target:$('.hero'),offset:['start start','end start']})}catch(e){}
-  if(!G)try{const pb=$('#progress');pb.style.width='100%';pb.style.transformOrigin='0 50%';scroll(animate(pb,{scaleX:[0,1]},{ease:'linear'}))}catch(e){}
-  // section heads + grids spring in when scrolled into view
-  inView('.sec-head,.row-head',el=>{springIn([...el.children],{y:24,st:.08})},{amount:.4});
-  inView(G?'.paths,.dash,.problem,.reel-list':'.steps,.plans,.paths,.dash,.problem,.reel-list',el=>{springIn([...el.children],{y:36,st:.09})},{amount:.25});
-  inView('.cat-rail',el=>{springIn([...el.children],{y:18,s:.9,st:.04})},{amount:.3});
-  // hover lift + press squish
-  const lift=(sel,y)=>hover(sel,el=>{animate(el,{y:-y},{type:'spring',stiffness:420,damping:26});return()=>animate(el,{y:0},{type:'spring',stiffness:420,damping:26})});
-  try{lift('.deal',6);lift('.rcard',8);lift('.plan',8);lift('.path',6);lift('.step',5);lift('.mini',3)}catch(e){}
-  try{press('.btn,.chip,.icon-btn,.loc-btn,.soc,.seg button,.fcat,.cat-item',el=>{animate(el,{scale:.95},{duration:.12});return()=>animate(el,{scale:1},{type:'spring',stiffness:600,damping:18})})}catch(e){}
-  // nav hides on scroll down, returns on scroll up
-  let lastY=scrollY;addEventListener('scroll',()=>{const y=scrollY,nav=$('#nav');if(Math.abs(y-lastY)<6)return;
-    const hide=y>lastY&&y>420&&!$('#mobileMenu').classList.contains('show');if(nav._h!==hide){nav._h=hide;animate(nav,{y:hide?-100:0},{type:'spring',stiffness:380,damping:34})}lastY=y},{passive:true});
+  const{animate,stagger}=window.Motion,E=[.22,.7,.2,1];
+  const vis=el=>el&&el.offsetParent!==null;
+  try{animate($$('.hero-copy h1,.hero-copy .lead,.hero-search,.quick,.hero-ctas').filter(vis),{opacity:[0,1],y:[18,0]},{delay:stagger(.07),duration:.7,ease:E})}catch(e){}
+  try{animate($$('.hero-shot .phone'),{opacity:[0,1],y:[70,0]},{delay:stagger(.14,{startDelay:.25}),duration:1,ease:E})}catch(e){}
+  $$('.scribble path').forEach((p,k)=>{try{const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;
+    animate(p,{strokeDashoffset:[L,0]},{delay:1.05+k*.18,duration:.55,ease:'easeOut'})}catch(e){}});
+  try{animate($$('.note').filter(vis),{opacity:[0,1]},{delay:stagger(.25,{startDelay:1.3}),duration:.5})}catch(e){}
 }
 /* ============ GSAP + LENIS MOTION LAYER ============ */
 var lenis=null;
@@ -1748,7 +2076,7 @@ function initGsap(){
       lenis.on('scroll',ST.update);g.ticker.add(t=>lenis.raf(t*1000));g.ticker.lagSmoothing(0);}catch(e){lenis=null}
   }
   const mm=g.matchMedia();
-  mm.add({desk:'(min-width:861px)',all:'(min-width:0px)'},ctx=>{
+  if(window.__bbClassicMotion)mm.add({desk:'(min-width:861px)',all:'(min-width:0px)'},ctx=>{
     const{desk}=ctx.conditions;
     /* reading progress bar */
     g.fromTo('#progress',{scaleX:0},{scaleX:1,ease:'none',scrollTrigger:{start:0,end:'max',scrub:.3}});
@@ -1797,7 +2125,7 @@ function initGsap(){
 function gsapRefresh(){if(window.ScrollTrigger&&document.documentElement.classList.contains('g-on'))setTimeout(()=>ScrollTrigger.refresh(),80)}
 
 /* re-animate freshly rendered lists */
-function motionList(sel){if(!MOTION_OK())return;const el=$(sel);if(!el)return;springIn([...el.children].slice(0,18),{y:18,st:.035})}
+function motionList(sel){return;const el=$(sel);if(!el)return;springIn([...el.children].slice(0,18),{y:18,st:.035})}
 /* modal + toast springs */
 function motionModal(sel){if(!MOTION_OK())return;const m=$(sel+' .modal');if(m)try{window.Motion.animate(m,{opacity:[0,1],y:[34,0],scale:[.95,1]},{type:'spring',bounce:.3,duration:.55})}catch(e){}}
 
@@ -1957,16 +2285,17 @@ function filtered(){const q=query.trim().toLowerCase();
   return allDeals().filter(d=>(cat==='saved'?saved.has(d.id):d.km<=radius&&(cat==='all'||d.cat===cat))&&(!q||(d.shop+' '+d.offer+' '+d.item+' '+d.cat).toLowerCase().includes(q))).sort(SORTS[sortBy])}
 const catInfo=id=>CATS.find(c=>c[0]===id)||CATS[0];
 function dealCard(d,i=0){
-  const ci=catInfo(d.cat),boost=PACK_RANK[d.pack]>=2,h=HUE[d.cat]??230;
+  const ci=catInfo(d.cat),boost=PACK_RANK[d.pack]>=2;
   const dir='https://www.google.com/maps/dir/?api=1&destination='+d.lat.toFixed(6)+','+d.lng.toFixed(6);
   const phone=(d.phone||'').replace(/[^0-9]/g,''),wa=phone?'https://wa.me/'+(phone.length===10?'91'+phone:phone)+'?text='+encodeURIComponent('Hi! I saw your offer "'+d.offer+'" on Bazaar Buzz'):'';
-  return`<article class="deal" style="animation-delay:${Math.min(i*.04,.4)}s">
-    <div class="deal-top" style="background:linear-gradient(135deg,hsl(${h} 85% 60% / .55),hsl(${(h+40)%360} 80% 45% / .25))"><span class="em">${ci[2]}</span>
-      ${boost?'<span class="badge boost">'+t('⚡ Boosted')+'</span>':d.sample?'':'<span class="badge">🆕 New</span>'}
-      ${d.km!=null?'<span class="dist">📍 '+fmtDist(d.km)+'</span>':''}
-      <button class="heart ${saved.has(d.id)?'on':''}" data-save="${esc(d.id)}" aria-label="Save">${saved.has(d.id)?'❤️':'🤍'}</button></div>
-    <div class="deal-body"><span class="cat">${t(ci[1])}${LANG==='en'?' · valid '+esc(d.valid):''}</span>${d.id==='preview'?'':rateChip(d.shop)}<h4>${esc(d.shop)}</h4><div class="offer">${esc(d.offer)}</div><div class="item">${esc(d.item)}</div>
-      <div class="deal-actions">${wa?`<a href="${wa}" target="_blank" rel="noopener">WhatsApp</a>`:`<button data-demo>WhatsApp</button>`}<a href="${dir}" target="_blank" rel="noopener">${t('Directions')}</a><button class="claim" data-claim="${esc(d.id)}">${t('Claim')}</button></div></div></article>`;
+  return`<article class="deal">
+    <div class="deal-meta"><span class="dm-cat">${ci[2]} ${t(ci[1])}</span>${boost?'<span class="dm-boost">'+t('Boosted')+'</span>':''}${d.km!=null?'<span class="dm-dist">'+fmtDist(d.km)+'</span>':''}
+      <button class="heart ${saved.has(d.id)?'on':''}" data-save="${esc(d.id)}" aria-label="${saved.has(d.id)?'Remove from saved':'Save'}">${saved.has(d.id)?'❤️':'🤍'}</button></div>
+    <h4>${esc(d.shop)}</h4>
+    <span class="ptag">${esc(d.offer)}</span>
+    ${d.item?`<p class="item">${esc(d.item)}</p>`:''}${d.valid&&LANG==='en'?`<p class="valid">Valid for ${esc(d.valid)}</p>`:''}
+    ${d.id==='preview'?'':rateChip(d.shop)}
+    <div class="deal-actions">${wa?`<a href="${wa}" target="_blank" rel="noopener">WhatsApp</a>`:`<button data-demo>WhatsApp</button>`}<a href="${dir}" target="_blank" rel="noopener">${t('Directions')}</a><button class="claim" data-claim="${esc(d.id)}">${t('Claim')}</button></div></article>`;
 }
 function renderDeals(){
   const list=filtered(),loc=gpsOn?'you':esc(cityName);
@@ -2515,49 +2844,7 @@ function initTabbar(){
 let _mo=false;const bootMotion=()=>{if(_mo)return;_mo=true;try{initGsap()}catch(e){console.warn(e)}initMotion()};addEventListener('load',()=>setTimeout(bootMotion,50));if(document.readyState==='complete')setTimeout(bootMotion,50);
 
 </script>
-<script type="module">
-/* OGL hero background: a slow, soft colour flow in the brand palette. Skipped on small/low-power devices. */
-const ok=!matchMedia('(prefers-reduced-motion: reduce)').matches&&innerWidth>=700&&!(navigator.connection&&navigator.connection.saveData)&&(navigator.hardwareConcurrency||4)>=4;
-const hero=document.querySelector('.hero');
-if(ok&&hero){(async()=>{try{
-  const {Renderer,Program,Mesh,Triangle}=await import('https://cdn.jsdelivr.net/npm/ogl@1.0.11/src/index.js');
-  const renderer=new Renderer({dpr:Math.min(1.5,devicePixelRatio||1),alpha:true,premultipliedAlpha:false,antialias:false});
-  const gl=renderer.gl;gl.canvas.id='heroGl';gl.canvas.setAttribute('aria-hidden','true');hero.prepend(gl.canvas);
-  const rgb=v=>{const h=getComputedStyle(document.documentElement).getPropertyValue(v).trim().replace('#','');const n=parseInt(h.length===3?h.split('').map(c=>c+c).join(''):h,16);return[(n>>16&255)/255,(n>>8&255)/255,(n&255)/255]};
-  const program=new Program(gl,{transparent:true,
-    vertex:`attribute vec2 uv;attribute vec2 position;varying vec2 vUv;void main(){vUv=uv;gl_Position=vec4(position,0.,1.);}`,
-    fragment:`precision highp float;varying vec2 vUv;uniform float uTime;uniform vec2 uRes;uniform vec2 uMouse;uniform vec3 uA;uniform vec3 uB;uniform vec3 uBg;uniform float uDark;
-      vec3 hash3(vec2 p){vec3 q=vec3(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)),dot(p,vec2(419.2,371.9)));return fract(sin(q)*43758.5453);}
-      float noise(vec2 p){vec2 i=floor(p),f=fract(p);vec2 u=f*f*(3.-2.*f);
-        float a=dot(hash3(i).xy-.5,f),b=dot(hash3(i+vec2(1,0)).xy-.5,f-vec2(1,0)),c=dot(hash3(i+vec2(0,1)).xy-.5,f-vec2(0,1)),d=dot(hash3(i+vec2(1,1)).xy-.5,f-vec2(1,1));
-        return mix(mix(a,b,u.x),mix(c,d,u.x),u.y);}
-      float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<4;i++){v+=a*noise(p);p*=2.02;a*=.5;}return v;}
-      void main(){vec2 uv=vUv;vec2 p=(uv-.5)*vec2(uRes.x/uRes.y,1.)*1.6;float t=uTime*.045;
-        vec2 q=vec2(fbm(p+t),fbm(p+vec2(5.2,1.3)-t));vec2 r=vec2(fbm(p+3.*q+vec2(1.7,9.2)+t*.6+uMouse*.25),fbm(p+3.*q+vec2(8.3,2.8)-t*.5));
-        float f=fbm(p+2.5*r);
-        float blobA=smoothstep(.05,.55,f+.25*q.x+.35*(uv.x-.35));
-        float blobB=smoothstep(.1,.6,r.y+.3*(1.-uv.y)-.15);
-        vec3 col=mix(uBg,uA,blobA*.22*(1.+uDark*.4));col=mix(col,uB,blobB*.14*(1.+uDark*.4));
-        float vig=smoothstep(1.25,.35,length((uv-vec2(.62,.5))*vec2(1.2,1.)));
-        float grain=(fract(sin(dot(uv*uRes+uTime,vec2(12.9898,78.233)))*43758.5453)-.5)*.035;
-        float alpha=(blobA*.6+blobB*.5)*vig;
-        gl_FragColor=vec4(col+grain,clamp(alpha,0.,1.)*.9);}`,
-    uniforms:{uTime:{value:0},uRes:{value:[1,1]},uMouse:{value:[0,0]},uA:{value:rgb('--c1')},uB:{value:rgb('--c2')},uBg:{value:rgb('--bg')},uDark:{value:0}}});
-  const mesh=new Mesh(gl,{geometry:new Triangle(gl),program});
-  const size=()=>{renderer.setSize(hero.clientWidth,hero.clientHeight);program.uniforms.uRes.value=[gl.canvas.width,gl.canvas.height]};
-  const theme=()=>{const d=document.documentElement.dataset.theme==='dark';program.uniforms.uDark.value=d?1:0;program.uniforms.uA.value=rgb('--c1');program.uniforms.uB.value=rgb('--c2');program.uniforms.uBg.value=rgb('--bg')};
-  size();theme();addEventListener('resize',size);
-  new MutationObserver(()=>setTimeout(theme,30)).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
-  let tm=[0,0],mo=[0,0];addEventListener('pointermove',e=>{tm=[e.clientX/innerWidth-.5,e.clientY/innerHeight-.5]},{passive:true});
-  let vis=true,raf=0;new IntersectionObserver(([e])=>{vis=e.isIntersecting;if(vis&&!raf)raf=requestAnimationFrame(loop)}).observe(hero);
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&vis&&!raf)raf=requestAnimationFrame(loop)});
-  const t0=performance.now();
-  function loop(now){raf=0;if(!vis||document.hidden)return;mo[0]+=(tm[0]-mo[0])*.04;mo[1]+=(tm[1]-mo[1])*.04;
-    program.uniforms.uTime.value=(now-t0)/1000;program.uniforms.uMouse.value=mo;renderer.render({scene:mesh});raf=requestAnimationFrame(loop)}
-  raf=requestAnimationFrame(loop);requestAnimationFrame(()=>gl.canvas.classList.add('on'));
-  if(window.ScrollTrigger)ScrollTrigger.create({trigger:hero,start:'center top',end:'bottom top',onUpdate:s=>{gl.canvas.style.opacity=String(1-s.progress)},onLeaveBack:()=>{gl.canvas.style.opacity=''}});
-}catch(e){console.warn('Hero WebGL skipped:',e.message)}})()}
-</script>
+
 <script type="module">
 /* 3D neighbourhood (three.js + pmndrs/postprocessing + GSAP ScrollTrigger).
    Loads only when the section is near the screen, renders only while visible, and skips weak devices. */
@@ -2586,10 +2873,10 @@ async function boot(){
 
   /* palette follows the site theme */
   const P={};const paint=()=>{const d=dark();Object.assign(P,{
-    ground:d?0x1f1e1b:0xe9e3d7,road:d?0x2a2926:0xd8d0c2,line:d?0x4a4740:0xf7f3ea,
-    blocks:d?[0x3a3833,0x46423b,0x35403a,0x4a3a33,0x3f3d38]:[0xf3eee6,0xe6d9c6,0xd8c3a5,0xc9d6cc,0xe9d5c9],
-    roof:d?0x2b2a27:0xbfae96,awning:[0xa84e2c,0x2e6a55,0xc98a1b,0x8a3b5b],tree:d?0x3f6b56:0x6f9c7d,
-    pin:new THREE.Color(css('--c1')),fog:new THREE.Color(css('--bg'))});
+    ground:d?0x10152a:0xe4e7ee,road:d?0x1a2036:0xcfd4de,line:d?0x4a4740:0xf7f3ea,
+    blocks:d?[0x252c43,0x2c3450,0x232a40,0x30385a,0x283049]:[0xffffff,0xf1f3f7,0xe6e9f0,0xdde2ea,0xf6f7f9],
+    roof:d?0x1d2439:0xc9ced9,awning:[0xe9a20c,0x0b6b4d,0x151a2d,0xc8321f],tree:d?0x2f7a5c:0x5f9a7e,
+    pin:new THREE.Color(css('--marigold')),fog:new THREE.Color(css('--bg'))});
     scene.fog=new THREE.Fog(P.fog,26,58);hemi.intensity=d?.55:1.1;sun.intensity=d?1.1:2.2};
   paint();
 

@@ -4,11 +4,11 @@
   if (window.__bbTx) return; window.__bbTx = true;
   var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   var css = '#bbTx{position:fixed;inset:0;z-index:2147483000;pointer-events:none;display:grid;place-items:center;visibility:hidden}' +
-    '#bbTx .p{position:absolute;inset:0;background:#A84E2C;transform:translateY(100%)}' +
-    '#bbTx .p2{background:#1F1E1B}' +
-    '#bbTx .m{position:relative;display:flex;align-items:center;gap:12px;color:#fff;font:700 clamp(1.4rem,4vw,2rem)/1 Fraunces,Georgia,serif;opacity:0}' +
-    '#bbTx .m i{width:42px;height:42px;border-radius:13px;background:rgba(255,255,255,.16);display:grid;place-items:center}' +
-    '#bbTx .m svg{width:22px;height:22px}';
+    '#bbTx .p{position:absolute;inset:0;background:#151A2D;transform:translateY(100%)}' +
+    '#bbTx .p2{background:#E9A20C}' +
+    '#bbTx .m{position:relative;display:flex;align-items:center;gap:12px;color:#fff;font:700 clamp(1.5rem,4vw,2.2rem)/1 "Anek Latin",system-ui,sans-serif;font-stretch:80%;opacity:0}' +
+    '#bbTx .m i{width:34px;height:22px;border-radius:3px 10px 10px 3px;background:#E9A20C;transform:rotate(-8deg);position:relative}#bbTx .m i::before{content:"";position:absolute;left:6px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:#151A2D}' +
+    '#bbTx .m svg{display:none}';
   var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
   var el = document.createElement('div'); el.id = 'bbTx'; el.setAttribute('aria-hidden', 'true');
   el.innerHTML = '<div class="p p2"></div><div class="p"></div><div class="m"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg></i>Bazaar Buzz</div>';
