@@ -31,8 +31,11 @@ const CLOUD = !!(CFG.SUPABASE_URL && CFG.SUPABASE_SERVICE_KEY);
 /* ---------------- DATABASE (JSON file) ---------------- */
 const DATA_DIR = path.join(__dirname, 'data');
 const DB_FILE = path.join(DATA_DIR, 'db.json');
-let db = { users: [], sessions: {}, deals: [], claims: [], payments: [] };
+let db = { users: [], sessions: {}, deals: [], claims: [], payments: [], reels: [], reviews: [], likes: {} };
+const UPLOADS = path.join(__dirname, 'data', 'uploads');
+const MAX_VIDEO = 30 * 1024 * 1024;
 fs.mkdirSync(DATA_DIR, { recursive: true });
+fs.mkdirSync(UPLOADS, { recursive: true });
 try { db = { ...db, ...JSON.parse(fs.readFileSync(DB_FILE, 'utf8')) }; } catch (e) { save(); }
 function save() {
   const tmp = DB_FILE + '.tmp';
@@ -107,6 +110,16 @@ const clean = (s, n = 80) => String(s ?? '').trim().slice(0, n);
 const validEmail = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
 const ROLES = ['customer', 'business'];
 const PLANS = ['free', 'basic', 'premium', 'featured'];
+const slug = (x) => String(x || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 60);
+function optUser(req) { try { return getUser(req); } catch (e) { return null; } }
+const pubReel = (r, u) => ({ id: r.id, src: r.src, by: r.by, role: r.role, shop: r.shop, place: r.place, cat: r.cat, caption: r.caption, rating: r.rating, offer: r.offer, createdAt: r.createdAt, mine: !!(u && u.id === r.userId) });
+const pubReview = (v, u) => ({ id: v.id, place: v.place, shop: v.shop, by: v.by, rating: v.rating, text: v.text, createdAt: v.createdAt, mine: !!(u && u.id === v.userId), viaReel: !!v.viaReel });
+function addReview(u, place, shop, rating, text, viaReel) {
+  let v = db.reviews.find((x) => x.userId === u.id && x.place === place);
+  if (v) Object.assign(v, { rating, text: text || v.text, shop: shop || v.shop, createdAt: now(), viaReel: viaReel || v.viaReel });
+  else { v = { id: id('rv'), place, shop, userId: u.id, by: u.name, rating, text, createdAt: now(), viaReel }; db.reviews.unshift(v); }
+  return v;
+}
 function upsertSocial({ provider, providerId, email, name, role }) {
   let u = db.users.find((x) => (providerId && x.provider === provider && x.providerId === providerId) || (email && x.email === email));
   if (!u) {
@@ -206,6 +219,71 @@ async function api(req, res, url) {
     return send(res, 201, { deal: pub });
   }
 
+  /* ---------- reels ---------- */
+  if (p === '/api/reels' && method === 'GET') {
+    const u = optUser(req);
+    const likes = {};
+    for (const [rid, arr] of Object.entries(db.likes)) likes[rid] = { n: arr.length, liked: !!(u && arr.includes(u.id)) };
+    return send(res, 200, { reels: db.reels.map((r) => pubReel(r, u)), likes });
+  }
+  if (p === '/api/reels' && method === 'POST') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Please log in to post a reel.' });
+    let meta = {};
+    try { meta = JSON.parse(decodeURIComponent(req.headers['x-meta'] || '%7B%7D')); } catch (e) {}
+    const type = String(req.headers['content-type'] || '').split(';')[0].trim();
+    const ext = { 'video/mp4': '.mp4', 'video/webm': '.webm', 'video/quicktime': '.mov' }[type];
+    if (!ext) return send(res, 400, { error: 'Please upload an MP4, WebM or MOV video.' });
+    if (+req.headers['content-length'] > MAX_VIDEO) return send(res, 413, { error: 'Video is too large (max 30 MB).' });
+    const shop = clean(meta.shop, 40), rating = Math.round(+meta.rating || 0);
+    if (!shop) return send(res, 400, { error: 'Tell us which shop or place this reel is about.' });
+    if (u.role === 'customer' && !(rating >= 1 && rating <= 5)) return send(res, 400, { error: 'Please give the place a star rating.' });
+    const rid = id('r'), file = path.join(UPLOADS, rid + ext);
+    await new Promise((resolve, reject) => {
+      let size = 0; const ws = fs.createWriteStream(file);
+      req.on('data', (c) => { size += c.length; if (size > MAX_VIDEO) { req.unpipe(ws); ws.destroy(); fs.unlink(file, () => {}); reject(new Error('Video is too large (max 30 MB).')); } });
+      req.pipe(ws); ws.on('finish', resolve); ws.on('error', reject); req.on('error', reject);
+    });
+    const r = { id: rid, src: '/uploads/' + rid + ext, userId: u.id, by: u.name, role: u.role, shop, place: slug(shop), cat: clean(meta.cat, 20),
+      caption: clean(meta.caption, 160), rating: rating >= 1 && rating <= 5 ? rating : 0, offer: clean(meta.offer, 50), createdAt: now() };
+    db.reels.unshift(r);
+    if (r.rating) addReview(u, r.place, shop, r.rating, r.caption, true);
+    save();
+    return send(res, 201, { reel: pubReel(r, u) });
+  }
+  let m;
+  if ((m = p.match(/^\/api\/reels\/([\w-]+)\/like$/)) && method === 'POST') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Log in to like reels.' });
+    const arr = db.likes[m[1]] || (db.likes[m[1]] = []);
+    const i = arr.indexOf(u.id); if (i >= 0) arr.splice(i, 1); else arr.push(u.id);
+    save();
+    return send(res, 200, { n: arr.length, liked: i < 0 });
+  }
+  if ((m = p.match(/^\/api\/reels\/([\w-]+)$/)) && method === 'DELETE') {
+    const u = getUser(req); const r = db.reels.find((x) => x.id === m[1]);
+    if (!u || !r || r.userId !== u.id) return send(res, 403, { error: 'You can only delete your own reels.' });
+    db.reels = db.reels.filter((x) => x !== r); fs.unlink(path.join(UPLOADS, path.basename(r.src)), () => {}); save();
+    return send(res, 200, { ok: true });
+  }
+
+  /* ---------- reviews / ratings ---------- */
+  if (p === '/api/reviews' && method === 'GET') {
+    const u = optUser(req);
+    return send(res, 200, { reviews: db.reviews.map((v) => pubReview(v, u)) });
+  }
+  if (p === '/api/reviews' && method === 'POST') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Please log in to rate a place.' });
+    const b = await readBody(req);
+    const rating = Math.round(+b.rating || 0), shop = clean(b.shop, 40), place = slug(b.place || shop);
+    if (!(rating >= 1 && rating <= 5)) return send(res, 400, { error: 'Pick 1 to 5 stars.' });
+    if (!place) return send(res, 400, { error: 'Which place are you rating?' });
+    const v = addReview(u, place, shop, rating, clean(b.text, 300), false);
+    save();
+    return send(res, 201, { review: pubReview(v, u) });
+  }
+
   if (p === '/api/claims' && method === 'POST') {
     const u = getUser(req);
     if (!u) return send(res, 401, { error: 'Please log in to claim coupons.' });
@@ -275,13 +353,35 @@ function admin(req, res, url) {
   ${table('Users', ['Name', 'Email', 'Role', 'Plan', 'Sign-in method', 'Joined', 'Last login'], db.users.map((u) => row([u.name, u.email, u.role, u.plan, u.provider, u.createdAt?.slice(0, 16).replace('T', ' '), (u.lastLogin || '').slice(0, 16).replace('T', ' ')])))}
   ${table('Deals posted', ['Shop', 'Category', 'Offer', 'Pack', 'Phone', 'Posted by', 'Date'], db.deals.map((d) => row([d.shop, d.cat, d.offer, d.pack, d.phone, name(d.ownerId), d.createdAt.slice(0, 10)])))}
   ${table('Coupons claimed', ['Code', 'Shop', 'User', 'Date'], db.claims.map((c) => row([c.code, c.shop, name(c.userId), c.createdAt.slice(0, 16).replace('T', ' ')])))}
+  ${table('Reels posted', ['Shop', 'Caption', 'Rating', 'By', 'Role', 'Video', 'Date'], db.reels.map((r) => '<tr>' + [r.shop, r.caption, r.rating ? '★'.repeat(r.rating) : '-', r.by, r.role, ''].map((c) => `<td>${esc(c)}</td>`).join('').replace('<td></td>', `<td><a style="color:#22D3EE" href="${esc(r.src)}" target="_blank">open</a></td>`) + `<td>${esc(r.createdAt.slice(0, 16).replace('T', ' '))}</td></tr>`))}
+  ${table('Ratings & reviews', ['Place', 'Stars', 'Review', 'By', 'From reel', 'Date'], db.reviews.map((v) => row([v.shop || v.place, '★'.repeat(v.rating), v.text || '', v.by, v.viaReel ? 'yes' : '', v.createdAt.slice(0, 16).replace('T', ' ')])))}
   ${table('Payments', ['Plan', 'Amount', 'Payment ID', 'Mode', 'User', 'Date'], db.payments.map((p) => row([p.plan, '₹' + p.amount, p.paymentId, p.mode, name(p.userId), p.createdAt.slice(0, 16).replace('T', ' ')])))}
   </body></html>`);
 }
 
 /* ---------------- STATIC FILES ---------------- */
 const PUBLIC = path.join(__dirname, 'public');
-const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.json': 'application/json' };
+const TYPES = { '.mp4': 'video/mp4', '.webm': 'video/webm', '.mov': 'video/quicktime', '.jpeg': 'image/jpeg', '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.json': 'application/json' };
+function sendFile(req, res, file, type, cache) {
+  const size = fs.statSync(file).size, range = req.headers.range;
+  const base = { 'Content-Type': type, 'Accept-Ranges': 'bytes', 'Cache-Control': cache || 'public, max-age=3600' };
+  if (range) {
+    const mm = range.match(/bytes=(\d*)-(\d*)/) || [];
+    let start = mm[1] ? +mm[1] : 0, end = mm[2] ? +mm[2] : size - 1;
+    if (!mm[1] && mm[2]) { start = Math.max(0, size - +mm[2]); end = size - 1; }
+    if (start >= size || start > end) { res.writeHead(416, { 'Content-Range': `bytes */${size}` }); return res.end(); }
+    end = Math.min(end, size - 1);
+    res.writeHead(206, { ...base, 'Content-Range': `bytes ${start}-${end}/${size}`, 'Content-Length': end - start + 1 });
+    return fs.createReadStream(file, { start, end }).pipe(res);
+  }
+  res.writeHead(200, { ...base, 'Content-Length': size });
+  fs.createReadStream(file).pipe(res);
+}
+function serveUpload(req, res, url) {
+  const file = path.join(UPLOADS, path.basename(decodeURIComponent(url.pathname)));
+  if (!fs.existsSync(file)) { res.writeHead(404); return res.end('Not found'); }
+  sendFile(req, res, file, TYPES[path.extname(file)] || 'application/octet-stream', 'public, max-age=86400');
+}
 function serveStatic(req, res, url) {
   let file = path.normalize(path.join(PUBLIC, decodeURIComponent(url.pathname)));
   if (!file.startsWith(PUBLIC)) { res.writeHead(403); return res.end(); }
@@ -291,8 +391,7 @@ function serveStatic(req, res, url) {
     return res.end(fs.readFileSync(file, 'utf8').replace('const SERVER_MODE=false;', 'const SERVER_MODE=true;')
       .replace('<!--SEO-->', `<link rel="canonical" href="${CFG.BASE_URL}/"><meta property="og:url" content="${CFG.BASE_URL}/">` + (CFG.GOOGLE_VERIFY_META ? `<meta name="google-site-verification" content="${esc(CFG.GOOGLE_VERIFY_META)}">` : '')));
   }
-  res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream' });
-  fs.createReadStream(file).pipe(res);
+  sendFile(req, res, file, TYPES[path.extname(file)] || 'application/octet-stream');
 }
 
 /* ---------------- SERVER ---------------- */
@@ -302,6 +401,7 @@ const server = http.createServer(async (req, res) => {
     if (url.pathname.startsWith('/api/')) return await api(req, res, url);
     if (url.pathname.startsWith('/auth/x/')) return await xAuth(req, res, url);
     if (url.pathname === '/admin') return admin(req, res, url);
+    if (url.pathname.startsWith('/uploads/')) return serveUpload(req, res, url);
     if (url.pathname === '/robots.txt') { res.writeHead(200, { 'Content-Type': 'text/plain' }); return res.end(`User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nSitemap: ${CFG.BASE_URL}/sitemap.xml\n`); }
     if (url.pathname === '/sitemap.xml') { res.writeHead(200, { 'Content-Type': 'application/xml' }); return res.end(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${CFG.BASE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url></urlset>`); }
     if (url.pathname.startsWith('/google') && url.pathname.endsWith('.html') && CFG.GOOGLE_VERIFY_FILE && url.pathname === '/' + CFG.GOOGLE_VERIFY_FILE) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end('google-site-verification: ' + CFG.GOOGLE_VERIFY_FILE); }
