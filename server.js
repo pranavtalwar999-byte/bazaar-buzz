@@ -1,0 +1,320 @@
+/*
+ * Bazaar Buzz local server — zero dependencies (only Node.js built-ins).
+ * Run:  node server.js   then open http://localhost:3000
+ *
+ * Stores everything in data/db.json:
+ *   users (passwords hashed with scrypt), sessions, deals, coupon claims, payments.
+ * Admin page (see who signed up): http://localhost:3000/admin?key=YOUR_ADMIN_KEY
+ */
+const http = require('http');
+const fs = require('fs');
+const path = require('path');
+const crypto = require('crypto');
+
+/* ---------------- CONFIG ---------------- */
+let fileCfg = {};
+try { fileCfg = JSON.parse(fs.readFileSync(path.join(__dirname, 'config.json'), 'utf8')); } catch (e) {}
+const PORT = +(process.env.PORT || fileCfg.PORT || 3000);
+const CFG = {
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID || fileCfg.GOOGLE_CLIENT_ID || '',
+  X_CLIENT_ID: process.env.X_CLIENT_ID || fileCfg.X_CLIENT_ID || '',
+  X_CLIENT_SECRET: process.env.X_CLIENT_SECRET || fileCfg.X_CLIENT_SECRET || '',
+  ADMIN_KEY: process.env.ADMIN_KEY || fileCfg.ADMIN_KEY || 'bazaarbuzz-admin',
+  GOOGLE_VERIFY_FILE: process.env.GOOGLE_VERIFY_FILE || fileCfg.GOOGLE_VERIFY_FILE || '',
+  GOOGLE_VERIFY_META: process.env.GOOGLE_VERIFY_META || fileCfg.GOOGLE_VERIFY_META || '',
+  BASE_URL: (process.env.BASE_URL || fileCfg.BASE_URL || process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`).replace(/\/$/, ''),
+  SUPABASE_URL: (process.env.SUPABASE_URL || fileCfg.SUPABASE_URL || '').replace(/\/$/, ''),
+  SUPABASE_SERVICE_KEY: process.env.SUPABASE_SERVICE_KEY || fileCfg.SUPABASE_SERVICE_KEY || '',
+};
+const CLOUD = !!(CFG.SUPABASE_URL && CFG.SUPABASE_SERVICE_KEY);
+
+/* ---------------- DATABASE (JSON file) ---------------- */
+const DATA_DIR = path.join(__dirname, 'data');
+const DB_FILE = path.join(DATA_DIR, 'db.json');
+let db = { users: [], sessions: {}, deals: [], claims: [], payments: [] };
+fs.mkdirSync(DATA_DIR, { recursive: true });
+try { db = { ...db, ...JSON.parse(fs.readFileSync(DB_FILE, 'utf8')) }; } catch (e) { save(); }
+function save() {
+  const tmp = DB_FILE + '.tmp';
+  fs.writeFileSync(tmp, JSON.stringify(db, null, 2));
+  fs.renameSync(tmp, DB_FILE);
+  if (CLOUD) pushCloud();
+}
+
+/* ---------------- CLOUD STORAGE (Supabase, optional) ----------------
+   Free hosts (Render etc.) wipe local files on restart. If SUPABASE_URL + SUPABASE_SERVICE_KEY are set,
+   the whole database is also kept in a Supabase table so nothing is lost.
+   Create the table once in Supabase → SQL editor:
+     create table paaspost_store (id text primary key, data jsonb not null);
+     alter table paaspost_store enable row level security;            */
+const sbHeaders = () => ({ apikey: CFG.SUPABASE_SERVICE_KEY, Authorization: 'Bearer ' + CFG.SUPABASE_SERVICE_KEY, 'Content-Type': 'application/json' });
+async function loadCloud() {
+  const r = await fetch(`${CFG.SUPABASE_URL}/rest/v1/paaspost_store?id=eq.main&select=data`, { headers: sbHeaders() });
+  if (!r.ok) throw new Error('Supabase load failed: ' + r.status + ' ' + (await r.text()));
+  const rows = await r.json();
+  if (rows[0] && rows[0].data) db = { ...db, ...rows[0].data };
+}
+let cloudTimer = null, cloudBusy = false, cloudAgain = false;
+function pushCloud() {
+  clearTimeout(cloudTimer);
+  cloudTimer = setTimeout(async () => {
+    if (cloudBusy) { cloudAgain = true; return; }
+    cloudBusy = true;
+    try {
+      const r = await fetch(`${CFG.SUPABASE_URL}/rest/v1/paaspost_store?on_conflict=id`, { method: 'POST', headers: { ...sbHeaders(), Prefer: 'resolution=merge-duplicates' }, body: JSON.stringify({ id: 'main', data: db }) });
+      if (!r.ok) console.error('Supabase save failed:', r.status, await r.text());
+    } catch (e) { console.error('Supabase save error:', e.message); }
+    cloudBusy = false;
+    if (cloudAgain) { cloudAgain = false; pushCloud(); }
+  }, 400);
+}
+
+/* ---------------- HELPERS ---------------- */
+const id = (p) => p + '_' + crypto.randomBytes(6).toString('hex');
+const now = () => new Date().toISOString();
+function hashPass(pw, salt = crypto.randomBytes(16).toString('hex')) {
+  return { salt, hash: crypto.scryptSync(pw, salt, 64).toString('hex') };
+}
+function checkPass(pw, user) {
+  if (!user.hash) return false;
+  const h = crypto.scryptSync(pw, user.salt, 64);
+  return crypto.timingSafeEqual(h, Buffer.from(user.hash, 'hex'));
+}
+const publicUser = (u) => ({ id: u.id, name: u.name, email: u.email, role: u.role, plan: u.plan, provider: u.provider, createdAt: u.createdAt });
+function newSession(user) {
+  const token = crypto.randomBytes(24).toString('hex');
+  db.sessions[token] = { userId: user.id, createdAt: now() };
+  save();
+  return token;
+}
+function getUser(req) {
+  const m = (req.headers.authorization || '').match(/^Bearer (\w+)$/);
+  const s = m && db.sessions[m[1]];
+  return s ? db.users.find((u) => u.id === s.userId) : null;
+}
+function send(res, code, obj, headers = {}) {
+  res.writeHead(code, { 'Content-Type': 'application/json; charset=utf-8', ...headers });
+  res.end(JSON.stringify(obj));
+}
+function readBody(req) {
+  return new Promise((resolve, reject) => {
+    let data = '';
+    req.on('data', (c) => { data += c; if (data.length > 1e6) { reject(new Error('Body too large')); req.destroy(); } });
+    req.on('end', () => { try { resolve(data ? JSON.parse(data) : {}); } catch (e) { reject(new Error('Invalid JSON')); } });
+  });
+}
+const clean = (s, n = 80) => String(s ?? '').trim().slice(0, n);
+const validEmail = (e) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+const ROLES = ['customer', 'business'];
+const PLANS = ['free', 'basic', 'premium', 'featured'];
+function upsertSocial({ provider, providerId, email, name, role }) {
+  let u = db.users.find((x) => (providerId && x.provider === provider && x.providerId === providerId) || (email && x.email === email));
+  if (!u) {
+    u = { id: id('u'), name: name || 'Bazaar Buzz user', email, role: ROLES.includes(role) ? role : 'customer', plan: 'free', provider, providerId, createdAt: now() };
+    db.users.push(u);
+  }
+  u.lastLogin = now();
+  save();
+  return u;
+}
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+/* ---------------- X (Twitter) OAuth 2.0 PKCE ---------------- */
+const pending = new Map(); // state -> { verifier, role, at }
+const b64url = (b) => b.toString('base64').replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
+/* ---------------- API ROUTES ---------------- */
+async function api(req, res, url) {
+  const p = url.pathname, method = req.method;
+
+  if (p === '/api/health') return send(res, 200, { ok: true });
+  if (p === '/api/config') return send(res, 200, { googleClientId: CFG.GOOGLE_CLIENT_ID, xEnabled: !!(CFG.X_CLIENT_ID && CFG.X_CLIENT_SECRET), appleEnabled: false });
+
+  if (p === '/api/signup' && method === 'POST') {
+    const b = await readBody(req);
+    const email = clean(b.email, 120).toLowerCase(), name = clean(b.name, 40), role = ROLES.includes(b.role) ? b.role : 'customer';
+    if (!name) return send(res, 400, { error: 'Please enter your name.' });
+    if (!validEmail(email)) return send(res, 400, { error: 'Please enter a valid email.' });
+    if (String(b.password || '').length < 6) return send(res, 400, { error: 'Password must be at least 6 characters.' });
+    if (db.users.find((u) => u.email === email)) return send(res, 409, { error: 'An account with this email already exists. Try logging in.' });
+    const u = { id: id('u'), name, email, role, plan: 'free', provider: 'email', ...hashPass(String(b.password)), createdAt: now(), lastLogin: now() };
+    db.users.push(u); save();
+    return send(res, 201, { token: newSession(u), user: publicUser(u) });
+  }
+
+  if (p === '/api/login' && method === 'POST') {
+    const b = await readBody(req);
+    const u = db.users.find((x) => x.email === clean(b.email, 120).toLowerCase());
+    if (!u || !checkPass(String(b.password || ''), u)) return send(res, 401, { error: 'Wrong email or password.' });
+    u.lastLogin = now(); save();
+    return send(res, 200, { token: newSession(u), user: publicUser(u) });
+  }
+
+  if (p === '/api/auth/google' && method === 'POST') {
+    if (!CFG.GOOGLE_CLIENT_ID) return send(res, 400, { error: 'Google login is not configured on this server.' });
+    const b = await readBody(req);
+    const r = await fetch('https://oauth2.googleapis.com/tokeninfo?id_token=' + encodeURIComponent(b.credential || ''));
+    const t = await r.json();
+    if (!r.ok || t.aud !== CFG.GOOGLE_CLIENT_ID || t.email_verified !== 'true') return send(res, 401, { error: 'Google sign-in could not be verified.' });
+    const u = upsertSocial({ provider: 'google', providerId: t.sub, email: t.email.toLowerCase(), name: t.name, role: b.role });
+    return send(res, 200, { token: newSession(u), user: publicUser(u) });
+  }
+
+  // Demo social login — only allowed for providers that are NOT configured with real keys
+  if (p === '/api/auth/demo' && method === 'POST') {
+    const b = await readBody(req);
+    const provider = ['google', 'x', 'apple'].includes(b.provider) ? b.provider : null;
+    if (!provider) return send(res, 400, { error: 'Unknown provider.' });
+    if ((provider === 'google' && CFG.GOOGLE_CLIENT_ID) || (provider === 'x' && CFG.X_CLIENT_ID)) return send(res, 400, { error: 'Use the real sign-in button for this provider.' });
+    const email = clean(b.email, 120).toLowerCase(), name = clean(b.name, 40);
+    if (!name || !validEmail(email)) return send(res, 400, { error: 'Please enter your name and a valid email.' });
+    const u = upsertSocial({ provider: provider + '-demo', email, name, role: b.role });
+    return send(res, 200, { token: newSession(u), user: publicUser(u) });
+  }
+
+  if (p === '/api/me') {
+    const u = getUser(req);
+    return u ? send(res, 200, { user: publicUser(u) }) : send(res, 401, { error: 'Not logged in.' });
+  }
+
+  if (p === '/api/logout' && method === 'POST') {
+    const m = (req.headers.authorization || '').match(/^Bearer (\w+)$/);
+    if (m) { delete db.sessions[m[1]]; save(); }
+    return send(res, 200, { ok: true });
+  }
+
+  if (p === '/api/deals' && method === 'GET') {
+    return send(res, 200, { deals: db.deals.map(({ ownerId, ...d }) => d) });
+  }
+
+  if (p === '/api/deals' && method === 'POST') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Please log in.' });
+    if (u.role !== 'business') return send(res, 403, { error: 'Only business accounts can post offers.' });
+    const b = await readBody(req);
+    const lat = +b.lat, lng = +b.lng;
+    if (!clean(b.shop) || !clean(b.offer) || !isFinite(lat) || !isFinite(lng)) return send(res, 400, { error: 'Shop name, offer and location are required.' });
+    const rank = { free: 0, basic: 1, premium: 2, featured: 3 };
+    const wanted = PLANS.includes(b.pack) ? b.pack : 'free';
+    const d = {
+      id: id('d'), shop: clean(b.shop, 40), cat: clean(b.cat, 20), offer: clean(b.offer, 50), item: clean(b.item, 60),
+      phone: clean(b.phone, 15).replace(/[^0-9+ ]/g, ''), valid: clean(b.valid, 20), lat, lng,
+      pack: rank[wanted] <= rank[u.plan] ? wanted : 'free', ownerId: u.id, createdAt: now(),
+    };
+    db.deals.unshift(d); save();
+    const { ownerId, ...pub } = d;
+    return send(res, 201, { deal: pub });
+  }
+
+  if (p === '/api/claims' && method === 'POST') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Please log in to claim coupons.' });
+    const b = await readBody(req);
+    const c = { id: id('c'), dealId: clean(b.dealId, 40), shop: clean(b.shop, 40), userId: u.id, code: 'BB' + crypto.randomBytes(3).toString('hex').toUpperCase(), createdAt: now() };
+    db.claims.push(c); save();
+    return send(res, 201, { code: c.code });
+  }
+
+  if (p === '/api/plan' && method === 'POST') {
+    const u = getUser(req);
+    if (!u) return send(res, 401, { error: 'Please log in.' });
+    if (u.role !== 'business') return send(res, 403, { error: 'Packs are for business accounts.' });
+    const b = await readBody(req);
+    if (!PLANS.includes(b.plan)) return send(res, 400, { error: 'Unknown plan.' });
+    u.plan = b.plan;
+    db.payments.push({ id: id('pay'), userId: u.id, plan: b.plan, amount: +b.amount || 0, paymentId: clean(b.paymentId, 60), mode: String(b.paymentId || '').startsWith('TEST_') ? 'test' : 'razorpay', createdAt: now() });
+    save();
+    return send(res, 200, { user: publicUser(u) });
+  }
+
+  return send(res, 404, { error: 'Not found' });
+}
+
+/* ---------------- X OAUTH ROUTES ---------------- */
+async function xAuth(req, res, url) {
+  if (!CFG.X_CLIENT_ID || !CFG.X_CLIENT_SECRET) { res.writeHead(302, { Location: '/?authError=' + encodeURIComponent('X login is not configured') }); return res.end(); }
+  const redirect = CFG.BASE_URL + '/auth/x/callback';
+  if (url.pathname === '/auth/x/start') {
+    const state = b64url(crypto.randomBytes(16)), verifier = b64url(crypto.randomBytes(32));
+    const challenge = b64url(crypto.createHash('sha256').update(verifier).digest());
+    pending.set(state, { verifier, role: url.searchParams.get('role') || 'customer', at: Date.now() });
+    const q = new URLSearchParams({ response_type: 'code', client_id: CFG.X_CLIENT_ID, redirect_uri: redirect, scope: 'users.read tweet.read', state, code_challenge: challenge, code_challenge_method: 'S256' });
+    res.writeHead(302, { Location: 'https://x.com/i/oauth2/authorize?' + q }); return res.end();
+  }
+  // callback
+  const st = pending.get(url.searchParams.get('state'));
+  pending.delete(url.searchParams.get('state'));
+  try {
+    if (!st || !url.searchParams.get('code')) throw new Error('Login cancelled');
+    const tok = await fetch('https://api.x.com/2/oauth2/token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', Authorization: 'Basic ' + Buffer.from(CFG.X_CLIENT_ID + ':' + CFG.X_CLIENT_SECRET).toString('base64') },
+      body: new URLSearchParams({ code: url.searchParams.get('code'), grant_type: 'authorization_code', redirect_uri: redirect, code_verifier: st.verifier }),
+    }).then((r) => r.json());
+    if (!tok.access_token) throw new Error('X token exchange failed');
+    const me = await fetch('https://api.x.com/2/users/me', { headers: { Authorization: 'Bearer ' + tok.access_token } }).then((r) => r.json());
+    if (!me.data) throw new Error('Could not read X profile');
+    const u = upsertSocial({ provider: 'x', providerId: me.data.id, email: '@' + me.data.username, name: me.data.name, role: st.role });
+    res.writeHead(302, { Location: '/?token=' + newSession(u) }); res.end();
+  } catch (e) {
+    res.writeHead(302, { Location: '/?authError=' + encodeURIComponent(e.message) }); res.end();
+  }
+}
+
+/* ---------------- ADMIN PAGE ---------------- */
+function admin(req, res, url) {
+  if (url.searchParams.get('key') !== CFG.ADMIN_KEY) { res.writeHead(401, { 'Content-Type': 'text/html' }); return res.end('<h2 style="font-family:sans-serif">Add ?key=YOUR_ADMIN_KEY to the URL</h2>'); }
+  const row = (cells) => '<tr>' + cells.map((c) => `<td>${esc(c)}</td>`).join('') + '</tr>';
+  const table = (title, head, rows) => `<h2>${title} <small>(${rows.length})</small></h2><table><tr>${head.map((h) => `<th>${h}</th>`).join('')}</tr>${rows.join('') || `<tr><td colspan="${head.length}">Nothing yet</td></tr>`}</table>`;
+  const name = (uid) => (db.users.find((u) => u.id === uid) || {}).email || '?';
+  res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+  res.end(`<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="robots" content="noindex"><title>Bazaar Buzz Admin</title><meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>body{font-family:system-ui,sans-serif;background:#0B1124;color:#ECF1FF;padding:30px;max-width:1200px;margin:auto}h1{background:linear-gradient(120deg,#6366F1,#22D3EE);-webkit-background-clip:text;color:transparent}
+  table{width:100%;border-collapse:collapse;margin-bottom:40px;background:#11183A;border-radius:12px;overflow:hidden}th,td{padding:10px 14px;text-align:left;border-bottom:1px solid #1f2a5a;font-size:14px}th{background:#182150;color:#97A3CC}small{color:#97A3CC}</style></head><body>
+  <h1>Bazaar Buzz Admin</h1><p><small>Data file: data/db.json · Refresh to update</small></p>
+  ${table('Users', ['Name', 'Email', 'Role', 'Plan', 'Sign-in method', 'Joined', 'Last login'], db.users.map((u) => row([u.name, u.email, u.role, u.plan, u.provider, u.createdAt?.slice(0, 16).replace('T', ' '), (u.lastLogin || '').slice(0, 16).replace('T', ' ')])))}
+  ${table('Deals posted', ['Shop', 'Category', 'Offer', 'Pack', 'Phone', 'Posted by', 'Date'], db.deals.map((d) => row([d.shop, d.cat, d.offer, d.pack, d.phone, name(d.ownerId), d.createdAt.slice(0, 10)])))}
+  ${table('Coupons claimed', ['Code', 'Shop', 'User', 'Date'], db.claims.map((c) => row([c.code, c.shop, name(c.userId), c.createdAt.slice(0, 16).replace('T', ' ')])))}
+  ${table('Payments', ['Plan', 'Amount', 'Payment ID', 'Mode', 'User', 'Date'], db.payments.map((p) => row([p.plan, '₹' + p.amount, p.paymentId, p.mode, name(p.userId), p.createdAt.slice(0, 16).replace('T', ' ')])))}
+  </body></html>`);
+}
+
+/* ---------------- STATIC FILES ---------------- */
+const PUBLIC = path.join(__dirname, 'public');
+const TYPES = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.png': 'image/png', '.jpg': 'image/jpeg', '.svg': 'image/svg+xml', '.ico': 'image/x-icon', '.json': 'application/json' };
+function serveStatic(req, res, url) {
+  let file = path.normalize(path.join(PUBLIC, decodeURIComponent(url.pathname)));
+  if (!file.startsWith(PUBLIC)) { res.writeHead(403); return res.end(); }
+  if (url.pathname === '/' || !fs.existsSync(file) || fs.statSync(file).isDirectory()) file = path.join(PUBLIC, 'index.html');
+  if (file.endsWith('index.html')) {
+    res.writeHead(200, { 'Content-Type': TYPES['.html'], 'Cache-Control': 'no-cache' });
+    return res.end(fs.readFileSync(file, 'utf8').replace('const SERVER_MODE=false;', 'const SERVER_MODE=true;')
+      .replace('<!--SEO-->', `<link rel="canonical" href="${CFG.BASE_URL}/"><meta property="og:url" content="${CFG.BASE_URL}/">` + (CFG.GOOGLE_VERIFY_META ? `<meta name="google-site-verification" content="${esc(CFG.GOOGLE_VERIFY_META)}">` : '')));
+  }
+  res.writeHead(200, { 'Content-Type': TYPES[path.extname(file)] || 'application/octet-stream' });
+  fs.createReadStream(file).pipe(res);
+}
+
+/* ---------------- SERVER ---------------- */
+const server = http.createServer(async (req, res) => {
+  const url = new URL(req.url, 'http://localhost');
+  try {
+    if (url.pathname.startsWith('/api/')) return await api(req, res, url);
+    if (url.pathname.startsWith('/auth/x/')) return await xAuth(req, res, url);
+    if (url.pathname === '/admin') return admin(req, res, url);
+    if (url.pathname === '/robots.txt') { res.writeHead(200, { 'Content-Type': 'text/plain' }); return res.end(`User-agent: *\nAllow: /\nDisallow: /admin\nDisallow: /api/\nSitemap: ${CFG.BASE_URL}/sitemap.xml\n`); }
+    if (url.pathname === '/sitemap.xml') { res.writeHead(200, { 'Content-Type': 'application/xml' }); return res.end(`<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"><url><loc>${CFG.BASE_URL}/</loc><changefreq>daily</changefreq><priority>1.0</priority></url></urlset>`); }
+    if (url.pathname.startsWith('/google') && url.pathname.endsWith('.html') && CFG.GOOGLE_VERIFY_FILE && url.pathname === '/' + CFG.GOOGLE_VERIFY_FILE) { res.writeHead(200, { 'Content-Type': 'text/html' }); return res.end('google-site-verification: ' + CFG.GOOGLE_VERIFY_FILE); }
+    return serveStatic(req, res, url);
+  } catch (e) {
+    console.error(e);
+    send(res, 500, { error: e.message || 'Server error' });
+  }
+});
+(CLOUD ? loadCloud().then(() => console.log('  ☁️  Loaded data from Supabase')) : Promise.resolve()).catch((e) => console.error('  ⚠️ ', e.message)).finally(() => server.listen(PORT, () => {
+  console.log(`\n  🚀 Bazaar Buzz running at  http://localhost:${PORT}`);
+  console.log(`  🔐 Admin page:          http://localhost:${PORT}/admin?key=${CFG.ADMIN_KEY}`);
+  console.log(`  💾 Data saved in:       ${DB_FILE}`);
+  console.log(`  ☁️  Cloud storage:       ${CLOUD ? 'Supabase ON' : 'off (local file only)'}`);
+  console.log(`  Google login: ${CFG.GOOGLE_CLIENT_ID ? 'ON' : 'demo mode'} · X login: ${CFG.X_CLIENT_ID ? 'ON' : 'demo mode'} · Apple login: demo mode\n`);
+}));
