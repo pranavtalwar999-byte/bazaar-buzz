@@ -1707,7 +1707,6 @@ function initGsap(){
     /* hero: content drifts up, radar sinks and shrinks */
     g.to('.hero .hero-in>div:first-child',{yPercent:-12,autoAlpha:.25,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
     g.to('.radar-box',{y:desk?160:60,scale:.86,rotate:-4,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
-    g.to('#heroGl',{autoAlpha:0,ease:'none',scrollTrigger:{trigger:'.hero',start:'center top',end:'bottom top',scrub:true}});
     /* section headings: words rise out of a mask, then the split is undone so translations still work */
     if(window.SplitText)g.utils.toArray('.sec-head h2').forEach(h=>{
       if(!h.offsetParent)return;
@@ -2508,6 +2507,7 @@ if(ok&&hero){(async()=>{try{
   function loop(now){raf=0;if(!vis||document.hidden)return;mo[0]+=(tm[0]-mo[0])*.04;mo[1]+=(tm[1]-mo[1])*.04;
     program.uniforms.uTime.value=(now-t0)/1000;program.uniforms.uMouse.value=mo;renderer.render({scene:mesh});raf=requestAnimationFrame(loop)}
   raf=requestAnimationFrame(loop);requestAnimationFrame(()=>gl.canvas.classList.add('on'));
+  if(window.ScrollTrigger)ScrollTrigger.create({trigger:hero,start:'center top',end:'bottom top',onUpdate:s=>{gl.canvas.style.opacity=String(1-s.progress)},onLeaveBack:()=>{gl.canvas.style.opacity=''}});
 }catch(e){console.warn('Hero WebGL skipped:',e.message)}})()}
 </script>
 </body>
