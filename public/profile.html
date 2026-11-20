@@ -284,12 +284,12 @@ function avatar(u,cls='ava'){const n=(u&&(u.name||u.by))||'?';return`<div class=
 const starsTxt=(avg)=>`<span class="stars-s">${ic('star')}${avg.toFixed(1)}</span>`;
 
 const SAMPLES=[
-  {id:'s-chai',src:'/reels/chai.mp4',poster:'/reels/chai.jpg',shop:'Sharma Chai Point',cat:'Café',caption:'Garma garam chai sirf ₹10 mein ☕ Buy 2 get 1 FREE every evening!',offer:'2+1 free chai',bio:'Kadak chai, samosa and snacks since 1998.\nNear Bus Stand ☕'},
-  {id:'s-bakery',src:'/reels/bakery.mp4',poster:'/reels/bakery.jpg',shop:'Sweet Crumbs Bakery',cat:'Bakery',caption:'Fresh pastries daily 🧁 Buy 1 Get 1 FREE after 7 PM',offer:'Buy 1 get 1 on pastries',bio:'Fresh cakes, pastries and cookies baked every morning 🧁'},
-  {id:'s-mango',src:'/reels/mango.mp4',poster:'/reels/mango.jpg',shop:'Fresh Fruit Corner',cat:'Fruits',caption:'Alphonso aam aa gaye! 🥭 Seedha farm se, ₹80/kg today only',offer:'Mangoes ₹80/kg',bio:'Seasonal fruits straight from the farm 🥭'},
-  {id:'s-mobile',src:'/reels/mobile.mp4',poster:'/reels/mobile.jpg',shop:'MobileCare Point',cat:'Electronics',caption:'Phone repair in 30 min 📱 Free screen guard with every repair',offer:'Screen guard free',bio:'Phone repairs in 30 minutes, accessories and recharges 📱'},
-  {id:'s-kirana',src:'/reels/kirana.mp4',poster:'/reels/kirana.jpg',shop:'Gupta Kirana Store',cat:'Kirana',caption:'Ghar ka saara saaman, ek jagah 🛒 Free home delivery on ₹500+',offer:'Free delivery ₹500+',bio:'Daily groceries with free home delivery on ₹500+ 🛒'},
-  {id:'s-kurta',src:'/reels/kurta.mp4',poster:'/reels/kurta.jpg',shop:'Trendz Fashion Hub',cat:'Fashion',caption:'Wedding season sale 👗 All kurtas 40% OFF this week',offer:'Flat 40% off kurtas',bio:'Ethnic wear for every occasion 👗'}
+  {id:'s-chai',src:'/reels/chai.mp4?v=2',poster:'/reels/chai.jpg?v=2',shop:'Sharma Chai Point',cat:'Café',caption:'Garma garam chai sirf ₹10 mein ☕ Buy 2 get 1 FREE every evening!',offer:'2+1 free chai',bio:'Kadak chai, samosa and snacks since 1998.\nNear Bus Stand ☕'},
+  {id:'s-bakery',src:'/reels/bakery.mp4?v=2',poster:'/reels/bakery.jpg?v=2',shop:'Sweet Crumbs Bakery',cat:'Bakery',caption:'Fresh pastries daily 🧁 Buy 1 Get 1 FREE after 7 PM',offer:'Buy 1 get 1 on pastries',bio:'Fresh cakes, pastries and cookies baked every morning 🧁'},
+  {id:'s-mango',src:'/reels/mango.mp4?v=2',poster:'/reels/mango.jpg?v=2',shop:'Fresh Fruit Corner',cat:'Fruits',caption:'Alphonso aam aa gaye! 🥭 Seedha farm se, ₹80/kg today only',offer:'Mangoes ₹80/kg',bio:'Seasonal fruits straight from the farm 🥭'},
+  {id:'s-mobile',src:'/reels/mobile.mp4?v=2',poster:'/reels/mobile.jpg?v=2',shop:'MobileCare Point',cat:'Electronics',caption:'Phone repair in 30 min 📱 Free screen guard with every repair',offer:'Screen guard free',bio:'Phone repairs in 30 minutes, accessories and recharges 📱'},
+  {id:'s-kirana',src:'/reels/kirana.mp4?v=2',poster:'/reels/kirana.jpg?v=2',shop:'Gupta Kirana Store',cat:'Kirana',caption:'Ghar ka saara saaman, ek jagah 🛒 Free home delivery on ₹500+',offer:'Free delivery ₹500+',bio:'Daily groceries with free home delivery on ₹500+ 🛒'},
+  {id:'s-kurta',src:'/reels/kurta.mp4?v=2',poster:'/reels/kurta.jpg?v=2',shop:'Trendz Fashion Hub',cat:'Fashion',caption:'Wedding season sale 👗 All kurtas 40% OFF this week',offer:'Flat 40% off kurtas',bio:'Ethnic wear for every occasion 👗'}
 ];
 
 const S={on:false,token:store.get('pp_token',null),me:null,p:null,tab:'reels',sample:null};
