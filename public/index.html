@@ -1209,6 +1209,12 @@ section .tag,.hero .tag{display:none!important}
 .note.n2{right:0;top:-9%}
 .scribble.sc2{display:none}
 }
+/* perf: no blur layers over moving thumbnails, no leftover infinite repaint animations */
+.rcard .rc-play,.rcard .rc-tag,#shorts .btn-ghost,nav.scrolled .nav-in,#nav .nav-in{-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+.rcard .rc-play{background:rgba(10,12,22,.42)}
+.rcard .rc-tag{background:rgba(10,12,22,.62)}
+.gt,.loc-btn svg,.big-e,.rcard.add .plus,.logo-mark::after{animation:none!important}
+.rcard{contain:layout paint}
 </style>
 </head>
 <body>
@@ -2090,7 +2096,7 @@ function initGsap(){
   document.documentElement.classList.add('g-on');
   /* Lenis smooth wheel scrolling, driven by GSAP's ticker so ScrollTrigger stays in sync */
   if(window.Lenis&&matchMedia('(pointer:fine)').matches){
-    try{lenis=new Lenis({lerp:.1,smoothWheel:true,anchors:{offset:-90},prevent:n=>!!(n.closest&&n.closest('.overlay,.mobile-menu,.rv,.reel-row,select,[data-lenis-prevent]'))});
+    try{lenis=new Lenis({lerp:.1,smoothWheel:true,anchors:{offset:-90},allowNestedScroll:true,prevent:n=>!!(n.closest&&n.closest('.overlay,.mobile-menu,.rv,select,[data-lenis-prevent]'))});
       lenis.on('scroll',ST.update);g.ticker.add(t=>lenis.raf(t*1000));g.ticker.lagSmoothing(0);}catch(e){lenis=null}
   }
   const mm=g.matchMedia();
@@ -2243,7 +2249,7 @@ document.addEventListener('click',e=>{
 addEventListener('resize',()=>{moveSeg();checkNav()});
 
 /* ============ NAV / MOTION ============ */
-addEventListener('scroll',()=>{$('#nav').classList.toggle('scrolled',scrollY>20);const h=document.body.scrollHeight-innerHeight;$('#progress').style.width=(h>0?scrollY/h*100:0)+'%'},{passive:true});
+addEventListener('scroll',()=>{window.__lastScroll=performance.now();$('#nav').classList.toggle('scrolled',scrollY>20)},{passive:true});
 $('#burger').onclick=()=>{$('#mobileMenu').classList.toggle('show');setTimeout(moveSeg,30)};
 $('#mobileMenu').addEventListener('click',e=>{if(e.target.closest('a'))$('#mobileMenu').classList.remove('show')});
 if(matchMedia('(hover:hover)').matches&&!reduce){
@@ -2654,7 +2660,9 @@ function renderReelRow(){
       <div class="rc-grad"></div><div class="rc-play">▶</div>
       <div class="rc-info"><b>${esc(r.shop)}</b><span>${r.rating?`${'★'.repeat(r.rating)} · `:''}${ic('heart')} ${lk.n||0}${rt.n?` · ★ ${rt.avg.toFixed(1)}`:''}</span></div></div>`}).join('');
 }
-$('#reelRow').addEventListener('mouseover',e=>{const c=e.target.closest('.rcard video')||e.target.closest('.rcard')?.querySelector('video');if(c&&c.paused)c.play().catch(()=>{})});
+$('#reelRow').addEventListener('mouseover',e=>{if(performance.now()-(window.__lastScroll||0)<250)return;const c=e.target.closest('.rcard video')||e.target.closest('.rcard')?.querySelector('video');if(c&&c.paused)c.play().catch(()=>{})});
+new IntersectionObserver(([e])=>{if(!e.isIntersecting)$$('#reelRow video').forEach(v=>v.paused||v.pause())}).observe($('#reelRow'));
+{const hv=document.querySelector('.ph-front video');if(hv)new IntersectionObserver(([e])=>{if(e.isIntersecting){if(hv.paused)hv.play().catch(()=>{})}else hv.pause()}).observe(hv)}
 $('#reelRow').addEventListener('mouseout',e=>{const card=e.target.closest('.rcard');if(card&&!card.contains(e.relatedTarget)){const v=card.querySelector('video');if(v){v.pause()}}});
 $('#reelTabs').onclick=e=>{const b=e.target.closest('[data-rf]');if(!b)return;reelFilter=b.dataset.rf;$$('#reelTabs .chip').forEach(x=>x.classList.toggle('on',x===b));renderReelRow()};
 $$('[data-rrow]').forEach(b=>b.onclick=()=>$('#reelRow').scrollBy({left:+b.dataset.rrow*440,behavior:'smooth'}));
