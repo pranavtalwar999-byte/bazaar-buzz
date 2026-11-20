@@ -541,10 +541,14 @@ async function xAuth(req, res, url) {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded', Authorization: 'Basic ' + Buffer.from(CFG.X_CLIENT_ID + ':' + CFG.X_CLIENT_SECRET).toString('base64') },
       body: new URLSearchParams({ code: url.searchParams.get('code'), grant_type: 'authorization_code', redirect_uri: redirect, code_verifier: st.verifier }),
-    }).then((r) => r.json());
-    if (!tok.access_token) throw new Error('X token exchange failed');
-    const me = await fetch('https://api.x.com/2/users/me?user.fields=profile_image_url', { headers: { Authorization: 'Bearer ' + tok.access_token } }).then((r) => r.json());
-    if (!me.data) throw new Error('Could not read X profile');
+    }).then((r) => r.json()).catch(() => ({}));
+    if (!tok.access_token) { console.error('  X token error:', JSON.stringify(tok).slice(0, 300)); throw new Error('X sign-in failed. Please try again.'); }
+    const me = await fetch('https://api.x.com/2/users/me?user.fields=profile_image_url', { headers: { Authorization: 'Bearer ' + tok.access_token } }).then((r) => r.json()).catch(() => ({}));
+    if (!me.data) {
+      console.error('  X profile error:', JSON.stringify(me).slice(0, 300));
+      const credits = /credit/i.test(JSON.stringify(me));
+      throw new Error(credits ? 'Sign in with X is paused right now. Please use Google or email.' : 'Could not read your X profile. Please try again.');
+    }
     // match on X's permanent account id only: @usernames can change hands
     const u = upsertSocial({ provider: 'x', providerId: me.data.id, email: '', name: me.data.name, role: st.role });
     u.xHandle = me.data.username;
