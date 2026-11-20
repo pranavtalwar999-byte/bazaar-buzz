@@ -599,7 +599,7 @@ function serveStatic(req, res, url) {
   if (!file.startsWith(PUBLIC)) { res.writeHead(403); return res.end(); }
   if (!path.extname(file) && fs.existsSync(file + '.html')) file = file + '.html';
   if (url.pathname === '/' || !fs.existsSync(file) || fs.statSync(file).isDirectory()) file = path.join(PUBLIC, 'index.html');
-  if (file.endsWith('index.html')) {
+  if (file.endsWith('index.html') || file.endsWith('classic.html')) {
     res.writeHead(200, { 'Content-Type': TYPES['.html'], 'Cache-Control': 'no-cache' });
     return res.end(fs.readFileSync(file, 'utf8').replace('const SERVER_MODE=false;', 'const SERVER_MODE=true;')
       .replace('<!--SEO-->', `<link rel="canonical" href="${CFG.BASE_URL}/"><meta property="og:url" content="${CFG.BASE_URL}/">` + (CFG.GOOGLE_VERIFY_META ? `<meta name="google-site-verification" content="${esc(CFG.GOOGLE_VERIFY_META)}">` : '')));
